@@ -1,5 +1,6 @@
 package rs.raf.demo.controllers;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import java.util.Map;
 
 @CrossOrigin
 @RestController
+@SecurityRequirement(name = "bearerAuth")
 @RequestMapping("/api/faktura")
 public class FakturaRestController {
 
