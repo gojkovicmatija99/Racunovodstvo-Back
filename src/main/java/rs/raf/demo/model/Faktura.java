@@ -12,9 +12,6 @@ import java.util.Date;
 @PrimaryKeyJoinColumn(name = "fakturaId")
 public class Faktura extends Dokument{
 
-    /*@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long fakturaId;*/
     @Column(nullable = false)
     private String brojFakture;
     @Column(nullable = false)
@@ -47,7 +44,4 @@ public class Faktura extends Dokument{
     @ManyToOne
     @JoinColumn(name = "preduzeceId")
     private Preduzece preduzece;
-    /*@OneToOne
-    @JoinColumn(name = "dokumentId", referencedColumnName ="dokumentId")
-    private Dokument dokument;*/
 }

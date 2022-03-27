@@ -19,8 +19,6 @@ public class Dokument {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private TipDokumenta tipDokumenta;
-    /*@OneToOne(mappedBy = "dokument")
-    private Faktura faktura;*/
     @OneToMany(mappedBy = "dokument")
     private List<Knjizenje> knjizenje;
 }
