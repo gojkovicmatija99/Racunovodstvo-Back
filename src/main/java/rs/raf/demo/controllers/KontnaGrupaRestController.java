@@ -11,11 +11,11 @@ import rs.raf.demo.services.IService;
 @RestController
 @SecurityRequirement(name = "bearerAuth")
 @RequestMapping("/api/konto")
-public class KontnaGrupaRestService {
+public class KontnaGrupaRestController {
 
     private final IService<KontnaGrupa, Long> kontoService;
 
-    public KontnaGrupaRestService(IService<KontnaGrupa, Long> kontoService) {
+    public KontnaGrupaRestController(IService<KontnaGrupa, Long> kontoService) {
         this.kontoService = kontoService;
     }
 }
