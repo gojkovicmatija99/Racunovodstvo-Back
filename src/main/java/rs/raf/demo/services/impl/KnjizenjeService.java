@@ -6,6 +6,7 @@ import rs.raf.demo.model.Knjizenje;
 import rs.raf.demo.model.enums.TipDokumenta;
 import rs.raf.demo.repositories.KnjizenjeRepository;
 import rs.raf.demo.services.IKnjizenjeService;
+import rs.raf.demo.services.IService;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,8 +19,7 @@ public class KnjizenjeService implements IKnjizenjeService {
     public KnjizenjeService(KnjizenjeRepository knjizenjeRepository) {
         this.knjizenjeRepository = knjizenjeRepository;
     }
-
-
+    
     @Override
     public <S extends Knjizenje> S save(S var1) {
         return null;
@@ -43,7 +43,6 @@ public class KnjizenjeService implements IKnjizenjeService {
     public List<Knjizenje> findAll(Specification<Knjizenje> spec) {
         return null;
     }
-
     @Override
     public List<Knjizenje> findByTipDokumenta(TipDokumenta tipDokumenta) {
         return null;
