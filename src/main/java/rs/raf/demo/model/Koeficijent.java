@@ -19,15 +19,15 @@ public class Koeficijent {
     @Column
     private Double penzionoOsiguranje2;
     @Column
-    private Double zdranstvenoOsiguranje1;
+    private Double zdravstvenoOsiguranje1;
     @Column
-    private Double zdranstvenoOsiguranje2;
+    private Double zdravstvenoOsiguranje2;
     @Column
     private Double nezaposlenostNaTeretPoslodavca1;
     @Column
     private Double nezaposlenostNaTeretPoslodavca2;
     @Column
-    private Double nanizaOsnovica;
+    private Double najnizaOsnovica;
     @Column
     private Double najvisaOsnovica;
     @Column
