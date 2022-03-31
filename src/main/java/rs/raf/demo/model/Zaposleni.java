@@ -1,12 +1,16 @@
 package rs.raf.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
+import rs.raf.demo.model.enums.PolZaposlenog;
+import rs.raf.demo.model.enums.RadnaPozicija;
 import rs.raf.demo.model.enums.StatusZaposlenog;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -28,10 +32,13 @@ public class Zaposleni {
     private Date pocetakRadnogOdnosa;
     @Column(nullable = false)
     @NotBlank(message = "JMBG je obavezan")
+    @Size(min = 13,max = 13)
+    @Pattern(regexp="^(0|[1-9][0-9]*)$")
     private String jmbg;
     @Column(nullable = false)
-    @NotBlank(message = "Pol je obavezno")
-    private String pol;
+    @NotNull(message = "Pol je obavezan")
+    @Enumerated(EnumType.STRING)
+    private PolZaposlenog pol;
     @Column(nullable = false)
     private Date datumRodjenja;
     @Column
@@ -39,13 +46,14 @@ public class Zaposleni {
     @Column
     private String grad;
     @Column
-    private Long brojRacuna;
+    private String brojRacuna;
     @Column
     private String stepenObrazovanja;
     @Column
     private Long brojRadneKnjizice;
-    @Column
-    private Date radniStaz;
+    @JsonIgnore
+    @OneToMany(mappedBy = "zaposleni")
+    private List<Staz> staz;
     @Column
     @Enumerated(EnumType.STRING)
     private StatusZaposlenog statusZaposlenog;
@@ -54,5 +62,8 @@ public class Zaposleni {
     @ManyToOne
     @JoinColumn(name = "preduzeceId")
     private Preduzece preduzece;
+    @Column
+    @Enumerated(EnumType.STRING)
+    private RadnaPozicija radnaPozicija;
 
 }

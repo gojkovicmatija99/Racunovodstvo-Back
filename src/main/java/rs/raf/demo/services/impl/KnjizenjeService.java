@@ -19,7 +19,7 @@ public class KnjizenjeService implements IKnjizenjeService {
     public KnjizenjeService(KnjizenjeRepository knjizenjeRepository) {
         this.knjizenjeRepository = knjizenjeRepository;
     }
-    
+
     @Override
     public <S extends Knjizenje> S save(S var1) {
         return null;

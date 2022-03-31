@@ -15,17 +15,21 @@ public class Koeficijent {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long koeficijentId;
     @Column
-    private Double pio1;
+    private Double penzionoOsiguranje1;
     @Column
-    private Double pio2;
+    private Double penzionoOsiguranje2;
     @Column
-    private Double zo1;
+    private Double zdranstvenoOsiguranje1;
     @Column
-    private Double zo2;
+    private Double zdranstvenoOsiguranje2;
     @Column
-    private Double nez1;
+    private Double nezaposlenostNaTeretPoslodavca1;
     @Column
-    private Double nez2;
+    private Double nezaposlenostNaTeretPoslodavca2;
+    @Column
+    private Double nanizaOsnovica;
+    @Column
+    private Double najvisaOsnovica;
     @Column
     private boolean status;
     @Column
