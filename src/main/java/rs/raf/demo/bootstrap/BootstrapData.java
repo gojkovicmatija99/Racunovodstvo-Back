@@ -10,6 +10,7 @@ import rs.raf.demo.model.*;
 import rs.raf.demo.model.enums.TipDokumenta;
 import rs.raf.demo.model.enums.TipFakture;
 import rs.raf.demo.repositories.*;
+import rs.raf.demo.responses.KnjizenjeResponse;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,14 +25,23 @@ public class BootstrapData implements CommandLineRunner {
     private final FakturaRepository fakturaRepository;
     private final PreduzeceRepository preduzeceRepository;
     private final PasswordEncoder passwordEncoder;
+    private final KontoRepository kontoRepository;
+    private final KnjizenjeRepository knjizenjeRepository;
 
-    @Autowired
-    public BootstrapData(UserRepository userRepository,FakturaRepository fakturaRepository, PreduzeceRepository preduzeceRepository, PermissionRepository permissionRepository, PasswordEncoder passwordEncoder) {
+    public BootstrapData(UserRepository userRepository,
+                         PermissionRepository permissionRepository,
+                         FakturaRepository fakturaRepository,
+                         PreduzeceRepository preduzeceRepository,
+                         PasswordEncoder passwordEncoder,
+                         KontoRepository kontoRepository,
+                         KnjizenjeRepository knjizenjeRepository) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
         this.permissionRepository = permissionRepository;
         this.fakturaRepository = fakturaRepository;
         this.preduzeceRepository = preduzeceRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.kontoRepository = kontoRepository;
+        this.knjizenjeRepository = knjizenjeRepository;
     }
 
     private Preduzece getDefaultPreduzece(){
@@ -127,6 +137,34 @@ public class BootstrapData implements CommandLineRunner {
         this.fakturaRepository.save(f2);
         this.fakturaRepository.save(f3);
         this.fakturaRepository.save(f4);
+
+        Konto konto1 = new Konto();
+        konto1.setDuguje(1000.0);
+        konto1.setPotrazuje(500.0);
+        konto1 = kontoRepository.save(konto1);
+
+        Konto konto2 = new Konto();
+        konto2.setDuguje(2000.0);
+        konto2.setPotrazuje(1000.0);
+        kontoRepository.save(konto2);
+
+        Konto konto3 = new Konto();
+        konto3.setDuguje(0.0);
+        konto3.setPotrazuje(1000.0);
+        kontoRepository.save(konto3);
+
+        Knjizenje knjizenje = new Knjizenje();
+
+        kontoRepository.save(konto1);
+        knjizenje.setKnjizenjeId(1L);
+        knjizenje.setKonto(List.of(konto1, konto2, konto3));
+        knjizenje.setDatumKnjizenja(new Date());
+        knjizenje.setBrojNaloga("N 1234");
+        knjizenjeRepository.save(knjizenje);
+        konto1.setKnjizenje(knjizenje);
+        konto2.setKnjizenje(knjizenje);
+        konto3.setKnjizenje(knjizenje);
+        kontoRepository.save(konto1);
 
         log.info("Data loaded!");
     }
