@@ -72,8 +72,10 @@ class KnjizenjeServiceTest {
     @Test()
     public void testKnjizenjeNotFound() {
         when(knjizenjeRepository.findById(any(Long.class))).thenReturn(java.util.Optional.ofNullable(null));
+        when(knjizenjeRepository.findById(any(Long.class))).thenReturn(java.util.Optional.ofNullable(null));
 
         assertThrows(EntityNotFoundException.class, () -> knjizenjeService.getSumaDugujeZaKnjizenje(2L));
+        assertThrows(EntityNotFoundException.class, () -> knjizenjeService.getSumaPotrazujeZaKnjizenje(2L));
     }
 
     @Test()
