@@ -17,35 +17,23 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
-import javax.transaction.Transactional;
 
 @Service
 public class KnjizenjeService implements IKnjizenjeService {
+
+    private final KnjizenjeRepository knjizenjeRepository;
 
     @Lazy
     @Autowired
     private KnjizenjeConverter knjizenjeConverter;
 
-    private final KnjizenjeRepository knjizenjeRepository;
-
-    private final KontoService kontoService;
-
-    @Autowired
-    private EntityManager entityManager;
-
-    public KnjizenjeService(KnjizenjeRepository knjizenjeRepository, KontoService kontoService) {
+    public KnjizenjeService(KnjizenjeRepository knjizenjeRepository) {
         this.knjizenjeRepository = knjizenjeRepository;
-        this.kontoService = kontoService;
     }
 
     @Override
-    @Transactional
-    public Knjizenje save(Knjizenje knjizenje) {
-        List<Konto> kontoList = knjizenje.getKonto();
-//        kontoList.forEach(konto -> kontoService.save(konto));
-//        kontoList.stream().forEach(konto -> entityManager.refresh(konto));
+    public <S extends Knjizenje> S save(S knjizenje) {
         return knjizenjeRepository.save(knjizenje);
     }
 
