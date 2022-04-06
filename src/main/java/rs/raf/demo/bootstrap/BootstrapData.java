@@ -156,7 +156,9 @@ public class BootstrapData implements CommandLineRunner {
         Knjizenje knj1 = new Knjizenje();
         knj1.setDatumKnjizenja(new Date());
         Knjizenje knj2 = new Knjizenje();
+        knj1.setBrojNaloga("N123S3");
         knj2.setDatumKnjizenja(new Date());
+        knj2.setBrojNaloga("N123FF3");
         this.knjizenjeRepository.save(knj1);
         this.knjizenjeRepository.save(knj2);
 
