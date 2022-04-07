@@ -4,7 +4,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import rs.raf.demo.model.Staz;
 import rs.raf.demo.model.Zaposleni;
-import rs.raf.demo.repositories.StazRepository;
 import rs.raf.demo.repositories.ZaposleniRepository;
 import rs.raf.demo.services.IZaposleniService;
 
@@ -17,12 +16,12 @@ public class ZaposleniService implements IZaposleniService{
 
 
         private final ZaposleniRepository zaposleniRepository;
-        private StazService stazService;
+        private final StazService stazService;
 
 
-        public ZaposleniService(ZaposleniRepository zaposleniRepository) {
+        public ZaposleniService(ZaposleniRepository zaposleniRepository, StazService stazService) {
             this.zaposleniRepository = zaposleniRepository;
-
+            this.stazService = stazService;
         }
 
         @Override

@@ -1,5 +1,6 @@
 package rs.raf.demo.services.impl;
 
+import org.springframework.stereotype.Service;
 import rs.raf.demo.model.Staz;
 import rs.raf.demo.repositories.StazRepository;
 import rs.raf.demo.services.IStazService;
@@ -7,6 +8,7 @@ import rs.raf.demo.services.IStazService;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class StazService implements IStazService {
 
     private final StazRepository stazRepository;
