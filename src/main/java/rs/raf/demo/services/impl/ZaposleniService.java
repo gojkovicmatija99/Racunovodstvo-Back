@@ -30,6 +30,8 @@ public class ZaposleniService implements IZaposleniService{
 
             Staz newStaz = new Staz();
             newStaz.setPocetakRada(new Date());
+            newStaz.setKrajRada(null);
+            newStaz.setZaposleni(zaposleni);
             stazService.save(newStaz);
 
             zaposleni.getStaz().add(newStaz);
