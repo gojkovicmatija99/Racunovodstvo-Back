@@ -4,6 +4,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import rs.raf.demo.model.Staz;
 import rs.raf.demo.model.Zaposleni;
+import rs.raf.demo.model.enums.StatusZaposlenog;
 import rs.raf.demo.repositories.ZaposleniRepository;
 import rs.raf.demo.services.IZaposleniService;
 
@@ -32,6 +33,7 @@ public class ZaposleniService implements IZaposleniService{
             stazService.save(newStaz);
 
             zaposleni.getStaz().add(newStaz);
+            zaposleni.setStatusZaposlenog(StatusZaposlenog.ZAPOSLEN);
 
             return zaposleniRepository.save(zaposleni);
         }
@@ -55,4 +57,21 @@ public class ZaposleniService implements IZaposleniService{
         public List<Zaposleni> findAll(Specification<Zaposleni> spec) {
             return zaposleniRepository.findAll(spec);
         }
+
+        @Override
+        public Zaposleni otkazZaposleni(Zaposleni zaposleni) {
+            Zaposleni newZaposleni = new Zaposleni();
+            if (zaposleni != null) {
+                newZaposleni = zaposleni;
+                newZaposleni.setStatusZaposlenog(StatusZaposlenog.NEZAPOSLEN);
+                for(Staz staz : zaposleni.getStaz()){
+                    if(staz.getKrajRada() == null){
+                        staz.setKrajRada(new Date());
+                        stazService.save(staz);
+                    }
+                }
+            }
+            return zaposleniRepository.save(newZaposleni);
+        }
+
 }

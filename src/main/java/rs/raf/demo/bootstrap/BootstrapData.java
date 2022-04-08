@@ -1,6 +1,5 @@
 package rs.raf.demo.bootstrap;
 
-import net.bytebuddy.utility.RandomString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +7,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import rs.raf.demo.model.*;
+import rs.raf.demo.model.enums.PolZaposlenog;
+import rs.raf.demo.model.enums.StatusZaposlenog;
 import rs.raf.demo.model.enums.TipDokumenta;
 import rs.raf.demo.model.enums.TipFakture;
 import rs.raf.demo.repositories.*;
-import rs.raf.demo.responses.KnjizenjeResponse;
 
 import java.util.*;
 
@@ -27,6 +27,8 @@ public class BootstrapData implements CommandLineRunner {
     private final KontnaGrupaRepository kontnaGrupaRepository;
     private final KontoRepository kontoRepository;
     private final KnjizenjeRepository knjizenjeRepository;
+    private final ZaposleniRepository zaposleniRepository;
+    private final StazRepository stazRepository;
 
     @Autowired
     public BootstrapData(UserRepository userRepository,
@@ -36,7 +38,8 @@ public class BootstrapData implements CommandLineRunner {
                          KontoRepository kontoRepository,
                          KontnaGrupaRepository kontnaGrupaRepository,
                          KnjizenjeRepository knjizenjeRepository,
-                         PreduzeceRepository preduzeceRepository) {
+                         PreduzeceRepository preduzeceRepository,
+                         ZaposleniRepository zaposleniRepository, StazRepository stazRepository) {
         this.userRepository = userRepository;
         this.permissionRepository = permissionRepository;
         this.fakturaRepository = fakturaRepository;
@@ -45,6 +48,8 @@ public class BootstrapData implements CommandLineRunner {
         this.kontoRepository = kontoRepository;
         this.knjizenjeRepository = knjizenjeRepository;
         this.kontnaGrupaRepository = kontnaGrupaRepository;
+        this.zaposleniRepository = zaposleniRepository;
+        this.stazRepository = stazRepository;
     }
 
     private Preduzece getDefaultPreduzece(){
@@ -216,6 +221,23 @@ public class BootstrapData implements CommandLineRunner {
         konto2.setKnjizenje(knjizenje);
         konto3.setKnjizenje(knjizenje);
         kontoRepository.save(konto1);
+
+        Zaposleni zaposleni = new Zaposleni();
+        zaposleni.setIme("Marko");
+        zaposleni.setPrezime("Markovic");
+        zaposleni.setPocetakRadnogOdnosa(new Date());
+        zaposleni.setJmbg("1234567890123");
+        zaposleni.setPol(PolZaposlenog.MUSKO);
+        zaposleni.setStatusZaposlenog(StatusZaposlenog.ZAPOSLEN);
+        zaposleni.setDatumRodjenja(new Date());
+        zaposleniRepository.save(zaposleni);
+
+        Staz staz = new Staz();
+        staz.setPocetakRada(new Date());
+        staz.setKrajRada(null);
+        staz.setZaposleni(zaposleni);
+        stazRepository.save(staz);
+
 
         log.info("Data loaded!");
     }
