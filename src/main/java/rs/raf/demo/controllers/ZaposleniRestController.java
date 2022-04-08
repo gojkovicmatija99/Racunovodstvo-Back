@@ -6,7 +6,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rs.raf.demo.model.Zaposleni;
-import rs.raf.demo.services.IStazService;
 import rs.raf.demo.services.IZaposleniService;
 import rs.raf.demo.specifications.RacunSpecificationsBuilder;
 
@@ -47,9 +46,8 @@ public class ZaposleniRestController {
         Optional<Zaposleni> optionalZaposleni = iZaposleniService.findById(id);
         if(optionalZaposleni.isPresent()){
             return ResponseEntity.ok(iZaposleniService.otkazZaposleni(optionalZaposleni.get()));
-        } else {
-            return ResponseEntity.notFound().build();
         }
+        throw new EntityNotFoundException();
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -57,9 +55,8 @@ public class ZaposleniRestController {
         Optional<Zaposleni> optionalZaposleni = iZaposleniService.findById(id);
         if (optionalZaposleni.isPresent()) {
             return ResponseEntity.ok(iZaposleniService.findById(id));
-        } else {
-            return ResponseEntity.notFound().build();
         }
+        throw new EntityNotFoundException();
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -77,7 +74,7 @@ public class ZaposleniRestController {
         List<Zaposleni> result = iZaposleniService.findAll(spec);
 
         if (result.isEmpty()) {
-            return ResponseEntity.notFound().build();
+            throw new EntityNotFoundException();
         }
 
         return ResponseEntity.ok(result);
