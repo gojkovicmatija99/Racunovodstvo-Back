@@ -9,8 +9,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -22,7 +20,6 @@ import javax.persistence.OneToMany;
 public class Kalkulacija{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String brojKalkulacije;
     @Column(nullable = false)
     private TipKalkulacije tipKalkulacije;
@@ -33,7 +30,7 @@ public class Kalkulacija{
     @ManyToOne
     private Lokacija lokacija;
     @OneToMany
-    @JoinColumn(name = "troskoviNabavkeId")
+    @JoinColumn(name = "konverzijaKalkulacija")
     private List<TroskoviNabavke> troskoviNabavke;
     @Column(nullable = false)
     private Double fakturnaCena;
@@ -44,8 +41,8 @@ public class Kalkulacija{
     @Column(nullable = false)
     private Double prodajnaCena;
     @OneToMany
-    @JoinColumn(name = "sifraArtikla")
-    private List<ProdajniArtikal> prodajniArtikali;
+    @JoinColumn(name = "kalkulacija")
+    private List<KalkulacijaArtikal> prodajniArtikali;
     @Column
     private String komentar;
 }

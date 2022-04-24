@@ -5,17 +5,14 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 @Getter
 @Setter
-public class Artikal {
+public class KalkulacijaArtikal {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String sifraArtikla;
     @Column(nullable = false)
     private String nazivArtikla;
@@ -33,4 +30,20 @@ public class Artikal {
     private Double nabavnaCenaPosleRabata;
     @Column(nullable = false)
     private Double ukupnaNabavnaCena;
+    @Column(nullable = false)
+    private Double marzaProcenat;
+    @Column(nullable = false)
+    private Double marza;
+    @Column(nullable = false)
+    private Double osnovicaZaProdaju;
+    @Column(nullable = false)
+    private Double porezProcenat;
+    @Column(nullable = false)
+    private Double porez;
+    @Column(nullable = false)
+    private Double prodajnaCena;
+    @Column(nullable = false)
+    private Double osnovica;
+    @Column(nullable = false)
+    private Double ukupnaProdajnaCena;
 }
