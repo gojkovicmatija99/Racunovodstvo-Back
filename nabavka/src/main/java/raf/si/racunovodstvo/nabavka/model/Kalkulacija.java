@@ -42,7 +42,7 @@ public class Kalkulacija{
     private Double prodajnaCena;
     @OneToMany
     @JoinColumn(name = "kalkulacija")
-    private List<KalkulacijaArtikal> prodajniArtikali;
+    private List<KalkulacijaArtikal> artikli;
     @Column
     private String komentar;
 }
