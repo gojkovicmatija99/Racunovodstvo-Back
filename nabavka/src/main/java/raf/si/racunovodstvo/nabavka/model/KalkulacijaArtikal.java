@@ -5,32 +5,12 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 
 @Entity
 @Getter
 @Setter
-public class KalkulacijaArtikal {
+public class KalkulacijaArtikal extends KonverzijaArtikal {
 
-    @Id
-    private String sifraArtikla;
-    @Column(nullable = false)
-    private String nazivArtikla;
-    @Column(nullable = false)
-    private String jedinicaMere;
-    @Column(nullable = false)
-    private Integer kolicina;
-    @Column(nullable = false)
-    private Double nabavnaCena;
-    @Column(nullable = false)
-    private Double rabatProcenat;
-    @Column(nullable = false)
-    private Double rabat;
-    @Column(nullable = false)
-    private Double nabavnaCenaPosleRabata;
-    @Column(nullable = false)
-    private Double ukupnaNabavnaCena;
-    @Column(nullable = false)
     private Double marzaProcenat;
     @Column(nullable = false)
     private Double marza;
