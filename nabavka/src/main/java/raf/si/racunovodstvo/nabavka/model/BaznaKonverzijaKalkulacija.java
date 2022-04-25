@@ -8,8 +8,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -24,10 +24,9 @@ public class BaznaKonverzijaKalkulacija {
     private Date datum;
     @Column(nullable = false)
     private Long dobavljacId;
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Lokacija lokacija;
-    @OneToMany
-    @JoinColumn(name = "konverzijaKalkulacija")
+    @OneToMany(mappedBy = "baznaKonverzijaKalkulacija", fetch = FetchType.EAGER)
     private List<TroskoviNabavke> troskoviNabavke;
     @Column(nullable = false)
     private Double fakturnaCena;
