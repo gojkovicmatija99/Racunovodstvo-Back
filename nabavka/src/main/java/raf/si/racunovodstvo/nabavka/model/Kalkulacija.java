@@ -17,10 +17,10 @@ import javax.persistence.OneToMany;
 @Entity
 @Getter
 @Setter
-public class Kalkulacija{
+public class Kalkulacija {
 
     @Id
-    private String brojKalkulacije;
+    private String id;
     @Column(nullable = false)
     private TipKalkulacije tipKalkulacije;
     @Column(nullable = false)
