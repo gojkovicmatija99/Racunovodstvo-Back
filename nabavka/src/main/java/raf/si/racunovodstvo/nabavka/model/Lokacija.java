@@ -15,8 +15,8 @@ import javax.persistence.Id;
 public class Lokacija {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long lokacijaId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     @Column(nullable = false)
     private String naziv;
     @Column(nullable = false)
