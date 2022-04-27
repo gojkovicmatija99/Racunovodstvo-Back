@@ -16,6 +16,8 @@ import javax.persistence.OneToMany;
 @Setter
 public class Kalkulacija extends BaznaKonverzijaKalkulacija {
 
+    @Column(nullable = false, unique = true)
+    private String brojKalkulacije;
     @Column(nullable = false)
     private TipKalkulacije tipKalkulacije;
     @Column(nullable = false)
