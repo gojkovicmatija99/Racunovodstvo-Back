@@ -24,4 +24,8 @@ public class TroskoviNabavke {
     private String naziv;
     @Column(nullable = false)
     private Double cena;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "baznaKonverzijaKalkulacija", nullable = false)
+    private BaznaKonverzijaKalkulacija baznaKonverzijaKalkulacija;
 }
