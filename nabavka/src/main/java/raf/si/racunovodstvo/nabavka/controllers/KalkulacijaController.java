@@ -11,8 +11,11 @@ import raf.si.racunovodstvo.nabavka.services.IKalkulacijaService;
 import raf.si.racunovodstvo.nabavka.utils.ApiUtil;
 import raf.si.racunovodstvo.nabavka.utils.SearchUtil;
 
+import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -59,5 +62,34 @@ public class KalkulacijaController {
         Pageable pageSort = ApiUtil.resolveSortingAndPagination(page, size, sort);
         Specification<Kalkulacija> spec = this.searchUtil.getSpec(search);
         return ResponseEntity.ok(this.kalkulacijaService.getTotalKalkulacije(kalkulacijaService.findAll(spec, pageSort).toList()));
+    }
+
+    @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getKalkulacija() {
+        return ResponseEntity.ok(kalkulacijaService.findAll());
+    }
+
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> createKalkulacija(@Valid @RequestBody Kalkulacija kalkulacija) {
+        return ResponseEntity.ok(kalkulacijaService.save(kalkulacija));
+    }
+
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> updateFaktura(@Valid @RequestBody Kalkulacija kalkulacija) {
+        Optional<Kalkulacija> optionalKalkulacija = kalkulacijaService.findById(kalkulacija.getId());
+        if(optionalKalkulacija.isPresent()) {
+            return ResponseEntity.ok(kalkulacijaService.save(kalkulacija));
+        }
+        throw new EntityNotFoundException();
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> deleteFaktura(@PathVariable("id") Long id){
+        Optional<Kalkulacija> optionalKalkulacija = kalkulacijaService.findById(id);
+        if (optionalKalkulacija.isPresent()){
+            kalkulacijaService.deleteById(id);
+            return ResponseEntity.noContent().build();
+        }
+        throw new EntityNotFoundException();
     }
 }
