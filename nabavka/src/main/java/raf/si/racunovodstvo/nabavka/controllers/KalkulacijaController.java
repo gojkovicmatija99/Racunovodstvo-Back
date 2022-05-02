@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import raf.si.racunovodstvo.nabavka.model.Kalkulacija;
+import raf.si.racunovodstvo.nabavka.services.IKalkulacijaService;
 import raf.si.racunovodstvo.nabavka.services.impl.KalkulacijaService;
 import raf.si.racunovodstvo.nabavka.utils.ApiUtil;
 import raf.si.racunovodstvo.nabavka.utils.SearchUtil;
@@ -24,7 +25,7 @@ import javax.validation.constraints.Min;
 @RequestMapping("/api/kalkulacije")
 public class KalkulacijaController {
 
-    private final KalkulacijaService kalkulacijaService;
+    private final IKalkulacijaService kalkulacijaService;
 
     private final SearchUtil<Kalkulacija> searchUtil;
 
@@ -40,6 +41,10 @@ public class KalkulacijaController {
         @RequestParam(defaultValue = ApiUtil.DEFAULT_SIZE) @Min(ApiUtil.MIN_SIZE) @Max(ApiUtil.MAX_SIZE) Integer size,
         @RequestParam(defaultValue = "brojKalkulacije") String[] sort
     ) {
+        if (search.isEmpty()) {
+            return ResponseEntity.ok(this.kalkulacijaService.findAll());
+        }
+
         Pageable pageSort = ApiUtil.resolveSortingAndPagination(page, size, sort);
         Specification<Kalkulacija> spec = this.searchUtil.getSpec(search);
         return ResponseEntity.ok(this.kalkulacijaService.findAll(spec, pageSort));
