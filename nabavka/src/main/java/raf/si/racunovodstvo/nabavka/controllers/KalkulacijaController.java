@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import raf.si.racunovodstvo.nabavka.model.Kalkulacija;
+import raf.si.racunovodstvo.nabavka.requests.KalkulacijaRequest;
 import raf.si.racunovodstvo.nabavka.services.IKalkulacijaService;
 import raf.si.racunovodstvo.nabavka.utils.ApiUtil;
 import raf.si.racunovodstvo.nabavka.utils.SearchUtil;
@@ -70,12 +71,12 @@ public class KalkulacijaController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> createKalkulacija(@Valid @RequestBody Kalkulacija kalkulacija) {
+    public ResponseEntity<?> createKalkulacija(@Valid @RequestBody KalkulacijaRequest kalkulacija) {
         return ResponseEntity.ok(kalkulacijaService.save(kalkulacija));
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> updateFaktura(@Valid @RequestBody Kalkulacija kalkulacija) {
+    public ResponseEntity<?> updateKalkulacija(@Valid @RequestBody KalkulacijaRequest kalkulacija) {
         Optional<Kalkulacija> optionalKalkulacija = kalkulacijaService.findById(kalkulacija.getId());
         if(optionalKalkulacija.isPresent()) {
             return ResponseEntity.ok(kalkulacijaService.save(kalkulacija));
@@ -84,7 +85,7 @@ public class KalkulacijaController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<?> deleteFaktura(@PathVariable("id") Long id){
+    public ResponseEntity<?> deleteKalkulacija(@PathVariable("id") Long id){
         Optional<Kalkulacija> optionalKalkulacija = kalkulacijaService.findById(id);
         if (optionalKalkulacija.isPresent()){
             kalkulacijaService.deleteById(id);

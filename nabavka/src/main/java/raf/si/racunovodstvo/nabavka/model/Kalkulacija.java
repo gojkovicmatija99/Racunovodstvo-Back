@@ -12,7 +12,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Getter
@@ -20,10 +19,8 @@ import javax.validation.constraints.NotNull;
 public class Kalkulacija extends BaznaKonverzijaKalkulacija {
 
     @Column(nullable = false, unique = true)
-    @NotNull(message = "Broj kalkulacije je obavezan")
     private String brojKalkulacije;
     @Column(nullable = false)
-    @NotNull(message = "Tip kalkulacije je obavezan")
     private TipKalkulacije tipKalkulacije;
     @Column(nullable = false)
     private Double prodajnaCena;

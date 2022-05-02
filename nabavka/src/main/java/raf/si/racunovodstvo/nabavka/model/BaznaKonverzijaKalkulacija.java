@@ -9,7 +9,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Getter
@@ -21,7 +20,6 @@ public class BaznaKonverzijaKalkulacija {
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
     @Column(nullable = false)
-    @NotNull(message = "Datum je obavezan")
     private Date datum;
     @Column(nullable = false)
     private Long dobavljacId;
@@ -35,7 +33,6 @@ public class BaznaKonverzijaKalkulacija {
     @Column(nullable = false)
     private Double nabavnaCena;
     @Column(nullable = false)
-    @NotNull(message = "Valuta je obavezna")
     private String valuta;
     @Column
     private String komentar;

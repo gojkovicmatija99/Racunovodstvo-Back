@@ -9,6 +9,7 @@ import raf.si.racunovodstvo.nabavka.model.Kalkulacija;
 import raf.si.racunovodstvo.nabavka.model.TroskoviNabavke;
 import raf.si.racunovodstvo.nabavka.model.KalkulacijaArtikal;
 import raf.si.racunovodstvo.nabavka.repositories.KalkulacijaRepository;
+import raf.si.racunovodstvo.nabavka.requests.KalkulacijaRequest;
 import raf.si.racunovodstvo.nabavka.services.IKalkulacijaService;
 
 import java.util.HashMap;
@@ -52,6 +53,22 @@ public class KalkulacijaService implements IKalkulacijaService {
     @Override
     public <S extends Kalkulacija> S save(S var1) {
         return kalkulacijaRepository.save(var1);
+    }
+
+    public Kalkulacija save(KalkulacijaRequest kalkulacijaRequest) {
+        Kalkulacija kalkulacija = new Kalkulacija();
+        kalkulacija.setId(kalkulacijaRequest.getId());
+        kalkulacija.setDatum(kalkulacijaRequest.getDatum());
+        kalkulacija.setDobavljacId(kalkulacijaRequest.getDobavljacId());
+        kalkulacija.setLokacija(kalkulacijaRequest.getLokacija());
+        kalkulacija.setTroskoviNabavke(kalkulacijaRequest.getTroskoviNabavke());
+        kalkulacija.setValuta(kalkulacijaRequest.getValuta());
+        kalkulacija.setKomentar(kalkulacijaRequest.getKomentar());
+        kalkulacija.setBrojKalkulacije(kalkulacijaRequest.getBrojKalkulacije());
+        kalkulacija.setTipKalkulacije(kalkulacijaRequest.getTipKalkulacije());
+        kalkulacija.setArtikli(kalkulacijaRequest.getArtikli());
+        kalkulacija.calculateCene();
+        return kalkulacijaRepository.save(kalkulacija);
     }
 
     @Override
