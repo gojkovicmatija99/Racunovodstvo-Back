@@ -1,8 +1,5 @@
 package raf.si.racunovodstvo.nabavka.requests;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import raf.si.racunovodstvo.nabavka.model.KalkulacijaArtikal;
 import raf.si.racunovodstvo.nabavka.model.Lokacija;
 import raf.si.racunovodstvo.nabavka.model.TroskoviNabavke;
@@ -14,6 +11,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class KalkulacijaRequest {

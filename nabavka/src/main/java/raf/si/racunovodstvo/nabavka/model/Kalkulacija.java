@@ -33,12 +33,17 @@ public class Kalkulacija extends BaznaKonverzijaKalkulacija {
         Double fakturnaCena = 0.0;
         Double prodajnaCena = 0.0;
 
-        for (KalkulacijaArtikal artikal : this.artikli) {
-            fakturnaCena += artikal.getUkupnaNabavnaCena();
-            prodajnaCena += artikal.getUkupnaProdajnaCena();
-        }
+        if (artikli != null)
+            for (KalkulacijaArtikal artikal : this.artikli) {
+                fakturnaCena += artikal.getUkupnaNabavnaVrednost();
+                prodajnaCena += artikal.getUkupnaProdajnaVrednost();
+            }
+
         this.setFakturnaCena(fakturnaCena);
         this.setProdajnaCena(prodajnaCena);
-        this.setNabavnaCena(fakturnaCena + this.getTroskoviNabavke().stream().map(TroskoviNabavke::getCena).reduce(Double::sum).orElse(0.0));
+        if (this.getTroskoviNabavke() != null)
+            this.setNabavnaCena(fakturnaCena + this.getTroskoviNabavke().stream().map(TroskoviNabavke::getCena).reduce(Double::sum).orElse(0.0));
+        else
+            this.setNabavnaCena(fakturnaCena);
     }
 }

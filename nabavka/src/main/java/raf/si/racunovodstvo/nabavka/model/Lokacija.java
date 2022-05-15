@@ -16,7 +16,7 @@ public class Lokacija {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long lokacijaId;
     @Column(nullable = false)
     private String naziv;
     @Column(nullable = false)

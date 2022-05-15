@@ -5,32 +5,25 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Getter
 @Setter
-public class KalkulacijaArtikal extends KonverzijaArtikal {
+public class KalkulacijaArtikal extends Artikal {
 
     private Double marzaProcenat;
-    @Column(nullable = false)
-    @NotNull(message = "Marza je obavezna")
+    @Column
     private Double marza;
-    @Column(nullable = false)
-    @NotNull(message = "Osnovica za prodaju je obavezna")
-    private Double osnovicaZaProdaju;
-    @Column(nullable = false)
-    @NotNull(message = "Procenat poreza je obavezan")
+    @Column
+    private Double prodajnaOsnovica;
+    @Column
     private Double porezProcenat;
-    @Column(nullable = false)
+    @Column
     private Double porez;
-    @Column(nullable = false)
-    @NotNull(message = "Prodajna cena je obavezna")
+    @Column
     private Double prodajnaCena;
-    @Column(nullable = false)
-    @NotNull(message = "Osnovica je obavezna")
+    @Column
     private Double osnovica;
-    @Column(nullable = false)
-    @NotNull(message = "Ukupna prodajna cena je obavezna")
-    private Double ukupnaProdajnaCena;
+    @Column
+    private Double ukupnaProdajnaVrednost;
 }

@@ -71,6 +71,26 @@ public class KalkulacijaService implements IKalkulacijaService {
         return kalkulacijaRepository.save(kalkulacija);
     }
 
+    public Kalkulacija update(KalkulacijaRequest kalkulacijaRequest) {
+        Optional<Kalkulacija> optionalKalkulacija = this.kalkulacijaRepository.findById(kalkulacijaRequest.getId());
+        if (optionalKalkulacija.isEmpty()) {
+            throw new EntityNotFoundException();
+        }
+        Kalkulacija kalkulacija = new Kalkulacija();
+        kalkulacija.setId(kalkulacijaRequest.getId());
+        kalkulacija.setDatum(kalkulacijaRequest.getDatum());
+        kalkulacija.setDobavljacId(kalkulacijaRequest.getDobavljacId());
+        kalkulacija.setLokacija(kalkulacijaRequest.getLokacija());
+        kalkulacija.setTroskoviNabavke(kalkulacijaRequest.getTroskoviNabavke());
+        kalkulacija.setValuta(kalkulacijaRequest.getValuta());
+        kalkulacija.setKomentar(kalkulacijaRequest.getKomentar());
+        kalkulacija.setBrojKalkulacije(kalkulacijaRequest.getBrojKalkulacije());
+        kalkulacija.setTipKalkulacije(kalkulacijaRequest.getTipKalkulacije());
+        kalkulacija.setArtikli(kalkulacijaRequest.getArtikli());
+        kalkulacija.calculateCene();
+        return kalkulacijaRepository.save(kalkulacija);
+    }
+
     @Override
     public Optional<Kalkulacija> findById(Long var1) {
         return kalkulacijaRepository.findById(var1);
@@ -78,11 +98,19 @@ public class KalkulacijaService implements IKalkulacijaService {
 
     @Override
     public List<Kalkulacija> findAll() {
-        return kalkulacijaRepository.findAll();
+        return this.kalkulacijaRepository.findAll();
+    }
+
+    public Page<Kalkulacija> findAll(Pageable pageable) {
+        return kalkulacijaRepository.findAll(pageable);
     }
 
     @Override
     public void deleteById(Long var1) {
+        Optional<Kalkulacija> optionalKalkulacija = kalkulacijaRepository.findById(var1);
+        if (optionalKalkulacija.isEmpty()) {
+            throw new EntityNotFoundException();
+        }
         kalkulacijaRepository.deleteById(var1);
     }
 
