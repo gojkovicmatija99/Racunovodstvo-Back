@@ -76,19 +76,7 @@ public class KalkulacijaService implements IKalkulacijaService {
         if (optionalKalkulacija.isEmpty()) {
             throw new EntityNotFoundException();
         }
-        Kalkulacija kalkulacija = new Kalkulacija();
-        kalkulacija.setId(kalkulacijaRequest.getId());
-        kalkulacija.setDatum(kalkulacijaRequest.getDatum());
-        kalkulacija.setDobavljacId(kalkulacijaRequest.getDobavljacId());
-        kalkulacija.setLokacija(kalkulacijaRequest.getLokacija());
-        kalkulacija.setTroskoviNabavke(kalkulacijaRequest.getTroskoviNabavke());
-        kalkulacija.setValuta(kalkulacijaRequest.getValuta());
-        kalkulacija.setKomentar(kalkulacijaRequest.getKomentar());
-        kalkulacija.setBrojKalkulacije(kalkulacijaRequest.getBrojKalkulacije());
-        kalkulacija.setTipKalkulacije(kalkulacijaRequest.getTipKalkulacije());
-        kalkulacija.setArtikli(kalkulacijaRequest.getArtikli());
-        kalkulacija.calculateCene();
-        return kalkulacijaRepository.save(kalkulacija);
+        return this.save(kalkulacijaRequest);
     }
 
     @Override
