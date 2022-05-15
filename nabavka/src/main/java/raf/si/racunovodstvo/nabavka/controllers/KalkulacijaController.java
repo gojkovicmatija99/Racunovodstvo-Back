@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import raf.si.racunovodstvo.nabavka.model.Kalkulacija;
 import raf.si.racunovodstvo.nabavka.requests.KalkulacijaRequest;
-import raf.si.racunovodstvo.nabavka.services.IKalkulacijaService;
+import raf.si.racunovodstvo.nabavka.services.impl.KalkulacijaService;
 import raf.si.racunovodstvo.nabavka.utils.ApiUtil;
 import raf.si.racunovodstvo.nabavka.utils.SearchUtil;
 
@@ -24,11 +24,11 @@ import java.util.Optional;
 @RequestMapping("/api/kalkulacije")
 public class KalkulacijaController {
 
-    private final IKalkulacijaService kalkulacijaService;
+    private final KalkulacijaService kalkulacijaService;
 
     private final SearchUtil<Kalkulacija> searchUtil;
 
-    public KalkulacijaController(IKalkulacijaService kalkulacijaService) {
+    public KalkulacijaController(KalkulacijaService kalkulacijaService) {
         this.kalkulacijaService = kalkulacijaService;
         this.searchUtil = new SearchUtil<>();
     }
