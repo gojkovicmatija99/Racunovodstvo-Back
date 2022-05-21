@@ -41,11 +41,10 @@ public class KalkulacijaController {
         @RequestParam(defaultValue = ApiUtil.DEFAULT_SIZE) @Min(ApiUtil.MIN_SIZE) @Max(ApiUtil.MAX_SIZE) Integer size,
         @RequestParam(defaultValue = "brojKalkulacije") String[] sort
     ) {
-        if (search.isEmpty()) {
-            return ResponseEntity.ok(this.kalkulacijaService.findAll(any()));
-        }
-
         Pageable pageSort = ApiUtil.resolveSortingAndPagination(page, size, sort);
+        if (search.isEmpty()) {
+            return ResponseEntity.ok(this.kalkulacijaService.findAll(pageSort));
+        }
         Specification<Kalkulacija> spec = this.searchUtil.getSpec(search);
         return ResponseEntity.ok(this.kalkulacijaService.findAll(spec, pageSort));
     }
