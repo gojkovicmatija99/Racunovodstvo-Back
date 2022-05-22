@@ -2,14 +2,14 @@ package raf.si.racunovodstvo.nabavka.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
+import raf.si.racunovodstvo.nabavka.auditor.BaznaKonverzijaKalkulacijaAuditor;
 
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
 
+@EntityListeners(BaznaKonverzijaKalkulacijaAuditor.class)
 @Entity
 @Getter
 @Setter
@@ -25,8 +25,7 @@ public class BaznaKonverzijaKalkulacija {
     private Long dobavljacId;
     @ManyToOne
     private Lokacija lokacija;
-    @OneToMany(fetch = FetchType.EAGER)
-    @Cascade(CascadeType.ALL)
+    @OneToMany(mappedBy = "baznaKonverzijaKalkulacija", cascade = CascadeType.ALL)
     private List<TroskoviNabavke> troskoviNabavke;
     @Column(nullable = false)
     private Double fakturnaCena;
