@@ -105,7 +105,7 @@ public class BootstrapData implements CommandLineRunner {
 
         Kalkulacija kalkulacija = new Kalkulacija();
         kalkulacija.setBrojKalkulacije(brojKalkulacije);
-        kalkulacija.setTipKalkulacije(TipKalkulacije.VELEPRODALA);
+        kalkulacija.setTipKalkulacije(TipKalkulacije.VELEPRODAJA);
         kalkulacija.setTroskoviNabavke(new ArrayList<>());
         kalkulacija.setLokacija(l1);
         kalkulacija.setDatum(new Date());

@@ -9,11 +9,15 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import raf.si.racunovodstvo.nabavka.converters.impl.KalkulacijaConverter;
+import raf.si.racunovodstvo.nabavka.converters.impl.KalkulacijaReverseConverter;
 import raf.si.racunovodstvo.nabavka.model.Kalkulacija;
 import raf.si.racunovodstvo.nabavka.repositories.KalkulacijaRepository;
 import raf.si.racunovodstvo.nabavka.requests.KalkulacijaRequest;
+import raf.si.racunovodstvo.nabavka.responses.KalkulacijaResponse;
 
 import javax.persistence.EntityNotFoundException;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -25,12 +29,19 @@ import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
-public class KalkulacijaServiceTest {
+class KalkulacijaServiceTest {
+
     @InjectMocks
     private KalkulacijaService kalkulacijaService;
 
     @Mock
     private KalkulacijaRepository kalkulacijaRepository;
+
+    @Mock
+    private KalkulacijaConverter kalkulacijaConverter;
+
+    @Mock
+    private KalkulacijaReverseConverter kalkulacijaReverseConverter;
 
     private static final Long KALKULACIJA_ID_MOCK = 1L;
 
@@ -38,9 +49,12 @@ public class KalkulacijaServiceTest {
     void saveTest() {
         KalkulacijaRequest kalkulacijaRequest = new KalkulacijaRequest();
         Kalkulacija kalkulacija = new Kalkulacija();
-        given(kalkulacijaRepository.save(any(Kalkulacija.class))).willReturn(kalkulacija);
+        KalkulacijaResponse kalkulacijaResponse = new KalkulacijaResponse();
+        given(kalkulacijaConverter.convert(kalkulacijaRequest)).willReturn(kalkulacija);
+        given(kalkulacijaRepository.save(kalkulacija)).willReturn(kalkulacija);
+        given(kalkulacijaReverseConverter.convert(kalkulacija)).willReturn(kalkulacijaResponse);
 
-        assertEquals(kalkulacija, kalkulacijaService.save(kalkulacijaRequest));
+        assertEquals(kalkulacijaResponse, kalkulacijaService.save(kalkulacijaRequest));
     }
 
     @Test
@@ -48,11 +62,14 @@ public class KalkulacijaServiceTest {
         KalkulacijaRequest kalkulacijaRequest = new KalkulacijaRequest();
         kalkulacijaRequest.setId(KALKULACIJA_ID_MOCK);
         Kalkulacija kalkulacija = Mockito.mock(Kalkulacija.class);
+        KalkulacijaResponse kalkulacijaResponse = Mockito.mock(KalkulacijaResponse.class);
         Optional<Kalkulacija> optionalArtikal = Optional.of(kalkulacija);
         given(kalkulacijaRepository.findById(KALKULACIJA_ID_MOCK)).willReturn(optionalArtikal);
-        given(kalkulacijaRepository.save(any(Kalkulacija.class))).willReturn(kalkulacija);
+        given(kalkulacijaConverter.convert(kalkulacijaRequest)).willReturn(kalkulacija);
+        given(kalkulacijaRepository.save(kalkulacija)).willReturn(kalkulacija);
+        given(kalkulacijaReverseConverter.convert(kalkulacija)).willReturn(kalkulacijaResponse);
 
-        assertEquals(kalkulacija, kalkulacijaService.update(kalkulacijaRequest));
+        assertEquals(kalkulacijaResponse, kalkulacijaService.update(kalkulacijaRequest));
     }
 
     @Test
@@ -84,16 +101,18 @@ public class KalkulacijaServiceTest {
     void findAllPageableTest() {
         Kalkulacija kalkulacija = Mockito.mock(Kalkulacija.class);
         Page<Kalkulacija> kalkulacijaPage = new PageImpl<>(List.of(kalkulacija));
+        KalkulacijaResponse kalkulacijaResponse = new KalkulacijaResponse();
         Pageable pageable = Mockito.mock(Pageable.class);
         given(kalkulacijaRepository.findAll(pageable)).willReturn(kalkulacijaPage);
+        given(kalkulacijaReverseConverter.convert(kalkulacija)).willReturn(kalkulacijaResponse);
 
-        Page<Kalkulacija> result = kalkulacijaService.findAll(pageable);
+        Page<KalkulacijaResponse> result = kalkulacijaService.findAll(pageable);
         assertEquals(1, result.getTotalElements());
-        assertEquals(kalkulacija, result.getContent().get(0));
+        assertEquals(kalkulacijaResponse, result.getContent().get(0));
     }
 
     @Test
-    void increseProdajnaAndNabavnaCenaTest() {
+    void increaseProdajnaAndNabavnaCenaTest() {
 
         KalkulacijaRequest kalkulacijaRequest = new KalkulacijaRequest();
         kalkulacijaRequest.setId(KALKULACIJA_ID_MOCK);
@@ -106,7 +125,7 @@ public class KalkulacijaServiceTest {
     }
 
     @Test
-    void increseProdajnaAndNabavnaCenaExceptionTest() {
+    void increaseProdajnaAndNabavnaCenaExceptionTest() {
         KalkulacijaRequest kalkulacijaRequest = new KalkulacijaRequest();
         kalkulacijaRequest.setId(KALKULACIJA_ID_MOCK);
         given(kalkulacijaService.findById(KALKULACIJA_ID_MOCK)).willReturn(Optional.empty());

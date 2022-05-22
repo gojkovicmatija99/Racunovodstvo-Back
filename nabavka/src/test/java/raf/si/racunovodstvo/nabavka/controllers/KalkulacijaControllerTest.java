@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import raf.si.racunovodstvo.nabavka.model.Kalkulacija;
 import raf.si.racunovodstvo.nabavka.requests.KalkulacijaRequest;
+import raf.si.racunovodstvo.nabavka.responses.KalkulacijaResponse;
 import raf.si.racunovodstvo.nabavka.services.IKalkulacijaService;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-public class KalkulacijaControllerTest {
+class KalkulacijaControllerTest {
     @InjectMocks
     private KalkulacijaController kalkulacijaController;
 
@@ -30,10 +31,10 @@ public class KalkulacijaControllerTest {
 
     @Test
     void findAllTest() {
-        Page<Kalkulacija> kalkulacijaResponsePage = new PageImpl<>(new ArrayList<>());
+        Page<KalkulacijaResponse> kalkulacijaResponsePage = new PageImpl<>(new ArrayList<>());
         given(kalkulacijaService.findAll(any())).willReturn(kalkulacijaResponsePage);
 
-        ResponseEntity<Page<Kalkulacija>> response = kalkulacijaController.getKalkulacija(0, 1, new String[]{});
+        ResponseEntity<Page<KalkulacijaResponse>> response = kalkulacijaController.getKalkulacija(0, 1, new String[]{});
 
         assertEquals(kalkulacijaResponsePage, response.getBody());
     }
@@ -58,10 +59,10 @@ public class KalkulacijaControllerTest {
     @Test
     void createTest() {
         KalkulacijaRequest artikalRequest = new KalkulacijaRequest();
-        Kalkulacija expectedResponse = new Kalkulacija();
+        KalkulacijaResponse expectedResponse = new KalkulacijaResponse();
         given(kalkulacijaService.save(artikalRequest)).willReturn(expectedResponse);
 
-        Kalkulacija actualResponse = kalkulacijaController.createKalkulacija(artikalRequest).getBody();
+        KalkulacijaResponse actualResponse = kalkulacijaController.createKalkulacija(artikalRequest).getBody();
 
         assertEquals(expectedResponse, actualResponse);
     }
@@ -69,10 +70,10 @@ public class KalkulacijaControllerTest {
     @Test
     void updateTest() {
         KalkulacijaRequest artikalRequest = new KalkulacijaRequest();
-        Kalkulacija expectedResponse = new Kalkulacija();
+        KalkulacijaResponse expectedResponse = new KalkulacijaResponse();
         given(kalkulacijaService.update(artikalRequest)).willReturn(expectedResponse);
 
-        Kalkulacija actualResponse = kalkulacijaController.updateKalkulacija(artikalRequest).getBody();
+        KalkulacijaResponse actualResponse = kalkulacijaController.updateKalkulacija(artikalRequest).getBody();
 
         assertEquals(expectedResponse, actualResponse);
     }

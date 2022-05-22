@@ -23,7 +23,7 @@ public class BaznaKonverzijaKalkulacija {
     private Date datum;
     @Column(nullable = false)
     private Long dobavljacId;
-    @ManyToOne(optional = true)
+    @ManyToOne
     private Lokacija lokacija;
     @OneToMany(fetch = FetchType.EAGER)
     @Cascade(CascadeType.ALL)
