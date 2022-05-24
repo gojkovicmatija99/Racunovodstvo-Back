@@ -11,7 +11,6 @@ import javax.persistence.Entity;
 @Setter
 public class KalkulacijaArtikal extends Artikal {
 
-    @Column
     private Double marzaProcenat;
     @Column
     private Double marza;

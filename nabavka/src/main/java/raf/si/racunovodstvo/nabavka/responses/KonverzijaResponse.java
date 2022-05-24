@@ -6,6 +6,7 @@ import java.util.Date;
 
 @Data
 public class KonverzijaResponse {
+
     Long konverzijaId;
     String brojKonverzije;
     Date datum;

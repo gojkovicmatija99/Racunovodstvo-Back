@@ -29,9 +29,7 @@ public class ArtikalRequest {
     private Double nabavnaCena;
     @NotNull
     private Double rabatProcenat;
-    @NotNull
     private Double marzaProcenat;
-    @NotNull
     private Double prodajnaCena;
     private boolean aktivanZaProdaju;
     private Double porezProcenat;
@@ -39,6 +37,6 @@ public class ArtikalRequest {
 
     @AssertTrue(message = "Polja ne mogu biti prazna")
     public boolean isValid() {
-        return !aktivanZaProdaju || porezProcenat != null;
+        return !aktivanZaProdaju || (porezProcenat != null && marzaProcenat != null && prodajnaCena != null);
     }
 }

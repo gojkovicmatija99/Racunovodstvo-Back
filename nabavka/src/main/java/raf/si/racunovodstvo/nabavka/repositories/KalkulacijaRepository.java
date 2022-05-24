@@ -11,4 +11,6 @@ import raf.si.racunovodstvo.nabavka.model.Kalkulacija;
 public interface KalkulacijaRepository extends JpaRepository<Kalkulacija, Long> {
 
     Page<Kalkulacija> findAll(Specification<Kalkulacija> spec, Pageable pageSort);
+
+    Page<Kalkulacija> findAll(Pageable pageSort);
 }

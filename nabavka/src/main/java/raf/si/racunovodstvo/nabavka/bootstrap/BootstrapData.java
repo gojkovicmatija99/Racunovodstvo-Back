@@ -7,6 +7,7 @@ import raf.si.racunovodstvo.nabavka.model.KalkulacijaArtikal;
 import raf.si.racunovodstvo.nabavka.model.Konverzija;
 import raf.si.racunovodstvo.nabavka.model.KonverzijaArtikal;
 import raf.si.racunovodstvo.nabavka.model.Lokacija;
+import raf.si.racunovodstvo.nabavka.model.TroskoviNabavke;
 import raf.si.racunovodstvo.nabavka.model.enums.TipKalkulacije;
 import raf.si.racunovodstvo.nabavka.repositories.ArtikalRepository;
 import raf.si.racunovodstvo.nabavka.repositories.KalkulacijaRepository;
@@ -15,6 +16,7 @@ import raf.si.racunovodstvo.nabavka.repositories.LokacijaRepository;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Component
 public class BootstrapData implements CommandLineRunner {
@@ -44,6 +46,10 @@ public class BootstrapData implements CommandLineRunner {
         kalkulacijaRepository.save(k2);
 
         Kalkulacija k3 = napraviDefaultKalkulaciju("CCC");
+        TroskoviNabavke troskoviNabavke = new TroskoviNabavke();
+        troskoviNabavke.setNaziv("Test");
+        troskoviNabavke.setCena(100.0);
+        k3.setTroskoviNabavke(List.of(troskoviNabavke));
         kalkulacijaRepository.save(k3);
 
         Konverzija konverzija = new Konverzija();
@@ -105,7 +111,7 @@ public class BootstrapData implements CommandLineRunner {
 
         Kalkulacija kalkulacija = new Kalkulacija();
         kalkulacija.setBrojKalkulacije(brojKalkulacije);
-        kalkulacija.setTipKalkulacije(TipKalkulacije.VELEPRODALA);
+        kalkulacija.setTipKalkulacije(TipKalkulacije.VELEPRODAJA);
         kalkulacija.setTroskoviNabavke(new ArrayList<>());
         kalkulacija.setLokacija(l1);
         kalkulacija.setDatum(new Date());
