@@ -1,16 +1,17 @@
-package raf.si.racunovodstvo.nabavka.services;
+package raf.si.racunovodstvo.nabavka.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import raf.si.racunovodstvo.nabavka.model.TroskoviNabavke;
 import raf.si.racunovodstvo.nabavka.repositories.TroskoviNabavkeRepository;
-import raf.si.racunovodstvo.nabavka.services.impl.IService;
+import raf.si.racunovodstvo.nabavka.services.ITroskoviNabavkeService;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class TroskoviNabavkeService implements IService<TroskoviNabavke, Long> {
+public class TroskoviNabavkeService implements ITroskoviNabavkeService {
 
     private final TroskoviNabavkeRepository troskoviNabavkeRepository;
 
@@ -25,6 +26,13 @@ public class TroskoviNabavkeService implements IService<TroskoviNabavke, Long> {
     }
 
     @Override
+    public TroskoviNabavke update(TroskoviNabavke troskoviNabavke) {
+        if (troskoviNabavkeRepository.findByTroskoviNabavkeId(troskoviNabavke.getTroskoviNabavkeId()).isPresent())
+            return troskoviNabavkeRepository.save(troskoviNabavke);
+        throw new EntityNotFoundException();
+    }
+
+    @Override
     public Optional<TroskoviNabavke> findById(Long id) {
         return troskoviNabavkeRepository.findByTroskoviNabavkeId(id);
     }
@@ -36,6 +44,12 @@ public class TroskoviNabavkeService implements IService<TroskoviNabavke, Long> {
 
     @Override
     public void deleteById(Long id) {
-        troskoviNabavkeRepository.deleteById(id);
+        Optional<TroskoviNabavke> optionalTroskoviNabavke = troskoviNabavkeRepository.findByTroskoviNabavkeId(id);
+        if (optionalTroskoviNabavke.isPresent()) {
+            troskoviNabavkeRepository.deleteById(id);
+        }
+        throw new EntityNotFoundException();
     }
+
+
 }

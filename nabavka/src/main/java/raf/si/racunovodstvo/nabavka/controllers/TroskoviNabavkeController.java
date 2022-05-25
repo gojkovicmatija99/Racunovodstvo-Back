@@ -6,11 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import raf.si.racunovodstvo.nabavka.model.TroskoviNabavke;
-import raf.si.racunovodstvo.nabavka.services.TroskoviNabavkeService;
-
-import javax.persistence.EntityNotFoundException;
+import raf.si.racunovodstvo.nabavka.services.impl.TroskoviNabavkeService;
 import javax.validation.Valid;
-import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -32,9 +29,8 @@ public class TroskoviNabavkeController {
 
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> updateTroskoviNabavke(@Valid @RequestBody TroskoviNabavke troskoviNabavke) {
-        if (troskoviNabavkeService.findById(troskoviNabavke.getTroskoviNabavkeId()).isPresent())
-            return ResponseEntity.ok(troskoviNabavkeService.save(troskoviNabavke));
-        throw new EntityNotFoundException();
+        return ResponseEntity.ok(troskoviNabavkeService.update(troskoviNabavke));
+
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -44,11 +40,7 @@ public class TroskoviNabavkeController {
 
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> deleteTroskoviNabavke(@PathVariable Long id) {
-        Optional<TroskoviNabavke> optionalTroskoviNabavke = troskoviNabavkeService.findById(id);
-        if (optionalTroskoviNabavke.isPresent()) {
-            troskoviNabavkeService.deleteById(id);
-            return ResponseEntity.noContent().build();
-        }
-        throw new EntityNotFoundException();
+        troskoviNabavkeService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }

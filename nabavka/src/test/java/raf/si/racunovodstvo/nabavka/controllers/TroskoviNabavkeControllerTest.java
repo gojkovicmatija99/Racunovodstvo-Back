@@ -7,7 +7,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 import raf.si.racunovodstvo.nabavka.model.TroskoviNabavke;
-import raf.si.racunovodstvo.nabavka.services.TroskoviNabavkeService;
+import raf.si.racunovodstvo.nabavka.services.impl.TroskoviNabavkeService;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Optional;

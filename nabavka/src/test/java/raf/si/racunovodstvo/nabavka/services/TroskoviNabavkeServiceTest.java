@@ -5,10 +5,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import raf.si.racunovodstvo.nabavka.model.Lokacija;
 import raf.si.racunovodstvo.nabavka.model.TroskoviNabavke;
-import raf.si.racunovodstvo.nabavka.repositories.LokacijaRepository;
 import raf.si.racunovodstvo.nabavka.repositories.TroskoviNabavkeRepository;
+import raf.si.racunovodstvo.nabavka.services.impl.TroskoviNabavkeService;
 
 import java.util.ArrayList;
 import java.util.List;

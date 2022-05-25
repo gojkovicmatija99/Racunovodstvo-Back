@@ -7,8 +7,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 import raf.si.racunovodstvo.nabavka.model.Lokacija;
-import raf.si.racunovodstvo.nabavka.repositories.LokacijaRepository;
-import raf.si.racunovodstvo.nabavka.services.LokacijaService;
+import raf.si.racunovodstvo.nabavka.services.impl.LokacijaService;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Optional;

@@ -7,6 +7,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import raf.si.racunovodstvo.nabavka.model.Lokacija;
 import raf.si.racunovodstvo.nabavka.repositories.LokacijaRepository;
+import raf.si.racunovodstvo.nabavka.services.impl.LokacijaService;
 
 import java.util.ArrayList;
 import java.util.List;
