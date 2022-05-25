@@ -163,15 +163,19 @@ public class BootstrapData implements CommandLineRunner {
         this.kontnaGrupaRepository.saveAll(Arrays.asList(kg1, kg2, kg3, kg4, kg5, kg6, kg7, kg8, kg9, kg10, kg11, kg12, kg13, kg14, kg15, kg16));
 
         Knjizenje knj1 = new Knjizenje();
-        knj1.setDatumKnjizenja(new Date());
-        Knjizenje knj2 = new Knjizenje();
         knj1.setBrojNaloga("N123S3");
+        knj1.setDatumKnjizenja(new Date());
+        knj1.setDokument(f1);
+        Knjizenje knj2 = new Knjizenje();
         knj2.setDatumKnjizenja(new Date());
         knj2.setBrojNaloga("N123FF3");
+        knj2.setDokument(f1);
         Knjizenje knj3 = new Knjizenje();
         knj3.setDatumKnjizenja(new Date());
+        knj3.setDokument(f2);
         Knjizenje knj4 = new Knjizenje();
         knj4.setDatumKnjizenja(new Date());
+        knj4.setDokument(f2);
         knj3.setBrojNaloga("N13S3");
         knj4.setBrojNaloga("N23FF3");
         this.knjizenjeRepository.save(knj1);
