@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
+
 import raf.si.racunovodstvo.knjizenje.converter.impl.KnjizenjeConverter;
 import org.springframework.util.ReflectionUtils;
 import raf.si.racunovodstvo.knjizenje.model.Dokument;
@@ -16,6 +17,7 @@ import raf.si.racunovodstvo.knjizenje.model.Knjizenje;
 import raf.si.racunovodstvo.knjizenje.model.Konto;
 import raf.si.racunovodstvo.knjizenje.repositories.DokumentRepository;
 import raf.si.racunovodstvo.knjizenje.repositories.KnjizenjeRepository;
+
 import raf.si.racunovodstvo.knjizenje.responses.KnjizenjeResponse;
 import raf.si.racunovodstvo.knjizenje.specifications.RacunSpecification;
 import raf.si.racunovodstvo.knjizenje.specifications.SearchCriteria;

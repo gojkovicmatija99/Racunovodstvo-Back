@@ -101,6 +101,7 @@ public class KnjizenjeController {
         return ResponseEntity.ok(knjizenjaService.findAllKnjizenjeResponse());
     }
 
+
     @GetMapping(value = "/analitickeKartice", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<AnalitickaKarticaResponse>> getAnalitickeKartice(
         @RequestParam String brojKonta,

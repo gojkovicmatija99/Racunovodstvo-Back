@@ -52,7 +52,7 @@ public class BilansService implements IBilansService {
             if (length <= 3) {
                 bilansResponse.setDuguje(bilansResponse.getDuguje() + dugujeMap.getOrDefault(brojKonta, 0.0));
                 bilansResponse.setPotrazuje(bilansResponse.getPotrazuje() + potrazujeMap.getOrDefault(brojKonta, 0.0));
-                bilansResponse.setBrojStavki(bilansResponse.getBrojStavki() + brojStavkiMap.getOrDefault(brojKonta, 0L));
+                bilansResponse.setBrojStavki(brojStavkiMap.getOrDefault(brojKonta, 0L));
                 bilansResponse.setSaldo(bilansResponse.getDuguje() - bilansResponse.getPotrazuje());
             }
 
@@ -69,7 +69,7 @@ public class BilansService implements IBilansService {
             String bk2 = o2.getBrojKonta();
             int len1 = bk1.length();
             int len2 = bk2.length();
-             if (len1 == len2) {
+            if (len1 == len2) {
                 return bk1.compareTo(bk2);
             }
             if (bk1.startsWith(bk2.substring(0, 1))) {
@@ -102,3 +102,4 @@ public class BilansService implements IBilansService {
         });
     }
 }
+
