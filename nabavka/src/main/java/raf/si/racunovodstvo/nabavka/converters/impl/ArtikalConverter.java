@@ -58,7 +58,7 @@ public class ArtikalConverter implements IConverter<ArtikalRequest, Artikal> {
     }
 
     private void calculateCommonFields(Artikal artikal) {
-        artikal.setRabat(artikal.getNabavnaCena() * artikal.getRabatProcenat());
+        artikal.setRabat(artikal.getNabavnaCena() * (artikal.getRabatProcenat()/100));
         artikal.setNabavnaCenaPosleRabata(artikal.getNabavnaCena() - artikal.getRabat());
         artikal.setUkupnaNabavnaVrednost(artikal.getNabavnaCenaPosleRabata() * artikal.getKolicina());
     }

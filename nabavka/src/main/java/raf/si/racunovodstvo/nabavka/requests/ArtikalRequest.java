@@ -29,11 +29,12 @@ public class ArtikalRequest {
     private Double nabavnaCena;
     @NotNull
     private Double rabatProcenat;
+    @NotNull
+    private Long konverzijaKalkulacijaId;
     private Double marzaProcenat;
     private Double prodajnaCena;
     private boolean aktivanZaProdaju;
     private Double porezProcenat;
-    private Long konverzijaKalkulacijaId;
 
     @AssertTrue(message = "Polja ne mogu biti prazna")
     public boolean isValid() {

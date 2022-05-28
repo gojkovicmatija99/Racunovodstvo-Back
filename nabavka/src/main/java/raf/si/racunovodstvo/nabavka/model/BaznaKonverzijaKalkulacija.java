@@ -24,13 +24,14 @@ public class BaznaKonverzijaKalkulacija {
     @Column(nullable = false)
     private Long dobavljacId;
     @ManyToOne
+    @JoinColumn(name = "lokacijaId")
     private Lokacija lokacija;
     @OneToMany(mappedBy = "baznaKonverzijaKalkulacija", cascade = CascadeType.ALL)
     private List<TroskoviNabavke> troskoviNabavke;
     @Column(nullable = false)
     private Double fakturnaCena;
     @Column(nullable = false)
-    private Double nabavnaCena;
+    private Double nabavnaVrednost;
     @Column(nullable = false)
     private String valuta;
     @Column
