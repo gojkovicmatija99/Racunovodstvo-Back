@@ -38,9 +38,16 @@ public class ArtikalService implements IArtikalService {
     }
 
     @Override
+    public Page<ArtikalResponse> findAllByIdKalkulacijaKonverzija(Pageable pageable, Long idKalkulacijaKonverzija) {
+        return artikalRepository.findAllByBaznaKonverzijaKalkulacijaId(pageable, idKalkulacijaKonverzija)
+                                .map(artikalReverseConverter::convert);
+    }
+
+    @Override
     public ArtikalResponse save(ArtikalRequest artikalRequest) {
         Artikal converted = artikalConverter.convert(artikalRequest);
-        return artikalReverseConverter.convert(artikalRepository.save(converted));
+        Artikal saved = artikalRepository.save(converted);
+        return artikalReverseConverter.convert(saved);
     }
 
     @Override

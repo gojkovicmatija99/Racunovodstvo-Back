@@ -21,7 +21,7 @@
 		<jacoco.version>0.8.7</jacoco.version>
 		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
 		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
-		<sonar.coverage.exclusions>**/bootstrap/*, **/configuration/*, **/model/**, **/responses/*, **/requests/*, **/exceptions/**, **/relations/*, **/repositories, **/*Application.java</sonar.coverage.exclusions>
+		<sonar.coverage.exclusions>**/bootstrap/*, **/configuration/*, **/model/**, **/responses/*, **/requests/*, **/exceptions/**, **/relations/*, **/repositories/**, **/auditor/**, **/*Application.java</sonar.coverage.exclusions>
 		<start-class>raf.si.racunovodstvo.nabavka.NabavkaApplication</start-class>
 	</properties>
 	<dependencies>
@@ -67,6 +67,10 @@
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
@@ -98,6 +102,18 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
 		</dependency>
 	</dependencies>
 

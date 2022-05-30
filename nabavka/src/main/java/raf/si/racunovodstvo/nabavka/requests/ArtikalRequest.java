@@ -30,14 +30,14 @@ public class ArtikalRequest {
     @NotNull
     private Double rabatProcenat;
     @NotNull
+    private Long konverzijaKalkulacijaId;
     private Double marzaProcenat;
-    @NotNull
     private Double prodajnaCena;
     private boolean aktivanZaProdaju;
     private Double porezProcenat;
 
     @AssertTrue(message = "Polja ne mogu biti prazna")
     public boolean isValid() {
-        return !aktivanZaProdaju || porezProcenat != null;
+        return !aktivanZaProdaju || (porezProcenat != null && marzaProcenat != null && prodajnaCena != null);
     }
 }
