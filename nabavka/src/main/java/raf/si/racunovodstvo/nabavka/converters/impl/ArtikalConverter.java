@@ -105,10 +105,6 @@ public class ArtikalConverter implements IConverter<ArtikalRequest, Artikal> {
         }
 
         Artikal savedArtikal = iArtikalService.findById(artikal.getArtikalId()).get();
-        if (!(savedArtikal instanceof KalkulacijaArtikal)) {
-            return false;
-        }
-
-        return true;
+        return savedArtikal instanceof KalkulacijaArtikal;
     }
 }

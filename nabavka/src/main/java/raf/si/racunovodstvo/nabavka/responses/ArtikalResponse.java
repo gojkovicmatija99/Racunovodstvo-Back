@@ -3,9 +3,7 @@ package raf.si.racunovodstvo.nabavka.responses;
 import lombok.Data;
 import raf.si.racunovodstvo.nabavka.model.IstorijaProdajneCene;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Data
 public class ArtikalResponse {

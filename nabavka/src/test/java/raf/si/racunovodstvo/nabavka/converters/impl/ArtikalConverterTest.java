@@ -71,4 +71,6 @@ class ArtikalConverterTest {
         assertEquals(kalkulacijaArtikal, result);
         assertEquals(kalkulacija, result.getBaznaKonverzijaKalkulacija());
     }
+
+
 }
