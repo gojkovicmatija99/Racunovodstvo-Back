@@ -19,9 +19,7 @@ public class ArtikalConverter implements IConverter<ArtikalRequest, Artikal> {
     private final IKonverzijaService iKonverzijaService;
     private final IKalkulacijaService iKalkulacijaService;
 
-    public ArtikalConverter(ModelMapper modelMapper,
-                            IKonverzijaService iKonverzijaService,
-                            IKalkulacijaService iKalkulacijaService) {
+    public ArtikalConverter(ModelMapper modelMapper, IKonverzijaService iKonverzijaService, IKalkulacijaService iKalkulacijaService) {
         this.modelMapper = modelMapper;
         this.iKonverzijaService = iKonverzijaService;
         this.iKalkulacijaService = iKalkulacijaService;
