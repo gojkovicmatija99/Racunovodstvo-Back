@@ -1,13 +1,11 @@
 package raf.si.racunovodstvo.nabavka.converters.impl;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import raf.si.racunovodstvo.nabavka.converters.IConverter;
 import raf.si.racunovodstvo.nabavka.model.Kalkulacija;
 import raf.si.racunovodstvo.nabavka.model.Konverzija;
 import raf.si.racunovodstvo.nabavka.requests.ArtikalRequest;
-import raf.si.racunovodstvo.nabavka.services.IArtikalService;
 import raf.si.racunovodstvo.nabavka.services.IKalkulacijaService;
 import raf.si.racunovodstvo.nabavka.services.IKonverzijaService;
 import raf.si.racunovodstvo.nabavka.model.Artikal;
@@ -20,16 +18,13 @@ public class ArtikalConverter implements IConverter<ArtikalRequest, Artikal> {
     private final ModelMapper modelMapper;
     private final IKonverzijaService iKonverzijaService;
     private final IKalkulacijaService iKalkulacijaService;
-    private final IArtikalService iArtikalService;
 
     public ArtikalConverter(ModelMapper modelMapper,
                             IKonverzijaService iKonverzijaService,
-                            IKalkulacijaService iKalkulacijaService,
-                            @Lazy IArtikalService iArtikalService) {
+                            IKalkulacijaService iKalkulacijaService) {
         this.modelMapper = modelMapper;
         this.iKonverzijaService = iKonverzijaService;
         this.iKalkulacijaService = iKalkulacijaService;
-        this.iArtikalService = iArtikalService;
     }
 
     @Override
