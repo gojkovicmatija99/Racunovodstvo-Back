@@ -1,11 +1,9 @@
 package raf.si.racunovodstvo.nabavka.converters.impl;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import raf.si.racunovodstvo.nabavka.converters.IConverter;
-import raf.si.racunovodstvo.nabavka.model.IstorijaProdajneCene;
 import raf.si.racunovodstvo.nabavka.model.Kalkulacija;
 import raf.si.racunovodstvo.nabavka.model.Konverzija;
 import raf.si.racunovodstvo.nabavka.requests.ArtikalRequest;
@@ -15,11 +13,6 @@ import raf.si.racunovodstvo.nabavka.services.IKonverzijaService;
 import raf.si.racunovodstvo.nabavka.model.Artikal;
 import raf.si.racunovodstvo.nabavka.model.KalkulacijaArtikal;
 import raf.si.racunovodstvo.nabavka.model.KonverzijaArtikal;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
 
 @Component
 public class ArtikalConverter implements IConverter<ArtikalRequest, Artikal> {
@@ -69,42 +62,11 @@ public class ArtikalConverter implements IConverter<ArtikalRequest, Artikal> {
         artikal.setPorez(artikal.getProdajnaOsnovica() * artikal.getPorezProcenat() / 100);
         artikal.setOsnovica(artikal.getProdajnaOsnovica() * artikal.getKolicina());
         artikal.setUkupnaProdajnaVrednost(artikal.getProdajnaCena() * artikal.getKolicina());
-
-        handleIstorijaProdaje(artikal);
     }
 
     private void calculateCommonFields(Artikal artikal) {
         artikal.setRabat(artikal.getNabavnaCena() * (artikal.getRabatProcenat()/100));
         artikal.setNabavnaCenaPosleRabata(artikal.getNabavnaCena() - artikal.getRabat());
         artikal.setUkupnaNabavnaVrednost(artikal.getNabavnaCenaPosleRabata() * artikal.getKolicina());
-    }
-
-    private void handleIstorijaProdaje(KalkulacijaArtikal artikal) {
-        if (!isKalkulacijaArtikalSaved(artikal)) {
-            return;
-        }
-
-        KalkulacijaArtikal savedKalkulacijaArtikal = (KalkulacijaArtikal)iArtikalService.findById(artikal.getArtikalId()).get();
-        List<IstorijaProdajneCene> istorijaProdajneCene = savedKalkulacijaArtikal.getIstorijaProdajneCene();
-        if (isProdajnaCenaUpdated(artikal)) {
-            istorijaProdajneCene.add(new IstorijaProdajneCene(new Date(), savedKalkulacijaArtikal.getProdajnaCena()));
-            artikal.setIstorijaProdajneCene(new ArrayList<>(istorijaProdajneCene));
-        }
-        artikal.setIstorijaProdajneCene(new ArrayList<>(istorijaProdajneCene));
-    }
-
-    private boolean isProdajnaCenaUpdated(KalkulacijaArtikal artikal) {
-        Artikal savedArtikal = iArtikalService.findById(artikal.getArtikalId()).get();
-        KalkulacijaArtikal savedKalkulacijaArtikal = (KalkulacijaArtikal) savedArtikal;
-        return !Objects.equals(savedKalkulacijaArtikal.getProdajnaCena(), artikal.getProdajnaCena());
-    }
-
-    private boolean isKalkulacijaArtikalSaved(KalkulacijaArtikal artikal) {
-        if (artikal.getArtikalId() == null || !iArtikalService.findById(artikal.getArtikalId()).isPresent()) {
-            return false;
-        }
-
-        Artikal savedArtikal = iArtikalService.findById(artikal.getArtikalId()).get();
-        return savedArtikal instanceof KalkulacijaArtikal;
     }
 }
