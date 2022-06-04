@@ -27,7 +27,7 @@ public class ObracunZaposleniController {
     private final IObracunZaposleniService iObracunZaposleniService;
     private final SearchUtil<ObracunZaposleni> searchUtil;
 
-    private ObracunZaposleniController(IObracunZaposleniService iObracunZaposleniService){
+    public ObracunZaposleniController(IObracunZaposleniService iObracunZaposleniService){
         this.iObracunZaposleniService = iObracunZaposleniService;
         this.searchUtil = new SearchUtil<>();
     }
@@ -70,6 +70,4 @@ public class ObracunZaposleniController {
                                     @RequestParam Long idObracunZaposleni){
         return ResponseEntity.ok(iObracunZaposleniService.update(ucinak, netoPlata, idObracunZaposleni));
     }
-
-
 }

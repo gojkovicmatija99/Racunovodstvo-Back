@@ -3,9 +3,10 @@ package raf.si.racunovodstvo.preduzece.jobs;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import raf.si.racunovodstvo.preduzece.services.impl.ObracunZaradeService;
+import raf.si.racunovodstvo.preduzece.services.impl.ObracunZaposleniService;
 
 import java.time.DateTimeException;
+import java.time.YearMonth;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
@@ -15,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 public class ObracunZaradeJob {
-    final ObracunZaradeService obracunZaradeService;
+    final ObracunZaposleniService obracunZaposleniService;
     private ZonedDateTime nextDate;
 
     /**
@@ -25,14 +26,19 @@ public class ObracunZaradeJob {
     private int dayOfMonth = JobConstants.DEFAULT_DAY_OF_MONTH;
 
     public void setDayOfMonth(int dayOfMonth) throws DateTimeException {
-        ZonedDateTime.of(nextDate.getMonthValue(), dayOfMonth,
-                0, 0, 0, 0, 0, nextDate.getZone());
-        this.dayOfMonth = dayOfMonth;
+        YearMonth yearMonth = YearMonth.of(nextDate.getYear(), nextDate.getMonthValue());
+        if (yearMonth.lengthOfMonth() >= dayOfMonth)
+            this.dayOfMonth = dayOfMonth;
+        else throw new DateTimeException(
+                "Izabrani dan [" + dayOfMonth + "]"
+                        + " nije validan za mesec koji ima ["
+                        + yearMonth.lengthOfMonth()
+                        + "] u sledecoj iteraciji job-a.");
     }
 
     @Autowired
-    public ObracunZaradeJob(ObracunZaradeService obracunZaradeService) {
-        this.obracunZaradeService = obracunZaradeService;
+    public ObracunZaradeJob(ObracunZaposleniService obracunZaposleniService) {
+        this.obracunZaposleniService = obracunZaposleniService;
         start();
     }
 
@@ -44,9 +50,8 @@ public class ObracunZaradeJob {
                 ZonedDateTime now = ZonedDateTime.now();
                 nextDate = now.plusMonths(1).withDayOfMonth(dayOfMonth);
                 long delay = now.until(nextDate, ChronoUnit.MILLIS);
-
                 try {
-                    obracunZaradeService.makeObracunZarade(Date.from(now.toInstant()));
+                    obracunZaposleniService.makeObracun(Date.from(now.toInstant()));
                 } finally {
                     executor.schedule(this, delay, TimeUnit.MILLISECONDS);
                 }
@@ -58,6 +63,8 @@ public class ObracunZaradeJob {
             dateTime = dateTime.plusMonths(1);
         }
         dateTime = dateTime.withDayOfMonth(dayOfMonth);
+        // TEST
+        // Za test staviti dateTime = dateTime.withMonth(6).plusMinutes(1); ovo i zakomentarisati if iznad
         executor.schedule(task,
                 ZonedDateTime.now().until(dateTime, ChronoUnit.MILLIS),
                 TimeUnit.MILLISECONDS);
