@@ -1,9 +1,7 @@
 package raf.si.racunovodstvo.preduzece.controller;
 
-import com.ctc.wstx.util.StringUtil;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.MediaType;
@@ -16,7 +14,6 @@ import raf.si.racunovodstvo.preduzece.services.IObracunZaposleniService;
 import raf.si.racunovodstvo.preduzece.utils.ApiUtil;
 import raf.si.racunovodstvo.preduzece.utils.SearchUtil;
 import raf.si.racunovodstvo.preduzece.validation.groups.OnCreate;
-import raf.si.racunovodstvo.preduzece.validation.groups.OnUpdate;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -68,8 +65,10 @@ public class ObracunZaposleniController {
     }
 
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> update(@Validated(OnUpdate.class) @RequestBody ObracunZaposleniRequest obracunZaposleniRequest){
-        return ResponseEntity.ok(iObracunZaposleniService.update(obracunZaposleniRequest));
+    public ResponseEntity<?> update(@RequestParam(required = false) Double ucinak,
+                                    @RequestParam(required = false) Double netoPlata,
+                                    @RequestParam Long idObracunZaposleni){
+        return ResponseEntity.ok(iObracunZaposleniService.update(ucinak, netoPlata, idObracunZaposleni));
     }
 
 
