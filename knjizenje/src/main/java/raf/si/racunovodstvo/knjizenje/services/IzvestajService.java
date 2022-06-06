@@ -13,8 +13,10 @@ import raf.si.racunovodstvo.knjizenje.responses.UserResponse;
 import raf.si.racunovodstvo.knjizenje.services.impl.IBilansService;
 import raf.si.racunovodstvo.knjizenje.services.impl.IIzvestajService;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 @Service
@@ -97,5 +99,10 @@ public class IzvestajService implements IIzvestajService {
     private String getCurrentUsername(String token) {
         UserResponse user = userFeignClient.getCurrentUser(token).getBody();
         return user == null ? "" : user.getUsername();
+    }
+
+    public Reports makePromenaNaKapitalTableReport(int godina1, int godina2) {
+        PromenaNaKapitalServiceHelper promenaNaKapitalServiceHelper = new PromenaNaKapitalServiceHelper(godina1, godina2, bilansService);
+        return promenaNaKapitalServiceHelper.makePromenaNaKapitalTableReport();
     }
 }
