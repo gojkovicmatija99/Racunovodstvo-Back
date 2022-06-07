@@ -1,5 +1,6 @@
 package raf.si.racunovodstvo.knjizenje.services;
 
+import raf.si.racunovodstvo.knjizenje.exceptions.ReportNotReadyException;
 import raf.si.racunovodstvo.knjizenje.reports.Reports;
 import raf.si.racunovodstvo.knjizenje.reports.ReportsConstants;
 import raf.si.racunovodstvo.knjizenje.reports.TableReport;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -25,7 +27,25 @@ public class PromenaNaKapitalServiceHelper {
 
     private IBilansService bilansService;
 
+    private final List<String> headers = List.of("Godina",
+                                                 "Osnovni kapital (grupa 30 bez 306 i 309)",
+                                                 "Ostali osnovni kapital (309)",
+                                                 "Upisani a neplaceni kapital (grupa 31)",
+                                                 "Emisiona premija i rezerve (306 i grupa 32)",
+                                                 "Rev. rez. i ner. dob. i gub. (grupa 33)",
+                                                 "Nerasporedjeni dobitak (grupa 34)",
+                                                 "Gubitak (grupa 35)",
+                                                 "Ukupno (2+3+4+5+6+7-8");
+
+    private final List<String> firstColumnPattern = List.of("Stanje na dan 01.01.%d.",
+                                                            "Stanje na dan 31.12.%d.",
+                                                            "Promene u %d. godini");
+
     public PromenaNaKapitalServiceHelper(int godina1, int godina2, IBilansService bilansService) {
+        int godina = Calendar.getInstance().get(Calendar.YEAR);
+        if (godina == godina1 || godina == godina2) {
+            throw new ReportNotReadyException();
+        }
         this.godina1 = godina1;
         this.godina2 = godina2;
         this.bilansService = bilansService;
@@ -35,11 +55,19 @@ public class PromenaNaKapitalServiceHelper {
         List<List<Double>> rows = calculateForGodina(godina1);
         rows.addAll(calculateForGodina(godina2));
         List<List<String>> listOfStringRows = new ArrayList<>();
-        rows.forEach(row -> {
-            List<String> stringRow = row.stream().map(d -> String.valueOf(d)).collect(Collectors.toList());
-            listOfStringRows.add(stringRow);
-        });
-        return new TableReport(null, null, null, null, listOfStringRows);
+        for (int i = 0; i < rows.size(); i++) {
+            List<String> stringRow = rows.get(i).stream().map(d -> String.valueOf(d)).collect(Collectors.toList());
+            List<String> newRow = addFirstColumn(i, stringRow, godina1, godina2);
+            listOfStringRows.add(newRow);
+        }
+        return new TableReport("author", "title", "footer", headers, listOfStringRows);
+    }
+
+    private List<String> addFirstColumn(int i, List<String> stringRow, int godina1, int godina2) {
+        int godina = i / 3 == 0 ? godina1 : godina2;
+        LinkedList<String> linkedList = new LinkedList<>(stringRow);
+        linkedList.addFirst(String.format(firstColumnPattern.get(i % 3), godina));
+        return linkedList;
     }
 
     private List<List<Double>> calculateForGodina(int godina) {

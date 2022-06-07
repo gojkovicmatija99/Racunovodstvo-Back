@@ -64,4 +64,14 @@ public class IzvestajiController {
             izvestajService.makeBilansTableReport(preduzece, token, title, datumiOd, datumiDo, brojKontaStartsWith).getReport();
         return ResponseEntity.ok(pdf);
     }
+
+    @GetMapping(path = "/promena_na_kapital", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<?> getPromenaNaKapital(@RequestParam Integer godina1,
+                                             @RequestParam Integer godina2,
+                                             @RequestHeader("Authorization") String token) throws DocumentException {
+
+        byte[] pdf =
+            izvestajService.makePromenaNaKapitalTableReport(godina1, godina2).getReport();
+        return ResponseEntity.ok(pdf);
+    }
 }
