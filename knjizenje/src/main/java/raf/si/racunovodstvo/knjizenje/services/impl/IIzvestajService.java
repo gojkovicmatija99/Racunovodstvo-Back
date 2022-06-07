@@ -16,5 +16,5 @@ public interface IIzvestajService {
                                   List<Date> datumiDo,
                                   List<String> brojKontaStartsWith);
 
-    Reports makePromenaNaKapitalTableReport(int godina1, int godina2);
+    Reports makePromenaNaKapitalTableReport(int godina1, int godina2, String opis);
 }

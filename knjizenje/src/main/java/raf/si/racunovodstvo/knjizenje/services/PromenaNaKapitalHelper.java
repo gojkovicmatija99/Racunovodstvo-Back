@@ -19,35 +19,37 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
 
 // http://www.cekos.rs/sites/default/files/media/obrasci/15085201-05.pdf
-public class PromenaNaKapitalServiceHelper {
+public class PromenaNaKapitalHelper {
 
     private int godina1;
 
     private int godina2;
 
+    private String opis;
+
     private IBilansService bilansService;
 
-    private final List<String> headers = List.of("Godina",
-                                                 "Osnovni kapital (grupa 30 bez 306 i 309)",
-                                                 "Ostali osnovni kapital (309)",
-                                                 "Upisani a neplaceni kapital (grupa 31)",
-                                                 "Emisiona premija i rezerve (306 i grupa 32)",
-                                                 "Rev. rez. i ner. dob. i gub. (grupa 33)",
-                                                 "Nerasporedjeni dobitak (grupa 34)",
-                                                 "Gubitak (grupa 35)",
-                                                 "Ukupno (2+3+4+5+6+7-8");
+    private LinkedList<String> headers = new LinkedList(List.of("Osnovni kapital (grupa 30 bez 306 i 309)",
+                                                                "Ostali osnovni kapital (309)",
+                                                                "Upisani a neplaceni kapital (grupa 31)",
+                                                                "Emisiona premija i rezerve (306 i grupa 32)",
+                                                                "Rev. rez. i ner. dob. i gub. (grupa 33)",
+                                                                "Nerasporedjeni dobitak (grupa 34)",
+                                                                "Gubitak (grupa 35)",
+                                                                "Ukupno (2+3+4+5+6+7-8"));
 
-    private final List<String> firstColumnPattern = List.of("Stanje na dan 01.01.%d.",
-                                                            "Stanje na dan 31.12.%d.",
-                                                            "Promene u %d. godini");
+    private List<String> firstColumnPattern = List.of("Stanje na dan 01.01.%d.",
+                                                      "Stanje na dan 31.12.%d.",
+                                                      "Promene u %d. godini");
 
-    public PromenaNaKapitalServiceHelper(int godina1, int godina2, IBilansService bilansService) {
+    public PromenaNaKapitalHelper(int godina1, int godina2, String opis, IBilansService bilansService) {
         int godina = Calendar.getInstance().get(Calendar.YEAR);
-        if (godina == godina1 || godina == godina2) {
+        if (godina <= godina1 || godina <= godina2) {
             throw new ReportNotReadyException();
         }
         this.godina1 = godina1;
         this.godina2 = godina2;
+        this.opis = opis;
         this.bilansService = bilansService;
     }
 
@@ -56,10 +58,11 @@ public class PromenaNaKapitalServiceHelper {
         rows.addAll(calculateForGodina(godina2));
         List<List<String>> listOfStringRows = new ArrayList<>();
         for (int i = 0; i < rows.size(); i++) {
-            List<String> stringRow = rows.get(i).stream().map(d -> String.valueOf(d)).collect(Collectors.toList());
+            List<String> stringRow = rows.get(i).stream().map(String::valueOf).collect(Collectors.toList());
             List<String> newRow = addFirstColumn(i, stringRow, godina1, godina2);
             listOfStringRows.add(newRow);
         }
+        headers.addFirst(opis);
         return new TableReport("author", "title", "footer", headers, listOfStringRows);
     }
 
@@ -133,6 +136,4 @@ public class PromenaNaKapitalServiceHelper {
                                             .mapToDouble(br -> br.getSaldo()).sum();
         return saldoZaKonto;
     }
-
-
 }
