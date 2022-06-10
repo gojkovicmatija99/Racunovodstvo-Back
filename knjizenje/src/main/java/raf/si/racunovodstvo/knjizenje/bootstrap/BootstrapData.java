@@ -23,13 +23,19 @@ public class BootstrapData implements CommandLineRunner {
     private final ProfitniCentarRepository profitniCentarRepository;
     private final TroskovniCentarRepository troskovniCentarRepository;
     private final BazniKontoRepository bazniKontoRepository;
+    private final PovracajRepository povracajRepository;
+
 
     @Autowired
     public BootstrapData(FakturaRepository fakturaRepository,
                          KontoRepository kontoRepository,
                          KontnaGrupaRepository kontnaGrupaRepository,
+                         ProfitniCentarRepository profitniCentarRepository,
+                         TroskovniCentarRepository troskovniCentarRepository,
+                         BazniKontoRepository bazniKontoRepository,
                          KnjizenjeRepository knjizenjeRepository,
-                         ProfitniCentarRepository profitniCentarRepository, TroskovniCentarRepository troskovniCentarRepository, BazniKontoRepository bazniKontoRepository) {
+                         PovracajRepository povracajRepository
+    ) {
         this.fakturaRepository = fakturaRepository;
         this.kontoRepository = kontoRepository;
         this.knjizenjeRepository = knjizenjeRepository;
@@ -37,6 +43,7 @@ public class BootstrapData implements CommandLineRunner {
         this.profitniCentarRepository = profitniCentarRepository;
         this.troskovniCentarRepository = troskovniCentarRepository;
         this.bazniKontoRepository = bazniKontoRepository;
+        this.povracajRepository = povracajRepository;
     }
 
     private Faktura getDefaultFaktura() {
@@ -77,6 +84,15 @@ public class BootstrapData implements CommandLineRunner {
         konto.setKnjizenje(knj);
         konto.setKontnaGrupa(kg);
         return konto;
+    }
+
+    private Povracaj createPovracaj(String brojPovracaja, Date datum, Double prodajnaVrednost) {
+        Povracaj povracaj = new Povracaj();
+        povracaj.setBrojPovracaja(brojPovracaja);
+        povracaj.setDatumPovracaja(datum);
+        povracaj.setProdajnaVrednost(prodajnaVrednost);
+
+        return povracaj;
     }
 
     @Override
@@ -295,6 +311,11 @@ public class BootstrapData implements CommandLineRunner {
         bazniKontoRepository.save(bazniKonto);
 
 
+
+        Povracaj povracaj1 = this.createPovracaj("123", new Date(), 2000.00);
+        povracajRepository.save(povracaj1);
+        Povracaj povracaj2 = this.createPovracaj("321", new Date(), 1100.00);
+        povracajRepository.save(povracaj2);
 
         log.info("Data loaded!");
     }
