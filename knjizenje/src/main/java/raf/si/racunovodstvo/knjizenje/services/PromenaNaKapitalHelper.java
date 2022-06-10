@@ -2,7 +2,6 @@ package raf.si.racunovodstvo.knjizenje.services;
 
 import raf.si.racunovodstvo.knjizenje.exceptions.ReportNotReadyException;
 import raf.si.racunovodstvo.knjizenje.reports.Reports;
-import raf.si.racunovodstvo.knjizenje.reports.ReportsConstants;
 import raf.si.racunovodstvo.knjizenje.reports.TableReport;
 import raf.si.racunovodstvo.knjizenje.responses.BilansResponse;
 import raf.si.racunovodstvo.knjizenje.services.impl.IBilansService;
