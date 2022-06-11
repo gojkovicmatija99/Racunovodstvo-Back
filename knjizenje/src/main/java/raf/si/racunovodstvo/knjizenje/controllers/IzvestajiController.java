@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import raf.si.racunovodstvo.knjizenje.services.impl.IIzvestajService;
 
-import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 
@@ -75,6 +74,16 @@ public class IzvestajiController {
 
         byte[] pdf =
             izvestajService.makeStatickiIzvestajOTransakcijamaTableReport(preduzece, title, datumOd, datumDo, token).getReport();
+        return ResponseEntity.ok(pdf);
+    }
+
+    @GetMapping(path = "/sifra_transakcije", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<?> getSifraTransakcije(@RequestParam String title,
+                                                 @RequestParam(defaultValue = "sifraTransakcijeId")  String[] sort,
+                                                 @RequestHeader("Authorization") String token) throws DocumentException {
+
+        byte[] pdf =
+            izvestajService.makeSifraTransakcijaTableReport(title, sort, token).getReport();
         return ResponseEntity.ok(pdf);
     }
 }

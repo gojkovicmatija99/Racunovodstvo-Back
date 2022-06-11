@@ -1,7 +1,6 @@
 package raf.si.racunovodstvo.knjizenje.services;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import raf.si.racunovodstvo.knjizenje.converters.IConverter;
@@ -9,16 +8,19 @@ import raf.si.racunovodstvo.knjizenje.converters.impl.BilansSchemaConverter;
 import raf.si.racunovodstvo.knjizenje.feign.PreduzeceFeignClient;
 import raf.si.racunovodstvo.knjizenje.feign.UserFeignClient;
 import raf.si.racunovodstvo.knjizenje.model.Preduzece;
-import raf.si.racunovodstvo.knjizenje.model.Transakcija;
 import raf.si.racunovodstvo.knjizenje.reports.Reports;
 import raf.si.racunovodstvo.knjizenje.reports.ReportsConstants;
 import raf.si.racunovodstvo.knjizenje.reports.TableReport;
 import raf.si.racunovodstvo.knjizenje.reports.schema.BilansSchema;
 import raf.si.racunovodstvo.knjizenje.responses.BilansResponse;
+import raf.si.racunovodstvo.knjizenje.responses.SifraTransakcijeResponse;
 import raf.si.racunovodstvo.knjizenje.responses.TransakcijaResponse;
 import raf.si.racunovodstvo.knjizenje.responses.UserResponse;
+import raf.si.racunovodstvo.knjizenje.services.helpers.SifraTransakcijaHelper;
+import raf.si.racunovodstvo.knjizenje.services.helpers.StatickiIzvestajOTransakcijamaHelper;
 import raf.si.racunovodstvo.knjizenje.services.impl.IBilansService;
 import raf.si.racunovodstvo.knjizenje.services.impl.IIzvestajService;
+import raf.si.racunovodstvo.knjizenje.services.impl.ISifraTransakcijeService;
 import raf.si.racunovodstvo.knjizenje.services.impl.ITransakcijaService;
 import raf.si.racunovodstvo.knjizenje.utils.ApiUtil;
 import raf.si.racunovodstvo.knjizenje.utils.SearchUtil;
@@ -36,18 +38,21 @@ public class IzvestajService implements IIzvestajService {
     private final IConverter<BilansResponse, BilansSchema> bilansSchemaConverter;
     private final PreduzeceFeignClient preduzeceFeignClient;
     private final ITransakcijaService transakcijaService;
+    private final ISifraTransakcijeService sifraTransakcijeService;
     private final UserFeignClient userFeignClient;
-    private final SearchUtil<Transakcija> searchUtil;
+    private final SearchUtil searchUtil;
 
     public IzvestajService(IBilansService bilansService,
                            BilansSchemaConverter bilansSchemaConverter,
                            PreduzeceFeignClient preduzeceFeignClient,
                            ITransakcijaService transakcijaService,
+                           ISifraTransakcijeService sifraTransakcijeService,
                            UserFeignClient userFeignClient) {
         this.bilansService = bilansService;
         this.bilansSchemaConverter = bilansSchemaConverter;
         this.preduzeceFeignClient = preduzeceFeignClient;
         this.transakcijaService = transakcijaService;
+        this.sifraTransakcijeService = sifraTransakcijeService;
         this.userFeignClient = userFeignClient;
         this.searchUtil = new SearchUtil();
     }
@@ -89,12 +94,19 @@ public class IzvestajService implements IIzvestajService {
             throw new EntityNotFoundException();
         }
 
-        String filter = createTransakcijeFilter(preduzeceId, naslov, pocetniDatum, krajniDatum);
-        Page<TransakcijaResponse> transakcijaResponses = transakcijaService.search(searchUtil.getSpec(filter),Pageable.unpaged(), token);
+        String filter = createTransakcijeFilter(preduzeceId, pocetniDatum, krajniDatum);
+        Page<TransakcijaResponse> transakcijaResponses = transakcijaService.search(searchUtil.getSpec(filter), Pageable.unpaged(), token);
         return new StatickiIzvestajOTransakcijamaHelper(naslov, preduzece, transakcijaResponses.getContent()).makeTableReport();
     }
 
-    private String createTransakcijeFilter(long preduzeceId, String naslov, Date pocetniDatum, Date krajniDatum) {
+    @Override
+    public Reports makeSifraTransakcijaTableReport(String title, String[] sort, String token) {
+        Pageable pageSort = ApiUtil.resolveSortingAndPagination(0, Integer.MAX_VALUE, sort);
+        Page<SifraTransakcijeResponse> sifraTransakcijeResponses = sifraTransakcijeService.search(searchUtil.getSpec("sifraTransakcijeId>0"), pageSort, token);
+        return new SifraTransakcijaHelper(title, sifraTransakcijeResponses.getContent()).makeReport();
+    }
+
+    private String createTransakcijeFilter(long preduzeceId, Date pocetniDatum, Date krajniDatum) {
         String filter = "preduzeceId:" + preduzeceId;
         if (pocetniDatum == null || krajniDatum == null) {
             return filter;
