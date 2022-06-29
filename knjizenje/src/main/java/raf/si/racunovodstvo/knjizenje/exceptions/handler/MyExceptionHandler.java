@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import raf.si.racunovodstvo.knjizenje.exceptions.MissingFieldException;
 import raf.si.racunovodstvo.knjizenje.exceptions.OperationNotSupportedException;
 import raf.si.racunovodstvo.knjizenje.responses.ErrorResponse;
 
@@ -37,7 +38,7 @@ public class MyExceptionHandler extends ResponseEntityExceptionHandler
         return new ResponseEntity<>(error, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
-    @ExceptionHandler(PropertyReferenceException.class)
+    @ExceptionHandler({PropertyReferenceException.class, MissingFieldException.class})
     public final ResponseEntity<Object> handlePropertyReference(Exception ex, WebRequest request) {
         List<String> details = new ArrayList<>();
         details.add(ex.getLocalizedMessage());

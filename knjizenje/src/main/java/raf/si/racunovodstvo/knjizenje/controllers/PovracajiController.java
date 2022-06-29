@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import raf.si.racunovodstvo.knjizenje.model.Povracaj;
 import raf.si.racunovodstvo.knjizenje.services.PovracajService;
 import raf.si.racunovodstvo.knjizenje.services.impl.IPovracajService;
+import raf.si.racunovodstvo.knjizenje.services.impl.ITransakcijaService;
 import raf.si.racunovodstvo.knjizenje.utils.ApiUtil;
 
 import javax.persistence.EntityNotFoundException;
@@ -25,9 +26,11 @@ import java.util.Optional;
 public class PovracajiController {
 
     private final IPovracajService povracajService;
+    private final ITransakcijaService transakcijaService;
 
-    public PovracajiController(PovracajService povracajService) {
+    public PovracajiController(PovracajService povracajService, ITransakcijaService transakcijaService) {
         this.povracajService = povracajService;
+        this.transakcijaService = transakcijaService;
     }
 
     @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -42,7 +45,9 @@ public class PovracajiController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> createPovracaj(@Valid @RequestBody Povracaj povracaj) {
-        return ResponseEntity.ok(povracajService.save(povracaj));
+        povracaj = povracajService.save(povracaj);
+        this.transakcijaService.createFromPovracaj(povracaj);
+        return ResponseEntity.ok(povracaj);
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

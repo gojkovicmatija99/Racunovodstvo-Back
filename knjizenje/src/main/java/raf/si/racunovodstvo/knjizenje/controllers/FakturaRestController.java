@@ -17,17 +17,22 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import raf.si.racunovodstvo.knjizenje.exceptions.MissingFieldException;
 import raf.si.racunovodstvo.knjizenje.feign.PreduzeceFeignClient;
 import raf.si.racunovodstvo.knjizenje.model.Faktura;
 import raf.si.racunovodstvo.knjizenje.model.FakturaWithPreduzece;
 import raf.si.racunovodstvo.knjizenje.model.Preduzece;
+import raf.si.racunovodstvo.knjizenje.model.enums.TipFakture;
 import raf.si.racunovodstvo.knjizenje.services.FakturaService;
 import raf.si.racunovodstvo.knjizenje.services.impl.IFakturaService;
+import raf.si.racunovodstvo.knjizenje.services.impl.ISifraTransakcijeService;
+import raf.si.racunovodstvo.knjizenje.services.impl.ITransakcijaService;
 import raf.si.racunovodstvo.knjizenje.utils.ApiUtil;
 import raf.si.racunovodstvo.knjizenje.utils.SearchUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,9 +55,16 @@ public class FakturaRestController {
 
     private final PreduzeceFeignClient preduzeceFeignClient;
 
-    public FakturaRestController(FakturaService fakturaService, PreduzeceFeignClient preduzeceFeignClient) {
+    private final ITransakcijaService transakcijaService;
+
+    public FakturaRestController(
+            FakturaService fakturaService,
+            PreduzeceFeignClient preduzeceFeignClient,
+            ITransakcijaService transakcijaService
+    ) {
         this.fakturaService = fakturaService;
         this.preduzeceFeignClient = preduzeceFeignClient;
+        this.transakcijaService = transakcijaService;
         this.searchUtil = new SearchUtil<>();
     }
 
@@ -101,10 +113,18 @@ public class FakturaRestController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> createFaktura(@Valid @RequestBody Faktura faktura, @RequestHeader(name="Authorization") String token) throws IOException {
+        if (!this.isValidFaktura(faktura)) {
+            throw new MissingFieldException();
+        }
         if(getPreduzeceById(faktura.getPreduzeceId(), token)== null){
             throw new PersistenceException(String.format("Ne postoji preduzece sa id-jem %s",faktura.getPreduzeceId()));
         }
-        return ResponseEntity.ok(fakturaService.save(faktura));
+        fakturaService.save(faktura);
+
+        if (faktura.getTipFakture() == TipFakture.MALOPRODAJNA_FAKTURA) {
+            this.transakcijaService.createFromMPFaktura(faktura);
+        }
+        return ResponseEntity.ok(faktura);
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -112,6 +132,9 @@ public class FakturaRestController {
         Long preduzeceId = faktura.getPreduzeceId();
         if(preduzeceId != null && getPreduzeceById(faktura.getPreduzeceId(), token) == null){
             throw new PersistenceException(String.format("Ne postoji preduzece sa id-jem %s",faktura.getPreduzeceId()));
+        }
+        if (!this.isValidFaktura(faktura)) {
+            throw new MissingFieldException();
         }
         Optional<Faktura> optionalFaktura = fakturaService.findById(faktura.getDokumentId());
         if(optionalFaktura.isPresent()) {
@@ -128,5 +151,17 @@ public class FakturaRestController {
             return ResponseEntity.noContent().build();
         }
         throw new EntityNotFoundException();
+    }
+
+    private boolean isValidFaktura(Faktura faktura) {
+        switch (faktura.getTipFakture()) {
+            case MALOPRODAJNA_FAKTURA:
+                faktura.setRokZaPlacanje(new Date(0));
+                if (faktura.getDatumPlacanja() == null) {
+                    return false;
+                }
+            default:
+                return true;
+        }
     }
 }

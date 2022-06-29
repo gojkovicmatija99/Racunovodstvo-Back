@@ -19,6 +19,8 @@ public interface FakturaRepository extends JpaRepository<Faktura, Long> {
 
     Optional<Faktura> findByDokumentId(Long dokumentId);
 
+    Long countByTipFakture(TipFakture tipFakture);
+
     @Query("select f.prodajnaVrednost from faktura f where f.tipFakture = :tipFakture")
     List<Double> findProdajnaVrednostForTipFakture(TipFakture tipFakture);
 

@@ -12,6 +12,8 @@ import java.util.Optional;
 
 public interface IFakturaService extends IService<Faktura, Long> {
 
+    Long countMPFakture();
+
     List<Faktura> findAll(Specification<Faktura> spec);
 
     Page<Faktura> findAll(Pageable pageSort);

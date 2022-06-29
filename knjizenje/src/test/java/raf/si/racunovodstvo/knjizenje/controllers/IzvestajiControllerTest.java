@@ -68,13 +68,12 @@ class IzvestajiControllerTest {
         Reports reports = Mockito.mock(Reports.class);
         List<Date> datumiOd = List.of(MOCK_DATUM_OD);
         List<Date> datumiDo = List.of(MOCK_DATUM_DO);
-        List<String> startsWith = List.of("0", "1", "2", "3", "4");
         given(izvestajService.makeBilansTableReport(MOCK_PREDUZECE_ID,
                                                     MOCK_TOKEN,
                                                     MOCK_TITLE,
                                                     datumiOd,
                                                     datumiDo,
-                                                    startsWith,false)).willReturn(reports);
+                                                    false)).willReturn(reports);
         given(reports.getReport()).willReturn(expected);
 
         byte[] result =
@@ -90,13 +89,12 @@ class IzvestajiControllerTest {
         List<Date> datumiOd = List.of(MOCK_DATUM_OD);
         List<Date> datumiDo = List.of(MOCK_DATUM_DO);
 
-        List<String> startsWith = List.of("5", "6");
         given(izvestajService.makeBilansTableReport(MOCK_PREDUZECE_ID,
                                                     MOCK_TOKEN,
                                                     MOCK_TITLE,
                                                     datumiOd,
                                                     datumiDo,
-                                                    startsWith,true)).willReturn(reports);
+                                                    true)).willReturn(reports);
         given(reports.getReport()).willReturn(expected);
 
         byte[] result =

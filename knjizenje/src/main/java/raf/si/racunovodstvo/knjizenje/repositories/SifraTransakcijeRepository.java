@@ -8,10 +8,12 @@ import org.springframework.stereotype.Repository;
 import raf.si.racunovodstvo.knjizenje.model.SifraTransakcije;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface SifraTransakcijeRepository extends JpaRepository<SifraTransakcije, Long> {
 
     Page<SifraTransakcije> findAll(Specification<SifraTransakcije> specification, Pageable pageable);
 
+    Optional<SifraTransakcije> findBySifra(Long sifra);
 }

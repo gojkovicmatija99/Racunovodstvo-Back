@@ -75,9 +75,9 @@ public class IzvestajService implements IIzvestajService {
                                          String title,
                                          List<Date> datumiOd,
                                          List<Date> datumiDo,
-                                         List<String> brojKontaStartsWith, boolean isBilansUspeha) {
+                                         boolean isBilansUspeha) {
 
-        Map<String, List<BilansResponse>> bilansResponseListMap = bilansService.findBilans(brojKontaStartsWith, datumiOd, datumiDo);
+        Map<String, List<BilansResponse>> bilansResponseListMap = bilansService.findBilans(!isBilansUspeha, datumiOd, datumiDo);
         BilansTableContent bilansTableContent = new BilansTableContent(bilansResponseListMap,isBilansUspeha);
 
         String preduzece = generatePreduzeceString(preduzeceId, token);

@@ -36,6 +36,10 @@ public class FakturaService implements IFakturaService {
         this.modelMapper = modelMapper;
     }
 
+    public Long countMPFakture(){
+        return fakturaRepository.countByTipFakture(TipFakture.MALOPRODAJNA_FAKTURA);
+    }
+
     public List<Faktura> findAll() {
         return fakturaRepository.findAll();
     }

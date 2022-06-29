@@ -6,10 +6,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import raf.si.racunovodstvo.knjizenje.feign.PreduzeceFeignClient;
+import raf.si.racunovodstvo.knjizenje.model.Faktura;
+import raf.si.racunovodstvo.knjizenje.model.Povracaj;
 import raf.si.racunovodstvo.knjizenje.model.Preduzece;
 import raf.si.racunovodstvo.knjizenje.model.Transakcija;
 import raf.si.racunovodstvo.knjizenje.model.enums.TipDokumenta;
 import raf.si.racunovodstvo.knjizenje.model.enums.TipTransakcije;
+import raf.si.racunovodstvo.knjizenje.repositories.PovracajRepository;
 import raf.si.racunovodstvo.knjizenje.repositories.SifraTransakcijeRepository;
 import raf.si.racunovodstvo.knjizenje.repositories.TransakcijaRepository;
 import raf.si.racunovodstvo.knjizenje.requests.ObracunTransakcijeRequest;
@@ -33,17 +36,21 @@ public class TransakcijaService implements ITransakcijaService {
 
     private final TransakcijaRepository transakcijaRepository;
     private final SifraTransakcijeRepository sifraTransakcijeRepository;
+    private final FakturaService fakturaService;
+    private final PovracajRepository povracajRepository;
     private final IConverter<Transakcija, TransakcijaResponse> transakcijaReverseConverter;
     private final IConverter<TransakcijaRequest, Transakcija> transakcijaConverter;
     private final PreduzeceFeignClient preduzeceFeignClient;
 
     public TransakcijaService(TransakcijaRepository transakcijaRepository,
                               SifraTransakcijeRepository sifraTransakcijeRepository,
-                              TransakcijaReverseConverter transakcijaReverseConverter,
+                              FakturaService fakturaService, PovracajRepository povracajRepository, TransakcijaReverseConverter transakcijaReverseConverter,
                               TransakcijaConverter transakcijaConverter,
                               PreduzeceFeignClient preduzeceFeignClient) {
         this.transakcijaRepository = transakcijaRepository;
         this.sifraTransakcijeRepository = sifraTransakcijeRepository;
+        this.fakturaService = fakturaService;
+        this.povracajRepository = povracajRepository;
         this.transakcijaReverseConverter = transakcijaReverseConverter;
         this.transakcijaConverter = transakcijaConverter;
         this.preduzeceFeignClient = preduzeceFeignClient;
@@ -120,6 +127,39 @@ public class TransakcijaService implements ITransakcijaService {
     }
 
     @Override
+    public TransakcijaResponse createFromMPFaktura(Faktura faktura) {
+        TransakcijaRequest transakcija = new TransakcijaRequest();
+
+        String brojTransakcije = this.generateBrojTransakcije("MPF", this.fakturaService.countMPFakture());
+        transakcija.setBrojDokumenta(brojTransakcije);
+        transakcija.setTipDokumenta(TipDokumenta.TRANSAKCIJA);
+        transakcija.setBrojTransakcije(brojTransakcije);
+        transakcija.setPreduzeceId(faktura.getPreduzeceId());
+        transakcija.setDatumTransakcije(faktura.getDatumPlacanja());
+        transakcija.setTipTransakcije(TipTransakcije.UPLATA);
+        transakcija.setIznos(faktura.getIznos());
+        this.sifraTransakcijeRepository.findBySifra(101L).ifPresent(transakcija::setSifraTransakcije);
+
+        return this.save(transakcija);
+    }
+
+    @Override
+    public TransakcijaResponse createFromPovracaj(Povracaj povracaj) {
+        TransakcijaRequest transakcija = new TransakcijaRequest();
+
+        String brojTransakcije = this.generateBrojTransakcije("POV", this.povracajRepository.count());
+        transakcija.setBrojDokumenta(brojTransakcije);
+        transakcija.setTipDokumenta(TipDokumenta.TRANSAKCIJA);
+        transakcija.setBrojTransakcije(brojTransakcije);
+        transakcija.setDatumTransakcije(povracaj.getDatumPovracaja());
+        transakcija.setTipTransakcije(TipTransakcije.ISPLATA);
+        transakcija.setIznos(povracaj.getProdajnaVrednost());
+        this.sifraTransakcijeRepository.findBySifra(102L).ifPresent(transakcija::setSifraTransakcije);
+
+        return this.save(transakcija);
+    }
+
+    @Override
     public <S extends Transakcija> S save(S var1) {
         return transakcijaRepository.save(var1);
     }
@@ -149,5 +189,9 @@ public class TransakcijaService implements ITransakcijaService {
             return preduzece == null ? null : preduzece.getNaziv();
         }
         return Strings.EMPTY;
+    }
+
+    private String generateBrojTransakcije(String prefix, Long count) {
+        return prefix + String.format("%04d", count + 1);
     }
 }

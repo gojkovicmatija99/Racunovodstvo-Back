@@ -28,11 +28,10 @@ class BilansServiceTest {
 
         Map<String, ArrayList<BilansResponse>> bilansResponseListMap = new HashMap<>();
 
-        List<String> startsWith = new ArrayList<>();
         List<Date> datumiOd = new ArrayList<>();
         List<Date> datumiDo = new ArrayList<>();
 
-        assertEquals(bilansResponseListMap, bilansService.findBilans(startsWith, datumiOd, datumiDo));
+        assertEquals(bilansResponseListMap, bilansService.findBilans(true, datumiOd, datumiDo));
     }
 
     @Test
@@ -54,10 +53,10 @@ class BilansServiceTest {
 
 
 
-        given(kontnaGrupaRepository.findAllStartingWith(startsWith, datumOd, datuiDo))
+        given(kontnaGrupaRepository.findAllBilansStanja(datumOd, datuiDo))
                 .willReturn(bilansResponseList);
 
-        assertEquals(bilansResponseListMap, bilansService.findBilans(startsWith, datumiOd, datumiDo));
+        assertEquals(bilansResponseListMap, bilansService.findBilans(true, datumiOd, datumiDo));
     }
 
     @Test
