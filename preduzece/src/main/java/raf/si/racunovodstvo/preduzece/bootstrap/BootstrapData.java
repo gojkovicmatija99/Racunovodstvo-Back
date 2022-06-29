@@ -9,14 +9,13 @@ import raf.si.racunovodstvo.preduzece.model.enums.PolZaposlenog;
 import raf.si.racunovodstvo.preduzece.model.enums.RadnaPozicija;
 import raf.si.racunovodstvo.preduzece.model.enums.StatusZaposlenog;
 import raf.si.racunovodstvo.preduzece.repositories.*;
-import raf.si.racunovodstvo.preduzece.requests.ObracunZaposleniRequest;
 import raf.si.racunovodstvo.preduzece.services.impl.ObracunZaposleniService;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 @Component
 public class BootstrapData implements CommandLineRunner {
@@ -27,28 +26,27 @@ public class BootstrapData implements CommandLineRunner {
     private final StazRepository stazRepository;
     private final PlataRepository plataRepository;
     private final KoeficijentRepository koeficijentRepository;
-    private final ObracunRepository obracunRepository;
-    private final ObracunZaposleniRepository obracunZaposleniRepository;
-
     private final ObracunZaposleniService obracunZaposleniService;
 
     public BootstrapData(PreduzeceRepository preduzeceRepository,
                          ZaposleniRepository zaposleniRepository,
                          StazRepository stazRepository,
                          PlataRepository plataRepository,
-                         KoeficijentRepository koeficijentRepository, ObracunRepository obracunRepository, ObracunZaposleniRepository obracunZaposleniRepository, ObracunZaposleniService obracunZaposleniService) {
+                         KoeficijentRepository koeficijentRepository, ObracunZaposleniService obracunZaposleniService) {
         this.preduzeceRepository = preduzeceRepository;
         this.zaposleniRepository = zaposleniRepository;
         this.stazRepository = stazRepository;
         this.plataRepository = plataRepository;
         this.koeficijentRepository = koeficijentRepository;
-        this.obracunRepository = obracunRepository;
-        this.obracunZaposleniRepository = obracunZaposleniRepository;
         this.obracunZaposleniService = obracunZaposleniService;
     }
 
     @Override
     public void run(String... args) throws Exception {
+
+        log.info("Loading Data...");
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
         log.info("Loading Data...");
 
@@ -124,16 +122,17 @@ public class BootstrapData implements CommandLineRunner {
         z1.setIme("Darko");
         z1.setPrezime("Stanković");
         z1.setImeRoditelja("Miodrag");
-        z1.setPocetakRadnogOdnosa(new Date(2018, Calendar.JANUARY, 22));
+        z1.setPocetakRadnogOdnosa(getDate(2018, 1, 22));
         z1.setJmbg("0311988710341");
         z1.setPol(PolZaposlenog.MUSKO);
-        z1.setDatumRodjenja(new Date(1988, Calendar.NOVEMBER, 13));
+        z1.setDatumRodjenja(getDate(1988, 11, 13));
         z1.setAdresa("Držićeva 5");
         z1.setGrad("Beograd");
         z1.setBrojRacuna("908‑10501‑97");
         z1.setStepenObrazovanja("5");
         z1.setBrojRadneKnjizice(62834L);
         z1.setStatusZaposlenog(StatusZaposlenog.ZAPOSLEN);
+        z1.setRadnaPozicija(RadnaPozicija.MENADZER);
         z1.setPreduzece(p1);
 
         Plata pl1 = new Plata();
@@ -145,15 +144,16 @@ public class BootstrapData implements CommandLineRunner {
         z2.setIme("Marko");
         z2.setPrezime("Jovanović");
         z2.setImeRoditelja("Pavle");
-        z2.setPocetakRadnogOdnosa(new Date(2018, Calendar.JANUARY, 22));
+        z2.setPocetakRadnogOdnosa(getDate(2018, 1, 22));
         z2.setJmbg("0502999710381");
         z2.setPol(PolZaposlenog.MUSKO);
-        z2.setDatumRodjenja(new Date(1999, Calendar.FEBRUARY, 5));
+        z2.setDatumRodjenja(getDate(1999, 2, 5));
         z2.setAdresa("Bulevar Nikole Tesle 33");
         z2.setGrad("Beograd");
         z2.setBrojRacuna("908‑10308‑97");
         z2.setStepenObrazovanja("5");
         z2.setStatusZaposlenog(StatusZaposlenog.ZAPOSLEN);
+        z1.setRadnaPozicija(RadnaPozicija.RADNIK);
         z2.setKomentar("omladinska");
         z2.setPreduzece(p2);
 
@@ -166,10 +166,11 @@ public class BootstrapData implements CommandLineRunner {
         z3.setIme("Bojana");
         z3.setPrezime("Šolak");
         z3.setImeRoditelja("Marko");
-        z3.setPocetakRadnogOdnosa(new Date(2017, Calendar.MAY, 15));
+        z3.setPocetakRadnogOdnosa(getDate(2017, 5, 15));
         z3.setJmbg("0904978710699");
         z3.setPol(PolZaposlenog.ZENSKO);
-        z3.setDatumRodjenja(new Date(1978, Calendar.APRIL, 9));
+        z3.setDatumRodjenja(getDate(1978, 4, 9));
+        z1.setRadnaPozicija(RadnaPozicija.DIREKTOR);
         z3.setAdresa("Trg Republike 4");
         z3.setGrad("Beograd");
         z3.setBrojRacuna("903‑14308‑97");
@@ -187,10 +188,11 @@ public class BootstrapData implements CommandLineRunner {
         z4.setIme("Darko");
         z4.setPrezime("Ognjenović");
         z4.setImeRoditelja("Aleksa");
-        z4.setPocetakRadnogOdnosa(new Date(2019, Calendar.APRIL, 15));
+        z4.setPocetakRadnogOdnosa(getDate(2019, 4, 15));
         z4.setJmbg("0101995710121");
         z4.setPol(PolZaposlenog.MUSKO);
-        z4.setDatumRodjenja(new Date(1995, Calendar.JANUARY, 1));
+        z4.setDatumRodjenja(getDate(1995, 1, 1));
+        z1.setRadnaPozicija(RadnaPozicija.RADNIK);
         z4.setAdresa("Masarikova 11");
         z4.setGrad("Beograd");
         z4.setBrojRacuna("903‑33308‑97");
@@ -207,10 +209,11 @@ public class BootstrapData implements CommandLineRunner {
         z5.setIme("Dimitrije");
         z5.setPrezime("Zdravković");
         z5.setImeRoditelja("Kosta");
-        z5.setPocetakRadnogOdnosa(new Date(2021, Calendar.JANUARY, 1));
+        z5.setPocetakRadnogOdnosa(getDate(2021, 1, 1));
         z5.setJmbg("0711987710241");
         z5.setPol(PolZaposlenog.MUSKO);
-        z5.setDatumRodjenja(new Date(1987, Calendar.NOVEMBER, 27));
+        z5.setDatumRodjenja(getDate(1987, 11, 27));
+        z1.setRadnaPozicija(RadnaPozicija.RADNIK);
         z5.setAdresa("Bulevar Zorana Đinđića 1");
         z5.setGrad("Beograd");
         z5.setBrojRacuna("933‑47345‑92");
@@ -242,6 +245,56 @@ public class BootstrapData implements CommandLineRunner {
         this.plataRepository.save(pl4);
         this.plataRepository.save(pl5);
 
+        Staz staz = new Staz();
+        staz.setPocetakRada(simpleDateFormat.parse("22-01-2018"));
+        staz.setKrajRada(null);
+        staz.setZaposleni(z1);
+        stazRepository.save(staz);
+
+        Staz staz2 = new Staz();
+        staz2.setPocetakRada(simpleDateFormat.parse("22-01-2018"));
+        staz2.setKrajRada(null);
+        staz2.setZaposleni(z2);
+        stazRepository.save(staz2);
+
+        Staz staz3 = new Staz();
+        staz3.setPocetakRada(simpleDateFormat.parse("15-05-2017"));
+        staz3.setKrajRada(null);
+        staz3.setZaposleni(z3);
+        stazRepository.save(staz3);
+
+        Staz staz4 = new Staz();
+        staz4.setPocetakRada(simpleDateFormat.parse("15-05-2019"));
+        staz4.setKrajRada(null);
+        staz4.setZaposleni(z4);
+        stazRepository.save(staz4);
+
+        Staz staz5 = new Staz();
+        staz5.setPocetakRada(simpleDateFormat.parse("01-01-2021"));
+        staz5.setKrajRada(null);
+        staz5.setZaposleni(z5);
+        stazRepository.save(staz5);
+
+        Koeficijent koeficijent = new Koeficijent();
+        koeficijent.setKoeficijentPoreza(1d);
+        koeficijent.setNezaposlenost1(2d);
+        koeficijent.setNezaposlenost2(10d);
+        koeficijent.setPenzionoOsiguranje1(5d);
+        koeficijent.setPenzionoOsiguranje2(50d);
+        koeficijent.setNajnizaOsnovica(1d);
+        koeficijent.setNajvisaOsnovica(1d);
+        koeficijent.setZdravstvenoOsiguranje1(5d);
+        koeficijent.setZdravstvenoOsiguranje2(5d);
+        koeficijent.setPoreskoOslobadjanje(23.4);
+        koeficijentRepository.save(koeficijent);
+
+       obracunZaposleniService.makeObracun(new Date(), 1);
+
         log.info("Data loaded!");
+    }
+
+    private Date getDate(int year, int month, int day) {
+        LocalDate localDate = LocalDate.of(year, month, day);
+        return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
     }
 }

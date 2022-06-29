@@ -11,6 +11,8 @@ import raf.si.racunovodstvo.knjizenje.model.enums.TipFakture;
 import raf.si.racunovodstvo.knjizenje.repositories.*;
 import raf.si.racunovodstvo.knjizenje.model.enums.TipTransakcije;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 
 @Component
@@ -117,6 +119,11 @@ public class BootstrapData implements CommandLineRunner {
         return povracaj;
     }
 
+    private Date getDate(int year, int month, int day) {
+        LocalDate localDate = LocalDate.of(year, month, day);
+        return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+    }
+
     @Override
     public void run(String... args) throws Exception {
 
@@ -193,9 +200,9 @@ public class BootstrapData implements CommandLineRunner {
         Faktura fu1 = new Faktura();
         fu1.setBrojFakture("F23/11");
         fu1.setBrojDokumenta(fu1.getBrojFakture());
-        fu1.setDatumIzdavanja(new Date(2021, Calendar.MAY, 11));
-        fu1.setRokZaPlacanje(new Date(2021, Calendar.MAY, 17));
-        fu1.setDatumPlacanja(new Date(2021, Calendar.MAY, 16));
+        fu1.setDatumIzdavanja(getDate(2021, 5, 11));
+        fu1.setRokZaPlacanje(getDate(2021, 5, 17));
+        fu1.setDatumPlacanja(getDate(2021, 5, 16));
         fu1.setProdajnaVrednost(11300.00);
         fu1.setRabatProcenat(5.00);
         fu1.setPorezProcenat(20.00);
@@ -209,9 +216,9 @@ public class BootstrapData implements CommandLineRunner {
         Faktura fu2 = new Faktura();
         fu2.setBrojFakture("F23/12");
         fu2.setBrojDokumenta(fu2.getBrojFakture());
-        fu2.setDatumIzdavanja(new Date(2021, Calendar.MAY, 11));
-        fu2.setRokZaPlacanje(new Date(2021, Calendar.MAY, 17));
-        fu2.setDatumPlacanja(new Date(2021, Calendar.MAY, 16));
+        fu2.setDatumIzdavanja(getDate(2021, 5, 11));
+        fu2.setRokZaPlacanje(getDate(2021, 5, 17));
+        fu2.setDatumPlacanja(getDate(2021, 5, 16));
         fu2.setProdajnaVrednost(12400.00);
         fu2.setRabatProcenat(0.00);
         fu2.setPorezProcenat(20.00);
@@ -225,9 +232,9 @@ public class BootstrapData implements CommandLineRunner {
         Faktura fu3 = new Faktura();
         fu3.setBrojFakture("F23/13");
         fu3.setBrojDokumenta(fu3.getBrojFakture());
-        fu3.setDatumIzdavanja(new Date(2021, Calendar.MAY, 12));
-        fu3.setRokZaPlacanje(new Date(2021, Calendar.MAY, 17));
-        fu3.setDatumPlacanja(new Date(2021, Calendar.MAY, 16));
+        fu3.setDatumIzdavanja(getDate(2021, 5, 12));
+        fu3.setRokZaPlacanje(getDate(2021, 5, 17));
+        fu3.setDatumPlacanja(getDate(2021, 5, 16));
         fu3.setProdajnaVrednost(11000.00);
         fu3.setRabatProcenat(0.00);
         fu3.setPorezProcenat(20.00);
@@ -241,9 +248,9 @@ public class BootstrapData implements CommandLineRunner {
         Faktura fu4 = new Faktura();
         fu4.setBrojFakture("F23/14");
         fu4.setBrojDokumenta(fu4.getBrojFakture());
-        fu4.setDatumIzdavanja(new Date(2021, Calendar.MAY, 12));
-        fu4.setRokZaPlacanje(new Date(2021, Calendar.MAY, 17));
-        fu4.setDatumPlacanja(new Date(2021, Calendar.MAY, 16));
+        fu4.setDatumIzdavanja(getDate(2021, 5, 12));
+        fu4.setRokZaPlacanje(getDate(2021, 5, 17));
+        fu4.setDatumPlacanja(getDate(2021, 5, 16));
         fu4.setProdajnaVrednost(22000.00);
         fu4.setRabatProcenat(0.00);
         fu4.setPorezProcenat(20.00);
@@ -257,9 +264,9 @@ public class BootstrapData implements CommandLineRunner {
         Faktura fu5 = new Faktura();
         fu5.setBrojFakture("F23/15");
         fu5.setBrojDokumenta(fu5.getBrojFakture());
-        fu5.setDatumIzdavanja(new Date(2021, Calendar.MAY, 12));
-        fu5.setRokZaPlacanje(new Date(2021, Calendar.MAY, 18));
-        fu5.setDatumPlacanja(new Date(2021, Calendar.MAY, 12));
+        fu5.setDatumIzdavanja(getDate(2021, 5, 12));
+        fu5.setRokZaPlacanje(getDate(2021, 5, 18));
+        fu5.setDatumPlacanja(getDate(2021, 5, 12));
         fu5.setProdajnaVrednost(750000.00);
         fu5.setRabatProcenat(0.00);
         fu5.setPorezProcenat(20.00);
@@ -274,9 +281,9 @@ public class BootstrapData implements CommandLineRunner {
         Faktura fu6 = new Faktura();
         fu6.setBrojFakture("F23/16");
         fu6.setBrojDokumenta(fu6.getBrojFakture());
-        fu6.setDatumIzdavanja(new Date(2021, Calendar.MAY, 12));
-        fu6.setRokZaPlacanje(new Date(2021, Calendar.MAY, 12));
-        fu6.setDatumPlacanja(new Date(2021, Calendar.MAY, 12));
+        fu6.setDatumIzdavanja(getDate(2021, 5, 12));
+        fu6.setRokZaPlacanje(getDate(2021, 5, 12));
+        fu6.setDatumPlacanja(getDate(2021, 5, 12));
         fu6.setProdajnaVrednost(55000.00);
         fu6.setRabatProcenat(0.00);
         fu6.setPorezProcenat(20.00);
@@ -291,9 +298,9 @@ public class BootstrapData implements CommandLineRunner {
         Faktura fu7 = new Faktura();
         fu7.setBrojFakture("F23/17");
         fu7.setBrojDokumenta(fu7.getBrojFakture());
-        fu7.setDatumIzdavanja(new Date(2021, Calendar.MAY, 12));
-        fu7.setRokZaPlacanje(new Date(2021, Calendar.MAY, 12));
-        fu7.setDatumPlacanja(new Date(2021, Calendar.MAY, 12));
+        fu7.setDatumIzdavanja(getDate(2021, 5, 12));
+        fu7.setRokZaPlacanje(getDate(2021, 5, 12));
+        fu7.setDatumPlacanja(getDate(2021, 5, 12));
         fu7.setProdajnaVrednost(55000.00);
         fu7.setRabatProcenat(0.00);
         fu7.setPorezProcenat(20.00);
@@ -308,9 +315,9 @@ public class BootstrapData implements CommandLineRunner {
         Faktura fu8 = new Faktura();
         fu8.setBrojFakture("F24/11");
         fu8.setBrojDokumenta(fu8.getBrojFakture());
-        fu8.setDatumIzdavanja(new Date(2021, Calendar.MAY, 12));
-        fu8.setRokZaPlacanje(new Date(2021, Calendar.MAY, 12));
-        fu8.setDatumPlacanja(new Date(2021, Calendar.MAY, 12));
+        fu8.setDatumIzdavanja(getDate(2021, 5, 12));
+        fu8.setRokZaPlacanje(getDate(2021, 5, 12));
+        fu8.setDatumPlacanja(getDate(2021, 5, 12));
         fu8.setProdajnaVrednost(750000.00);
         fu8.setRabatProcenat(10.00);
         fu8.setPorezProcenat(20.00);
@@ -325,9 +332,9 @@ public class BootstrapData implements CommandLineRunner {
         Faktura fu9 = new Faktura();
         fu9.setBrojFakture("F24/12");
         fu9.setBrojDokumenta(fu9.getBrojFakture());
-        fu9.setDatumIzdavanja(new Date(2021, Calendar.MAY, 12));
-        fu9.setRokZaPlacanje(new Date(2021, Calendar.MAY, 12));
-        fu9.setDatumPlacanja(new Date(2021, Calendar.MAY, 12));
+        fu9.setDatumIzdavanja(getDate(2021, 5, 12));
+        fu9.setRokZaPlacanje(getDate(2021, 5, 12));
+        fu9.setDatumPlacanja(getDate(2021, 5, 12));
         fu9.setProdajnaVrednost(100000.00);
         fu9.setRabatProcenat(10.00);
         fu9.setPorezProcenat(20.00);
@@ -342,9 +349,9 @@ public class BootstrapData implements CommandLineRunner {
         Faktura fi1 = new Faktura();
         fi1.setBrojFakture("F24/13");
         fi1.setBrojDokumenta(fi1.getBrojFakture());
-        fi1.setDatumIzdavanja(new Date(2021, Calendar.MAY, 13));
-        fi1.setRokZaPlacanje(new Date(2021, Calendar.JULY, 31));
-        fi1.setDatumPlacanja(new Date(2021, Calendar.JULY, 31));
+        fi1.setDatumIzdavanja(getDate(2021, 5, 13));
+        fi1.setRokZaPlacanje(getDate(2021, 7, 31));
+        fi1.setDatumPlacanja(getDate(2021, 7, 31));
         fi1.setProdajnaVrednost(23400.00);
         fi1.setRabatProcenat(5.00);
         fi1.setPorezProcenat(20.00);
@@ -358,9 +365,9 @@ public class BootstrapData implements CommandLineRunner {
         Faktura fi2 = new Faktura();
         fi2.setBrojFakture("F24/14");
         fi2.setBrojDokumenta(fi2.getBrojFakture());
-        fi2.setDatumIzdavanja(new Date(2021, Calendar.MAY, 13));
-        fi2.setRokZaPlacanje(new Date(2021, Calendar.JULY, 31));
-        fi2.setDatumPlacanja(new Date(2021, Calendar.MAY, 20));
+        fi2.setDatumIzdavanja(getDate(2021, 5, 13));
+        fi2.setRokZaPlacanje(getDate(2021, 7, 31));
+        fi2.setDatumPlacanja(getDate(2021, 5, 20));
         fi2.setProdajnaVrednost(23400.00);
         fi2.setRabatProcenat(10.00);
         fi2.setPorezProcenat(20.00);
@@ -374,9 +381,9 @@ public class BootstrapData implements CommandLineRunner {
         Faktura fi3 = new Faktura();
         fi3.setBrojFakture("F24/15");
         fi3.setBrojDokumenta(fi3.getBrojFakture());
-        fi3.setDatumIzdavanja(new Date(2021, Calendar.MAY, 15));
-        fi3.setRokZaPlacanje(new Date(2021, Calendar.MAY, 22));
-        fi3.setDatumPlacanja(new Date(2021, Calendar.MAY, 22));
+        fi3.setDatumIzdavanja(getDate(2021, 5, 15));
+        fi3.setRokZaPlacanje(getDate(2021, 5, 22));
+        fi3.setDatumPlacanja(getDate(2021, 5, 22));
         fi3.setProdajnaVrednost(23400.00);
         fi3.setRabatProcenat(5.00);
         fi3.setPorezProcenat(20.00);
@@ -391,9 +398,9 @@ public class BootstrapData implements CommandLineRunner {
         Faktura fi4 = new Faktura();
         fi4.setBrojFakture("F24/16");
         fi4.setBrojDokumenta(fi4.getBrojFakture());
-        fi4.setDatumIzdavanja(new Date(2021, Calendar.MAY, 16));
-        fi4.setRokZaPlacanje(new Date(2021, Calendar.MAY, 22));
-        fi4.setDatumPlacanja(new Date(2021, Calendar.MAY, 22));
+        fi4.setDatumIzdavanja(getDate(2021, 5, 16));
+        fi4.setRokZaPlacanje(getDate(2021, 5, 22));
+        fi4.setDatumPlacanja(getDate(2021, 5, 21));
         fi4.setProdajnaVrednost(11000.00);
         fi4.setRabatProcenat(10.00);
         fi4.setPorezProcenat(20.00);
@@ -407,9 +414,9 @@ public class BootstrapData implements CommandLineRunner {
         Faktura fi5 = new Faktura();
         fi5.setBrojFakture("F24/17");
         fi5.setBrojDokumenta(fi5.getBrojFakture());
-        fi5.setDatumIzdavanja(new Date(2021, Calendar.MAY, 17));
-        fi5.setRokZaPlacanje(new Date(2021, Calendar.JULY, 31));
-        fi5.setDatumPlacanja(new Date(2021, Calendar.MAY, 17));
+        fi5.setDatumIzdavanja(getDate(2021, 5, 17));
+        fi5.setRokZaPlacanje(getDate(2021, 7, 31));
+        fi5.setDatumPlacanja(getDate(2021, 5, 17));
         fi5.setProdajnaVrednost(23400.00);
         fi5.setRabatProcenat(5.00);
         fi5.setPorezProcenat(20.00);
@@ -423,9 +430,9 @@ public class BootstrapData implements CommandLineRunner {
         Faktura fi6 = new Faktura();
         fi6.setBrojFakture("F24/18");
         fi6.setBrojDokumenta(fi6.getBrojFakture());
-        fi6.setDatumIzdavanja(new Date(2021, Calendar.MAY, 18));
-        fi6.setRokZaPlacanje(new Date(2021, Calendar.OCTOBER, 31));
-        fi6.setDatumPlacanja(new Date(2021, Calendar.MAY, 18));
+        fi6.setDatumIzdavanja(getDate(2021, 5, 18));
+        fi6.setRokZaPlacanje(getDate(2021, 10, 31));
+        fi6.setDatumPlacanja(getDate(2021, 5, 18));
         fi6.setProdajnaVrednost(85230.00);
         fi6.setRabatProcenat(0.00);
         fi6.setPorezProcenat(20.00);
@@ -474,7 +481,7 @@ public class BootstrapData implements CommandLineRunner {
         Transakcija t1 = new Transakcija();
         t1.setBrojTransakcije("T11/23");
         t1.setPreduzeceId(p3.getPreduzeceId());
-        t1.setDatumTransakcije(new Date(2021, Calendar.MAY, 22));
+        t1.setDatumTransakcije(getDate(2021, 5, 22));
         t1.setTipTransakcije(TipTransakcije.ISPLATA);
         t1.setIznos(11700.00);
         t1.setSifraTransakcije(st1);
@@ -484,7 +491,7 @@ public class BootstrapData implements CommandLineRunner {
         Transakcija t2 = new Transakcija();
         t2.setBrojTransakcije("T11/24");
         t2.setPreduzeceId(p2.getPreduzeceId());
-        t2.setDatumTransakcije(new Date(2021, Calendar.MAY, 23));
+        t2.setDatumTransakcije(getDate(2021, 5, 23));
         t2.setTipTransakcije(TipTransakcije.ISPLATA);
         t2.setIznos(11700.00);
         t2.setSifraTransakcije(st1);
@@ -494,7 +501,7 @@ public class BootstrapData implements CommandLineRunner {
 
         Transakcija t3 = new Transakcija();
         t3.setBrojTransakcije("T11/25");
-        t3.setDatumTransakcije(new Date(2021, Calendar.MAY, 27));
+        t3.setDatumTransakcije(getDate(2021, 5, 27));
         t3.setTipTransakcije(TipTransakcije.UPLATA);
         t3.setIznos(40000.00);
         t3.setSadrzaj("Donacija Pavle Marković");
@@ -505,7 +512,7 @@ public class BootstrapData implements CommandLineRunner {
         Transakcija t4 = new Transakcija();
         t4.setBrojTransakcije("T23/33");
         t4.setPreduzeceId(p3.getPreduzeceId());
-        t4.setDatumTransakcije(new Date(2021, Calendar.MAY, 27));
+        t4.setDatumTransakcije(getDate(2021, 5, 27));
         t4.setTipTransakcije(TipTransakcije.ISPLATA);
         t4.setIznos(12000.00);
         t4.setSifraTransakcije(st3);
@@ -515,7 +522,7 @@ public class BootstrapData implements CommandLineRunner {
         Transakcija t5 = new Transakcija();
         t5.setBrojTransakcije("T11OST");
         t5.setPreduzeceId(p3.getPreduzeceId());
-        t5.setDatumTransakcije(new Date(2021, Calendar.MAY, 29));
+        t5.setDatumTransakcije(getDate(2021, 5, 29));
         t5.setTipTransakcije(TipTransakcije.ISPLATA);
         t5.setIznos(40000.00);
         t5.setSifraTransakcije(st4);
@@ -531,9 +538,9 @@ public class BootstrapData implements CommandLineRunner {
         Faktura mpf1 = new Faktura();
         mpf1.setBrojFakture("MP12/21");
         mpf1.setBrojDokumenta(mpf1.getBrojFakture());
-        mpf1.setDatumIzdavanja(new Date(2021, Calendar.APRIL, 5));
-        mpf1.setRokZaPlacanje(new Date(2021, Calendar.APRIL, 5));
-        mpf1.setDatumPlacanja(new Date(2021, Calendar.APRIL, 5));
+        mpf1.setDatumIzdavanja(getDate(2021, 4, 5));
+        mpf1.setRokZaPlacanje(getDate(2021, 4, 5));
+        mpf1.setDatumPlacanja(getDate(2021, 4, 5));
         mpf1.setProdajnaVrednost(5300.00);
         mpf1.setRabatProcenat(0.00);
         mpf1.setPorezProcenat(20.00);
@@ -546,9 +553,9 @@ public class BootstrapData implements CommandLineRunner {
         Faktura mpf2 = new Faktura();
         mpf2.setBrojFakture("MP12/22");
         mpf2.setBrojDokumenta(mpf2.getBrojFakture());
-        mpf2.setDatumIzdavanja(new Date(2021, Calendar.APRIL, 5));
-        mpf2.setRokZaPlacanje(new Date(2021, Calendar.APRIL, 5));
-        mpf2.setDatumPlacanja(new Date(2021, Calendar.APRIL, 5));
+        mpf2.setDatumIzdavanja(getDate(2021, 4, 5));
+        mpf2.setRokZaPlacanje(getDate(2021, 4, 5));
+        mpf2.setDatumPlacanja(getDate(2021, 4, 5));
         mpf2.setProdajnaVrednost(11700.00);
         mpf2.setRabatProcenat(0.00);
         mpf2.setPorezProcenat(20.00);
@@ -561,9 +568,9 @@ public class BootstrapData implements CommandLineRunner {
         Faktura mpf3 = new Faktura();
         mpf3.setBrojFakture("MP12/23");
         mpf3.setBrojDokumenta(mpf3.getBrojFakture());
-        mpf3.setDatumIzdavanja(new Date(2021, Calendar.MAY, 7));
-        mpf3.setRokZaPlacanje(new Date(2021, Calendar.MAY, 7));
-        mpf3.setDatumPlacanja(new Date(2021, Calendar.MAY, 7));
+        mpf3.setDatumIzdavanja(getDate(2021, 5, 7));
+        mpf3.setRokZaPlacanje(getDate(2021, 5, 7));
+        mpf3.setDatumPlacanja(getDate(2021, 5, 7));
         mpf3.setProdajnaVrednost(24500.00);
         mpf3.setRabatProcenat(0.00);
         mpf3.setPorezProcenat(20.00);
@@ -576,9 +583,9 @@ public class BootstrapData implements CommandLineRunner {
         Faktura mpf4 = new Faktura();
         mpf4.setBrojFakture("MP17/21");
         mpf4.setBrojDokumenta(mpf4.getBrojFakture());
-        mpf4.setDatumIzdavanja(new Date(2021, Calendar.MAY, 7));
-        mpf4.setRokZaPlacanje(new Date(2021, Calendar.MAY, 7));
-        mpf4.setDatumPlacanja(new Date(2021, Calendar.MAY, 7));
+        mpf4.setDatumIzdavanja(getDate(2021, 5, 7));
+        mpf4.setRokZaPlacanje(getDate(2021, 5, 7));
+        mpf4.setDatumPlacanja(getDate(2021, 5, 7));
         mpf4.setProdajnaVrednost(9200.00);
         mpf4.setRabatProcenat(0.00);
         mpf4.setPorezProcenat(20.00);
@@ -591,9 +598,9 @@ public class BootstrapData implements CommandLineRunner {
         Faktura mpf5 = new Faktura();
         mpf5.setBrojFakture("MP18/22");
         mpf5.setBrojDokumenta(mpf5.getBrojFakture());
-        mpf5.setDatumIzdavanja(new Date(2021, Calendar.JUNE, 12));
-        mpf5.setRokZaPlacanje(new Date(2021, Calendar.JUNE, 12));
-        mpf5.setDatumPlacanja(new Date(2021, Calendar.JUNE, 12));
+        mpf5.setDatumIzdavanja(getDate(2021, 6, 12));
+        mpf5.setRokZaPlacanje(getDate(2021, 6, 12));
+        mpf5.setDatumPlacanja(getDate(2021, 6, 12));
         mpf5.setProdajnaVrednost(8350.00);
         mpf5.setRabatProcenat(0.00);
         mpf5.setPorezProcenat(20.00);
@@ -705,6 +712,225 @@ public class BootstrapData implements CommandLineRunner {
         this.profitniCentarRepository.save(pc1);
         this.profitniCentarRepository.save(pc2);
         this.profitniCentarRepository.save(pc3);
+
+        KontnaGrupa kg1 = new KontnaGrupa();
+        kg1.setBrojKonta("0");
+        kg1.setNazivKonta("Naziv kontne grupe 0");
+
+        this.kontnaGrupaRepository.save(kg1);
+
+        KontnaGrupa kg3t = new KontnaGrupa();
+        kg3t.setBrojKonta("3");
+        kg3t.setNazivKonta("Naziv kontne grupe 3");
+        KontnaGrupa kg30 = new KontnaGrupa();
+        kg30.setBrojKonta("30");
+        kg30.setNazivKonta("Naziv kontne grupe 30");
+        KontnaGrupa kg301 = new KontnaGrupa();
+        kg301.setBrojKonta("301");
+        kg301.setNazivKonta("Naziv kontne grupe 301");
+        KontnaGrupa kg302 = new KontnaGrupa();
+        kg302.setBrojKonta("302");
+        kg302.setNazivKonta("Naziv kontne grupe 302");
+        KontnaGrupa kg306 = new KontnaGrupa();
+        kg306.setBrojKonta("306");
+        kg306.setNazivKonta("Naziv kontne grupe 306");
+        KontnaGrupa kg309 = new KontnaGrupa();
+        kg309.setBrojKonta("309");
+        kg309.setNazivKonta("Naziv kontne grupe 309");
+        KontnaGrupa kg31 = new KontnaGrupa();
+        kg31.setBrojKonta("31");
+        kg31.setNazivKonta("Naziv kontne grupe 31");
+        KontnaGrupa kg311 = new KontnaGrupa();
+        kg311.setBrojKonta("311");
+        kg311.setNazivKonta("Naziv kontne grupe 311");
+        KontnaGrupa kg32 = new KontnaGrupa();
+        kg32.setBrojKonta("32");
+        kg32.setNazivKonta("Naziv kontne grupe 32");
+        KontnaGrupa kg321 = new KontnaGrupa();
+        kg321.setBrojKonta("321");
+        kg321.setNazivKonta("Naziv kontne grupe 321");
+        KontnaGrupa kg33 = new KontnaGrupa();
+        kg33.setBrojKonta("33");
+        kg33.setNazivKonta("Naziv kontne grupe 33");
+        KontnaGrupa kg331 = new KontnaGrupa();
+        kg331.setBrojKonta("331");
+        kg331.setNazivKonta("Naziv kontne grupe 331");
+        KontnaGrupa kg34 = new KontnaGrupa();
+        kg34.setBrojKonta("34");
+        kg34.setNazivKonta("Naziv kontne grupe 34");
+        KontnaGrupa kg341 = new KontnaGrupa();
+        kg341.setBrojKonta("341");
+        kg341.setNazivKonta("Naziv kontne grupe 341");
+        KontnaGrupa kg35 = new KontnaGrupa();
+        kg35.setBrojKonta("35");
+        kg35.setNazivKonta("Naziv kontne grupe 35");
+        KontnaGrupa kg351 = new KontnaGrupa();
+        kg351.setBrojKonta("351");
+        kg351.setNazivKonta("Naziv kontne grupe 351");
+        this.kontnaGrupaRepository.saveAll(Arrays.asList(kg3t,
+                                                         kg30,
+                                                         kg301,
+                                                         kg302,
+                                                         kg306,
+                                                         kg309,
+                                                         kg31,
+                                                         kg311,
+                                                         kg32,
+                                                         kg321,
+                                                         kg33,
+                                                         kg331,
+                                                         kg34,
+                                                         kg341,
+                                                         kg35,
+                                                         kg351));
+
+        KontnaGrupa kg5t = new KontnaGrupa();
+        kg5t.setBrojKonta("5");
+        kg5t.setNazivKonta("Naziv kontne grupe 5");
+        KontnaGrupa kg51 = new KontnaGrupa();
+        kg51.setBrojKonta("51");
+        kg51.setNazivKonta("Naziv kontne grupe 51");
+        KontnaGrupa kg511 = new KontnaGrupa();
+        kg511.setBrojKonta("511");
+        kg511.setNazivKonta("Naziv kontne grupe 511");
+        KontnaGrupa kg52 = new KontnaGrupa();
+        kg52.setBrojKonta("52");
+        kg52.setNazivKonta("Naziv kontne grupe 52");
+        KontnaGrupa kg50 = new KontnaGrupa();
+        kg50.setBrojKonta("50");
+        kg50.setNazivKonta("Naziv kontne grupe 50");
+        KontnaGrupa kg501 = new KontnaGrupa();
+        kg501.setBrojKonta("501");
+        kg501.setNazivKonta("Naziv kontne grupe 501");
+        KontnaGrupa kg521 = new KontnaGrupa();
+        kg521.setBrojKonta("521");
+        kg521.setNazivKonta("Naziv kontne grupe 521");
+        KontnaGrupa kg62 = new KontnaGrupa();
+        kg62.setBrojKonta("62");
+        kg62.setNazivKonta("Naziv kontne grupe 62");
+        KontnaGrupa kg621 = new KontnaGrupa();
+        kg621.setBrojKonta("621");
+        kg621.setNazivKonta("Naziv kontne grupe 621");
+        KontnaGrupa kg60 = new KontnaGrupa();
+        kg60.setBrojKonta("60");
+        kg60.setNazivKonta("Naziv kontne grupe 60");
+        KontnaGrupa kg601 = new KontnaGrupa();
+        kg601.setBrojKonta("601");
+        kg601.setNazivKonta("Naziv kontne grupe 601");
+
+        KontnaGrupa kg6t = new KontnaGrupa();
+        kg6t.setBrojKonta("6");
+        kg6t.setNazivKonta("Naziv kontne grupe 6");
+
+        KontnaGrupa kg61 = new KontnaGrupa();
+        kg61.setBrojKonta("61");
+        kg61.setNazivKonta("Naziv kontne grupe 61");
+
+        KontnaGrupa kg611 = new KontnaGrupa();
+        kg611.setBrojKonta("611");
+        kg611.setNazivKonta("Naziv kontne grupe 511");
+
+        this.kontnaGrupaRepository.saveAll(Arrays.asList(kg5t,
+                                                         kg51,
+                                                         kg511,
+                                                         kg52,
+                                                         kg521,
+                                                         kg50,
+                                                         kg501,
+                                                         kg521,
+                                                         kg5t,
+                                                         kg51,
+                                                         kg511,
+                                                         kg62,
+                                                         kg621,
+                                                         kg60,
+                                                         kg601,
+                                                         kg6t,
+                                                         kg61,
+                                                         kg611));
+        this.kontnaGrupaRepository.saveAll(Arrays.asList(kg3t, kg30, kg301, kg302, kg306, kg309, kg31, kg32, kg33, kg34, kg35));
+
+        Knjizenje knj1 = new Knjizenje();
+        knj1.setBrojNaloga("N123S3");
+        knj1.setDatumKnjizenja(new Date());
+        knj1.setDokument(fi1);
+        Knjizenje knj2 = new Knjizenje();
+        knj2.setDatumKnjizenja(new Date());
+        knj2.setBrojNaloga("N123FF3");
+        knj2.setDokument(fi1);
+        Knjizenje knj3 = new Knjizenje();
+        knj3.setDatumKnjizenja(new Date());
+        knj3.setDokument(fi2);
+        Knjizenje knj4 = new Knjizenje();
+        knj4.setDatumKnjizenja(new Date());
+        knj4.setDokument(fi2);
+        knj3.setBrojNaloga("N13S3");
+        knj4.setBrojNaloga("N23FF3");
+        knj1 = this.knjizenjeRepository.save(knj1);
+        knj2 = this.knjizenjeRepository.save(knj2);
+        knj3 = this.knjizenjeRepository.save(knj3);
+        knj4 = this.knjizenjeRepository.save(knj4);
+
+        Knjizenje knj2020 = new Knjizenje();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2020, 5, 5);
+        knj2020.setDatumKnjizenja(calendar.getTime());
+        knj2020.setDokument(fi2);
+        knj2020.setBrojNaloga("N2020FF");
+        this.knjizenjeRepository.save(knj2020);
+
+        Knjizenje knj2021 = new Knjizenje();
+        calendar = Calendar.getInstance();
+        calendar.set(2021, 5, 5);
+        knj2021.setDatumKnjizenja(calendar.getTime());
+        knj2021.setDokument(fi2);
+        knj2021.setBrojNaloga("N2020FF");
+        this.knjizenjeRepository.save(knj2021);
+
+        Konto k30 = createKonto(kg301, knj2020, 1300.0, 848.0);
+        Konto k301 = createKonto(kg301, knj2020, 700.0, 940.0);
+        Konto k302 = createKonto(kg302, knj2020, 1000.0, 504.0);
+        Konto k306 = createKonto(kg306, knj2020, 1003.0, 203.0);
+        Konto k309 = createKonto(kg309, knj2020, 200.0, 504.0);
+        Konto k31 = createKonto(kg311, knj2020, 2311.0, 2003.0);
+        Konto k32 = createKonto(kg321, knj2020, 100.0, 504.0);
+        Konto k33 = createKonto(kg331, knj2020, 450.0, 304.0);
+        Konto k34 = createKonto(kg341, knj2020, 1030.0, 584.0);
+        Konto k35 = createKonto(kg351, knj2020, 1020.0, 704.0);
+        Konto k3t2 = createKonto(kg311, knj2021, 1700.0, 1504.0);
+        Konto k3012 = createKonto(kg301, knj2021, 1090.0, 1004.0);
+        Konto k3022 = createKonto(kg302, knj2021, 1200.0, 1504.0);
+        Konto k3062 = createKonto(kg306, knj2021, 1430.0, 1594.0);
+        Konto k3092 = createKonto(kg309, knj2021, 1000.0, 504.0);
+        Konto k312 = createKonto(kg311, knj2021, 1090.0, 1004.0);
+        Konto k322 = createKonto(kg321, knj2021, 1200.0, 1504.0);
+        Konto k332 = createKonto(kg331, knj2021, 1430.0, 1594.0);
+        Konto k342 = createKonto(kg341, knj2021, 1000.0, 504.0);
+
+        Konto k51 = createKonto(kg511, knj2020, 1300.0, 848.0);
+        Konto k511 = createKonto(kg511, knj2020, 700.0, 940.0);
+        Konto k52 = createKonto(kg521, knj2020, 1000.0, 504.0);
+        Konto k50 = createKonto(kg501, knj2020, 1003.0, 203.0);
+        Konto k521 = createKonto(kg521, knj2020, 200.0, 504.0);
+        Konto k62 = createKonto(kg621, knj2020, 1030.0, 584.0);
+        Konto k60 = createKonto(kg601, knj2020, 1020.0, 704.0);
+        Konto k601 = createKonto(kg601, knj2020, 1700.0, 1504.0);
+        Konto k5t2 = createKonto(kg511, knj2021, 1299.0, 900.0);
+        Konto k512 = createKonto(kg511, knj2021, 1500.0, 848.0);
+        Konto k5112 = createKonto(kg511, knj2021, 700.0, 940.0);
+        Konto k522 = createKonto(kg521, knj2021, 1000.0, 504.0);
+        Konto k502 = createKonto(kg501, knj2021, 1203.0, 203.0);
+        Konto k5212 = createKonto(kg521, knj2021, 200.0, 504.0);
+        Konto k622 = createKonto(kg621, knj2021, 1030.0, 584.0);
+        Konto k602 = createKonto(kg601, knj2021, 1020.0, 704.0);
+        Konto k6012 = createKonto(kg601, knj2021, 1700.0, 1504.0);
+
+        this.kontoRepository.saveAll(Arrays.asList(
+            k30, k301, k302, k306, k309, k31, k32, k33, k34, k35, k3t2, k3012, k3022, k3062, k3092, k312, k322, k332, k342,
+            k51, k511, k52, k50, k521, k62, k60, k601, k5t2, k512, k5112, k522, k502, k5212, k622, k602, k6012));
+        //this.kontoRepository.saveAll(Arrays.asList(k1, k2, k3, k4, k5, k6, k7, k8, k9, k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k20));
+
+        log.info("Loading Data...");
 
         log.info("Data loaded!");
     }
