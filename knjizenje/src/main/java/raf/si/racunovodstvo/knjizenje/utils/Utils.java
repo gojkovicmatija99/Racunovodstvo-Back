@@ -19,7 +19,7 @@ public class Utils {
 
 
     public static String periodToString(Date datumOd, Date datumDo){
-        DateFormat dateFormat = new SimpleDateFormat("dd.mm.yyyy");
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
         return String.format("%s-%s",dateFormat.format(datumOd),dateFormat.format(datumDo));
 
     }
