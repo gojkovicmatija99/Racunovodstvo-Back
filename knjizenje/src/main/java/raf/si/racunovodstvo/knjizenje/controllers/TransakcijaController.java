@@ -20,7 +20,6 @@ import raf.si.racunovodstvo.knjizenje.validation.groups.OnUpdate;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import java.util.Date;
 import java.util.List;
 
 @CrossOrigin
