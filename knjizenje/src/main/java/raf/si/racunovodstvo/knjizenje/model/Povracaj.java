@@ -7,7 +7,7 @@ import java.util.Date;
 
 import javax.persistence.*;
 
-@Entity(name = "povracaj")
+@Entity
 @Getter
 @Setter
 @PrimaryKeyJoinColumn(name = "povracajId")
