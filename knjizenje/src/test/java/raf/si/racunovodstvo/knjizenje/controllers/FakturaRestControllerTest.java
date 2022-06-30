@@ -83,6 +83,7 @@ class FakturaRestControllerTest {
     @Test
     void createFaktura() throws IOException {
         Faktura faktura = new Faktura();
+        faktura.setTipFakture(TipFakture.ULAZNA_FAKTURA);
         faktura.setPreduzeceId(MOCK_ID);
         Preduzece preduzece = new Preduzece();
         preduzece.setPreduzeceId(1L);
@@ -102,6 +103,7 @@ class FakturaRestControllerTest {
     @Test
     void updateFaktura() throws IOException {
         Faktura faktura = new Faktura();
+        faktura.setTipFakture(TipFakture.ULAZNA_FAKTURA);
         faktura.setPreduzeceId(MOCK_ID);
         faktura.setDokumentId(MOCK_ID);
         Preduzece preduzece = new Preduzece();
