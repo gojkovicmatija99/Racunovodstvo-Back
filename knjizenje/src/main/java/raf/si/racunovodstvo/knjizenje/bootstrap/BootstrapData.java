@@ -11,6 +11,8 @@ import raf.si.racunovodstvo.knjizenje.model.enums.TipFakture;
 import raf.si.racunovodstvo.knjizenje.repositories.*;
 import raf.si.racunovodstvo.knjizenje.model.enums.TipTransakcije;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 
 @Component
@@ -117,70 +119,544 @@ public class BootstrapData implements CommandLineRunner {
         return povracaj;
     }
 
+    private Date getDate(int year, int month, int day) {
+        LocalDate localDate = LocalDate.of(year, month, day);
+        return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+    }
+
     @Override
     public void run(String... args) throws Exception {
 
         log.info("Loading Data...");
 
-        Faktura f1 = getDefaultFaktura();
-        f1.setBrojFakture("10");
-        f1.setIznos(1000.00);
-        f1.setBrojDokumenta("1233");
-        f1.setTipFakture(TipFakture.IZLAZNA_FAKTURA);
-        f1.setPreduzeceId(1L);
+        Faktura fu1 = new Faktura();
+        fu1.setBrojFakture("F23/11");
+        fu1.setBrojDokumenta(fu1.getBrojFakture());
+        fu1.setDatumIzdavanja(getDate(2021, 5, 11));
+        fu1.setRokZaPlacanje(getDate(2021, 5, 17));
+        fu1.setDatumPlacanja(getDate(2021, 5, 16));
+        fu1.setProdajnaVrednost(11300.00);
+        fu1.setRabatProcenat(5.00);
+        fu1.setPorezProcenat(20.00);
+        fu1.setValuta("DIN");
+        fu1.setTipFakture(TipFakture.ULAZNA_FAKTURA);
+        fu1.setTipDokumenta(TipDokumenta.FAKTURA);
+        fu1.setPreduzeceId(1L);
+        fu1.setKurs(117.00);
+        fu1.setNaplata(0.00);
 
-        Faktura f2 = getDefaultFaktura();
-        f2.setBrojFakture("5");
-        f2.setIznos(2000.00);
-        f2.setBrojDokumenta("1235");
-        f2.setPreduzeceId(2L);
+        Faktura fu2 = new Faktura();
+        fu2.setBrojFakture("F23/12");
+        fu2.setBrojDokumenta(fu2.getBrojFakture());
+        fu2.setDatumIzdavanja(getDate(2021, 5, 11));
+        fu2.setRokZaPlacanje(getDate(2021, 5, 17));
+        fu2.setDatumPlacanja(getDate(2021, 5, 16));
+        fu2.setProdajnaVrednost(12400.00);
+        fu2.setRabatProcenat(0.00);
+        fu2.setPorezProcenat(20.00);
+        fu2.setValuta("DIN");
+        fu2.setTipFakture(TipFakture.ULAZNA_FAKTURA);
+        fu2.setTipDokumenta(TipDokumenta.FAKTURA);
+        fu2.setPreduzeceId(1L);
+        fu2.setKurs(117.00);
+        fu2.setNaplata(0.00);
 
-        Faktura f3 = getDefaultFaktura();
-        f3.setIznos(3000.00);
-        f3.setPreduzeceId(2L);
-        f3.setTipFakture(TipFakture.IZLAZNA_FAKTURA);
+        Faktura fu3 = new Faktura();
+        fu3.setBrojFakture("F23/13");
+        fu3.setBrojDokumenta(fu3.getBrojFakture());
+        fu3.setDatumIzdavanja(getDate(2021, 5, 12));
+        fu3.setRokZaPlacanje(getDate(2021, 5, 17));
+        fu3.setDatumPlacanja(getDate(2021, 5, 16));
+        fu3.setProdajnaVrednost(11000.00);
+        fu3.setRabatProcenat(0.00);
+        fu3.setPorezProcenat(20.00);
+        fu3.setValuta("DIN");
+        fu3.setTipFakture(TipFakture.ULAZNA_FAKTURA);
+        fu3.setTipDokumenta(TipDokumenta.FAKTURA);
+        fu3.setPreduzeceId(1L);
+        fu3.setKurs(117.00);
+        fu3.setNaplata(0.00);
 
-        Faktura f4 = getDefaultFaktura();
-        f4.setBrojFakture("7");
-        f4.setIznos(4000.00);
-        f4.setBrojDokumenta("1237");
-        f4.setPreduzeceId(2L);
+        Faktura fu4 = new Faktura();
+        fu4.setBrojFakture("F23/14");
+        fu4.setBrojDokumenta(fu4.getBrojFakture());
+        fu4.setDatumIzdavanja(getDate(2021, 5, 12));
+        fu4.setRokZaPlacanje(getDate(2021, 5, 17));
+        fu4.setDatumPlacanja(getDate(2021, 5, 16));
+        fu4.setProdajnaVrednost(22000.00);
+        fu4.setRabatProcenat(0.00);
+        fu4.setPorezProcenat(20.00);
+        fu4.setValuta("DIN");
+        fu4.setTipFakture(TipFakture.ULAZNA_FAKTURA);
+        fu4.setTipDokumenta(TipDokumenta.FAKTURA);
+        fu4.setPreduzeceId(1L);
+        fu4.setKurs(117.00);
+        fu4.setNaplata(0.00);
 
-        Faktura f5 = getDefaultFaktura();
-        f5.setBrojFakture("9");
-        f5.setIznos(3000.00);
-        f5.setBrojDokumenta("1239");
-        f5.setPreduzeceId(2L);
-        f5.setTipFakture(TipFakture.IZLAZNA_FAKTURA);
+        Faktura fu5 = new Faktura();
+        fu5.setBrojFakture("F23/15");
+        fu5.setBrojDokumenta(fu5.getBrojFakture());
+        fu5.setDatumIzdavanja(getDate(2021, 5, 12));
+        fu5.setRokZaPlacanje(getDate(2021, 5, 18));
+        fu5.setDatumPlacanja(getDate(2021, 5, 12));
+        fu5.setProdajnaVrednost(750000.00);
+        fu5.setRabatProcenat(0.00);
+        fu5.setPorezProcenat(20.00);
+        fu5.setValuta("GBP");
+        fu5.setKomentar("inostranstvo");
+        fu5.setTipFakture(TipFakture.ULAZNA_FAKTURA);
+        fu5.setTipDokumenta(TipDokumenta.FAKTURA);
+        fu5.setPreduzeceId(2L);
+        fu5.setKurs(117.00);
+        fu5.setNaplata(0.00);
 
-        Faktura f6 = getDefaultFaktura();
-        f6.setIznos(15000.00);
-        f6.setBrojFakture("8");
-        f6.setBrojDokumenta("123366");
-        f6.setPreduzeceId(2L);
-        f6.setTipFakture(TipFakture.MALOPRODAJNA_FAKTURA);
+        Faktura fu6 = new Faktura();
+        fu6.setBrojFakture("F23/16");
+        fu6.setBrojDokumenta(fu6.getBrojFakture());
+        fu6.setDatumIzdavanja(getDate(2021, 5, 12));
+        fu6.setRokZaPlacanje(getDate(2021, 5, 12));
+        fu6.setDatumPlacanja(getDate(2021, 5, 12));
+        fu6.setProdajnaVrednost(55000.00);
+        fu6.setRabatProcenat(0.00);
+        fu6.setPorezProcenat(20.00);
+        fu6.setValuta("GBP");
+        fu6.setKomentar("inostranstvo");
+        fu6.setTipFakture(TipFakture.ULAZNA_FAKTURA);
+        fu6.setTipDokumenta(TipDokumenta.FAKTURA);
+        fu6.setPreduzeceId(2L);
+        fu6.setKurs(117.00);
+        fu6.setNaplata(0.00);
 
-        Faktura f7 = getDefaultFaktura();
-        f7.setIznos(20000.00);
-        f7.setBrojFakture("7");
-        f7.setBrojFakture("33SSSS9");
-        f7.setBrojDokumenta("1233222");
-        f7.setPreduzeceId(2L);
-        f7.setTipFakture(TipFakture.MALOPRODAJNA_FAKTURA);
+        Faktura fu7 = new Faktura();
+        fu7.setBrojFakture("F23/17");
+        fu7.setBrojDokumenta(fu7.getBrojFakture());
+        fu7.setDatumIzdavanja(getDate(2021, 5, 12));
+        fu7.setRokZaPlacanje(getDate(2021, 5, 12));
+        fu7.setDatumPlacanja(getDate(2021, 5, 12));
+        fu7.setProdajnaVrednost(55000.00);
+        fu7.setRabatProcenat(0.00);
+        fu7.setPorezProcenat(20.00);
+        fu7.setValuta("GBP");
+        fu7.setKomentar("inostranstvo");
+        fu7.setPreduzeceId(1L);
+        fu7.setTipFakture(TipFakture.ULAZNA_FAKTURA);
+        fu7.setTipDokumenta(TipDokumenta.FAKTURA);
+        fu7.setPreduzeceId(2L);
+        fu7.setKurs(117.00);
+        fu7.setNaplata(0.00);
 
-        this.fakturaRepository.save(f1);
-        this.fakturaRepository.save(f2);
-        this.fakturaRepository.save(f3);
-        this.fakturaRepository.save(f4);
-        this.fakturaRepository.save(f5);
-        this.fakturaRepository.save(f6);
-        this.fakturaRepository.save(f7);
+        Faktura fu8 = new Faktura();
+        fu8.setBrojFakture("F24/11");
+        fu8.setBrojDokumenta(fu8.getBrojFakture());
+        fu8.setDatumIzdavanja(getDate(2021, 5, 12));
+        fu8.setRokZaPlacanje(getDate(2021, 5, 12));
+        fu8.setDatumPlacanja(getDate(2021, 5, 12));
+        fu8.setProdajnaVrednost(750000.00);
+        fu8.setRabatProcenat(10.00);
+        fu8.setPorezProcenat(20.00);
+        fu8.setValuta("GBP");
+        fu8.setKomentar("inostranstvo");
+        fu8.setTipFakture(TipFakture.ULAZNA_FAKTURA);
+        fu8.setTipDokumenta(TipDokumenta.FAKTURA);
+        fu8.setPreduzeceId(2L);
+        fu8.setKurs(117.00);
+        fu8.setNaplata(0.00);
+
+        Faktura fu9 = new Faktura();
+        fu9.setBrojFakture("F24/12");
+        fu9.setBrojDokumenta(fu9.getBrojFakture());
+        fu9.setDatumIzdavanja(getDate(2021, 5, 12));
+        fu9.setRokZaPlacanje(getDate(2021, 5, 12));
+        fu9.setDatumPlacanja(getDate(2021, 5, 12));
+        fu9.setProdajnaVrednost(100000.00);
+        fu9.setRabatProcenat(10.00);
+        fu9.setPorezProcenat(20.00);
+        fu9.setValuta("GBP");
+        fu9.setKomentar("inostranstvo");
+        fu9.setTipFakture(TipFakture.ULAZNA_FAKTURA);
+        fu9.setTipDokumenta(TipDokumenta.FAKTURA);
+        fu9.setPreduzeceId(2L);
+        fu9.setKurs(117.00);
+        fu9.setNaplata(0.00);
+
+        Faktura fi1 = new Faktura();
+        fi1.setBrojFakture("F24/13");
+        fi1.setBrojDokumenta(fi1.getBrojFakture());
+        fi1.setDatumIzdavanja(getDate(2021, 5, 13));
+        fi1.setRokZaPlacanje(getDate(2021, 7, 31));
+        fi1.setDatumPlacanja(getDate(2021, 7, 31));
+        fi1.setProdajnaVrednost(23400.00);
+        fi1.setRabatProcenat(5.00);
+        fi1.setPorezProcenat(20.00);
+        fi1.setValuta("DIN");
+        fi1.setTipFakture(TipFakture.IZLAZNA_FAKTURA);
+        fi1.setTipDokumenta(TipDokumenta.FAKTURA);
+        fi1.setPreduzeceId(3L);
+        fi1.setKurs(117.00);
+        fi1.setNaplata(0.00);
+
+        Faktura fi2 = new Faktura();
+        fi2.setBrojFakture("F24/14");
+        fi2.setBrojDokumenta(fi2.getBrojFakture());
+        fi2.setDatumIzdavanja(getDate(2021, 5, 13));
+        fi2.setRokZaPlacanje(getDate(2021, 7, 31));
+        fi2.setDatumPlacanja(getDate(2021, 5, 20));
+        fi2.setProdajnaVrednost(23400.00);
+        fi2.setRabatProcenat(10.00);
+        fi2.setPorezProcenat(20.00);
+        fi2.setValuta("DIN");
+        fi2.setTipFakture(TipFakture.IZLAZNA_FAKTURA);
+        fi2.setTipDokumenta(TipDokumenta.FAKTURA);
+        fi2.setPreduzeceId(3L);
+        fi2.setKurs(117.00);
+        fi2.setNaplata(0.00);
+
+        Faktura fi3 = new Faktura();
+        fi3.setBrojFakture("F24/15");
+        fi3.setBrojDokumenta(fi3.getBrojFakture());
+        fi3.setDatumIzdavanja(getDate(2021, 5, 15));
+        fi3.setRokZaPlacanje(getDate(2021, 5, 22));
+        fi3.setDatumPlacanja(getDate(2021, 5, 22));
+        fi3.setProdajnaVrednost(23400.00);
+        fi3.setRabatProcenat(5.00);
+        fi3.setPorezProcenat(20.00);
+        fi3.setValuta("GBP");
+        fi3.setKomentar("inostranstvo");
+        fi3.setTipFakture(TipFakture.IZLAZNA_FAKTURA);
+        fi3.setTipDokumenta(TipDokumenta.FAKTURA);
+        fi3.setPreduzeceId(2L);
+        fi3.setKurs(117.00);
+        fi3.setNaplata(0.00);
+
+        Faktura fi4 = new Faktura();
+        fi4.setBrojFakture("F24/16");
+        fi4.setBrojDokumenta(fi4.getBrojFakture());
+        fi4.setDatumIzdavanja(getDate(2021, 5, 16));
+        fi4.setRokZaPlacanje(getDate(2021, 5, 22));
+        fi4.setDatumPlacanja(getDate(2021, 5, 21));
+        fi4.setProdajnaVrednost(11000.00);
+        fi4.setRabatProcenat(10.00);
+        fi4.setPorezProcenat(20.00);
+        fi4.setValuta("DIN");
+        fi4.setTipFakture(TipFakture.IZLAZNA_FAKTURA);
+        fi4.setTipDokumenta(TipDokumenta.FAKTURA);
+        fi4.setPreduzeceId(1L);
+        fi4.setKurs(117.00);
+        fi4.setNaplata(0.00);
+
+        Faktura fi5 = new Faktura();
+        fi5.setBrojFakture("F24/17");
+        fi5.setBrojDokumenta(fi5.getBrojFakture());
+        fi5.setDatumIzdavanja(getDate(2021, 5, 17));
+        fi5.setRokZaPlacanje(getDate(2021, 7, 31));
+        fi5.setDatumPlacanja(getDate(2021, 5, 17));
+        fi5.setProdajnaVrednost(23400.00);
+        fi5.setRabatProcenat(5.00);
+        fi5.setPorezProcenat(20.00);
+        fi5.setValuta("DIN");
+        fi5.setTipFakture(TipFakture.IZLAZNA_FAKTURA);
+        fi5.setTipDokumenta(TipDokumenta.FAKTURA);
+        fi5.setPreduzeceId(3L);
+        fi5.setKurs(117.00);
+        fi5.setNaplata(0.00);
+
+        Faktura fi6 = new Faktura();
+        fi6.setBrojFakture("F24/18");
+        fi6.setBrojDokumenta(fi6.getBrojFakture());
+        fi6.setDatumIzdavanja(getDate(2021, 5, 18));
+        fi6.setRokZaPlacanje(getDate(2021, 10, 31));
+        fi6.setDatumPlacanja(getDate(2021, 5, 18));
+        fi6.setProdajnaVrednost(85230.00);
+        fi6.setRabatProcenat(0.00);
+        fi6.setPorezProcenat(20.00);
+        fi6.setValuta("USD");
+        fi6.setKomentar("inostranstvo");
+        fi6.setTipFakture(TipFakture.IZLAZNA_FAKTURA);
+        fi6.setTipDokumenta(TipDokumenta.FAKTURA);
+        fi6.setPreduzeceId(4L);
+        fi6.setKurs(117.00);
+        fi6.setNaplata(0.00);
+
+        this.fakturaRepository.save(fu1);
+        this.fakturaRepository.save(fu2);
+        this.fakturaRepository.save(fu3);
+        this.fakturaRepository.save(fu4);
+        this.fakturaRepository.save(fu5);
+        this.fakturaRepository.save(fu6);
+        this.fakturaRepository.save(fu7);
+        this.fakturaRepository.save(fu8);
+        this.fakturaRepository.save(fu9);
+        this.fakturaRepository.save(fi1);
+        this.fakturaRepository.save(fi2);
+        this.fakturaRepository.save(fi3);
+        this.fakturaRepository.save(fi4);
+        this.fakturaRepository.save(fi5);
+        this.fakturaRepository.save(fi6);
+
+        SifraTransakcije st1 = new SifraTransakcije();
+        st1.setSifra(124L);
+        st1.setNazivTransakcije("Investicije-ostalo");
+        SifraTransakcije st2 = new SifraTransakcije();
+        st2.setSifra(288L);
+        st2.setNazivTransakcije("Donacije");
+        SifraTransakcije st3 = new SifraTransakcije();
+        st3.setSifra(363L);
+        st3.setNazivTransakcije("Ostali transferi");
+        SifraTransakcije st4 = new SifraTransakcije();
+        st4.setSifra(163L);
+        st4.setNazivTransakcije("Ostali transferi");
+
+        this.sifraTransakcijeRepository.save(st1);
+        this.sifraTransakcijeRepository.save(st2);
+        this.sifraTransakcijeRepository.save(st3);
+        this.sifraTransakcijeRepository.save(st4);
+
+        Transakcija t1 = new Transakcija();
+        t1.setBrojTransakcije("T11/23");
+        t1.setPreduzeceId(3L);
+        t1.setDatumTransakcije(getDate(2021, 5, 22));
+        t1.setTipTransakcije(TipTransakcije.ISPLATA);
+        t1.setIznos(11700.00);
+        t1.setSifraTransakcije(st1);
+        t1.setBrojDokumenta(t1.getBrojTransakcije());
+        t1.setTipDokumenta(TipDokumenta.TRANSAKCIJA);
+
+        Transakcija t2 = new Transakcija();
+        t2.setBrojTransakcije("T11/24");
+        t2.setPreduzeceId(2L);
+        t2.setDatumTransakcije(getDate(2021, 5, 23));
+        t2.setTipTransakcije(TipTransakcije.ISPLATA);
+        t2.setIznos(11700.00);
+        t2.setSifraTransakcije(st1);
+        t2.setKomentar("inostranstvo");
+        t2.setBrojDokumenta(t2.getBrojTransakcije());
+        t2.setTipDokumenta(TipDokumenta.TRANSAKCIJA);
+
+        Transakcija t3 = new Transakcija();
+        t3.setBrojTransakcije("T11/25");
+        t3.setDatumTransakcije(getDate(2021, 5, 27));
+        t3.setTipTransakcije(TipTransakcije.UPLATA);
+        t3.setIznos(40000.00);
+        t3.setSadrzaj("Donacija Pavle Marković");
+        t3.setSifraTransakcije(st2);
+        t3.setPreduzeceId(3L);
+        t3.setBrojDokumenta(t3.getBrojTransakcije());
+        t3.setTipDokumenta(TipDokumenta.TRANSAKCIJA);
+
+        Transakcija t4 = new Transakcija();
+        t4.setBrojTransakcije("T23/33");
+        t4.setPreduzeceId(3L);
+        t4.setDatumTransakcije(getDate(2021, 5, 27));
+        t4.setTipTransakcije(TipTransakcije.ISPLATA);
+        t4.setIznos(12000.00);
+        t4.setSifraTransakcije(st3);
+        t4.setBrojDokumenta(t4.getBrojTransakcije());
+        t4.setTipDokumenta(TipDokumenta.TRANSAKCIJA);
+
+        Transakcija t5 = new Transakcija();
+        t5.setBrojTransakcije("T11OST");
+        t5.setPreduzeceId(3L);
+        t5.setDatumTransakcije(getDate(2021, 5, 29));
+        t5.setTipTransakcije(TipTransakcije.ISPLATA);
+        t5.setIznos(40000.00);
+        t5.setSifraTransakcije(st4);
+        t5.setBrojDokumenta(t5.getBrojTransakcije());
+        t5.setTipDokumenta(TipDokumenta.TRANSAKCIJA);
+
+        this.transakcijaRepository.save(t1);
+        this.transakcijaRepository.save(t2);
+        this.transakcijaRepository.save(t3);
+        this.transakcijaRepository.save(t4);
+        this.transakcijaRepository.save(t5);
+
+        Faktura mpf1 = new Faktura();
+        mpf1.setBrojFakture("MP12/21");
+        mpf1.setBrojDokumenta(mpf1.getBrojFakture());
+        mpf1.setDatumIzdavanja(getDate(2021, 4, 5));
+        mpf1.setRokZaPlacanje(getDate(2021, 4, 5));
+        mpf1.setDatumPlacanja(getDate(2021, 4, 5));
+        mpf1.setProdajnaVrednost(5300.00);
+        mpf1.setRabatProcenat(0.00);
+        mpf1.setPorezProcenat(20.00);
+        mpf1.setPreduzeceId(1L);
+        mpf1.setValuta("DIN");
+        mpf1.setTipFakture(TipFakture.MALOPRODAJNA_FAKTURA);
+        mpf1.setTipDokumenta(TipDokumenta.FAKTURA);
+        mpf1.setKurs(117.00);
+        mpf1.setNaplata(0.00);
+
+        Faktura mpf2 = new Faktura();
+        mpf2.setPreduzeceId(2L);
+        mpf2.setBrojFakture("MP12/22");
+        mpf2.setBrojDokumenta(mpf2.getBrojFakture());
+        mpf2.setDatumIzdavanja(getDate(2021, 4, 5));
+        mpf2.setRokZaPlacanje(getDate(2021, 4, 5));
+        mpf2.setDatumPlacanja(getDate(2021, 4, 5));
+        mpf2.setProdajnaVrednost(11700.00);
+        mpf2.setRabatProcenat(0.00);
+        mpf2.setPorezProcenat(20.00);
+        mpf2.setValuta("DIN");
+        mpf2.setTipFakture(TipFakture.MALOPRODAJNA_FAKTURA);
+        mpf2.setTipDokumenta(TipDokumenta.FAKTURA);
+        mpf2.setKurs(117.00);
+        mpf2.setNaplata(0.00);
+
+        Faktura mpf3 = new Faktura();
+        mpf3.setPreduzeceId(3L);
+        mpf3.setBrojFakture("MP12/23");
+        mpf3.setBrojDokumenta(mpf3.getBrojFakture());
+        mpf3.setDatumIzdavanja(getDate(2021, 5, 7));
+        mpf3.setRokZaPlacanje(getDate(2021, 5, 7));
+        mpf3.setDatumPlacanja(getDate(2021, 5, 7));
+        mpf3.setProdajnaVrednost(24500.00);
+        mpf3.setRabatProcenat(0.00);
+        mpf3.setPorezProcenat(20.00);
+        mpf3.setValuta("DIN");
+        mpf3.setTipFakture(TipFakture.MALOPRODAJNA_FAKTURA);
+        mpf3.setTipDokumenta(TipDokumenta.FAKTURA);
+        mpf3.setKurs(117.00);
+        mpf3.setNaplata(0.00);
+
+        Faktura mpf4 = new Faktura();
+        mpf4.setPreduzeceId(4L);
+        mpf4.setBrojFakture("MP17/21");
+        mpf4.setBrojDokumenta(mpf4.getBrojFakture());
+        mpf4.setDatumIzdavanja(getDate(2021, 5, 7));
+        mpf4.setRokZaPlacanje(getDate(2021, 5, 7));
+        mpf4.setDatumPlacanja(getDate(2021, 5, 7));
+        mpf4.setProdajnaVrednost(9200.00);
+        mpf4.setRabatProcenat(0.00);
+        mpf4.setPorezProcenat(20.00);
+        mpf4.setValuta("DIN");
+        mpf4.setTipFakture(TipFakture.MALOPRODAJNA_FAKTURA);
+        mpf4.setTipDokumenta(TipDokumenta.FAKTURA);
+        mpf4.setKurs(117.00);
+        mpf4.setNaplata(0.00);
+
+        Faktura mpf5 = new Faktura();
+        mpf5.setPreduzeceId(5L);
+        mpf5.setBrojFakture("MP18/22");
+        mpf5.setBrojDokumenta(mpf5.getBrojFakture());
+        mpf5.setDatumIzdavanja(getDate(2021, 6, 12));
+        mpf5.setRokZaPlacanje(getDate(2021, 6, 12));
+        mpf5.setDatumPlacanja(getDate(2021, 6, 12));
+        mpf5.setProdajnaVrednost(8350.00);
+        mpf5.setRabatProcenat(0.00);
+        mpf5.setPorezProcenat(20.00);
+        mpf5.setValuta("DIN");
+        mpf5.setTipFakture(TipFakture.MALOPRODAJNA_FAKTURA);
+        mpf5.setTipDokumenta(TipDokumenta.FAKTURA);
+        mpf5.setKurs(117.00);
+        mpf5.setNaplata(0.00);
+
+        this.fakturaRepository.save(mpf1);
+        this.fakturaRepository.save(mpf2);
+        this.fakturaRepository.save(mpf3);
+        this.fakturaRepository.save(mpf4);
+        this.fakturaRepository.save(mpf5);
+
+        Povracaj pov1 = new Povracaj();
+        pov1.setBrojPovracaja("P01");
+        pov1.setDatumPovracaja(getDate(2021, 4, 5));
+        pov1.setProdajnaVrednost(5300.00);
+
+        Povracaj pov2 = new Povracaj();
+        pov2.setBrojPovracaja("P02");
+        pov2.setDatumPovracaja(getDate(2021, 5, 7));
+        pov2.setProdajnaVrednost(11700.00);
+
+        Povracaj pov3 = new Povracaj();
+        pov3.setBrojPovracaja("P03");
+        pov3.setDatumPovracaja(getDate(2021, 5, 7));
+        pov3.setProdajnaVrednost(24500.00);
+
+        Povracaj pov4 = new Povracaj();
+        pov4.setBrojPovracaja("P04");
+        pov4.setDatumPovracaja(getDate(2021, 6, 12));
+        pov4.setProdajnaVrednost(2000.00);
+
+        this.povracajRepository.save(pov1);
+        this.povracajRepository.save(pov2);
+        this.povracajRepository.save(pov3);
+        this.povracajRepository.save(pov4);
+
+        TroskovniCentar tc1 = new TroskovniCentar();
+        tc1.setSifra("MAG-BG");
+        tc1.setNaziv("MAGACINI");
+        tc1.setLokacijaId(11L);
+        tc1.setOdgovornoLiceId(1L);
+        tc1.setUkupniTrosak(0.00);
+
+        TroskovniCentar tc2 = new TroskovniCentar();
+        tc2.setSifra("MAG-NBG");
+        tc2.setNaziv("MAGACIN - NOVI BEOGRAD");
+        tc2.setParentTroskovniCentar(tc1);
+        tc2.setLokacijaId(11L);
+        tc2.setOdgovornoLiceId(1L);
+        tc2.setUkupniTrosak(0.00);
+
+        TroskovniCentar tc3 = new TroskovniCentar();
+        tc3.setSifra("MAG-NBG-DC");
+        tc3.setNaziv("MAGACIN - NOVI BEOGRAD, DELTA CITY");
+        tc3.setParentTroskovniCentar(tc2);
+        tc3.setLokacijaId(11L);
+        tc3.setOdgovornoLiceId(1L);
+        tc3.setUkupniTrosak(0.00);
+
+        TroskovniCentar tc4 = new TroskovniCentar();
+        tc4.setSifra("MAG-SV");
+        tc4.setNaziv("MAGACIN - SAVSKI VENAC");
+        tc4.setParentTroskovniCentar(tc1);
+        tc4.setLokacijaId(11L);
+        tc4.setOdgovornoLiceId(1L);
+        tc4.setUkupniTrosak(0.00);
+
+        TroskovniCentar tc5 = new TroskovniCentar();
+        tc5.setSifra("MAG-Z");
+        tc5.setNaziv("MAGACIN - ZEMUN");
+        tc5.setParentTroskovniCentar(tc1);
+        tc5.setLokacijaId(11L);
+        tc5.setOdgovornoLiceId(1L);
+        tc5.setUkupniTrosak(0.00);
+
+        this.troskovniCentarRepository.save(tc1);
+        this.troskovniCentarRepository.save(tc2);
+        this.troskovniCentarRepository.save(tc3);
+        this.troskovniCentarRepository.save(tc4);
+        this.troskovniCentarRepository.save(tc5);
+
+        ProfitniCentar pc1 = new ProfitniCentar();
+        pc1.setSifra("MP-BG");
+        pc1.setNaziv("MALOPRODAJE");
+        pc1.setLokacijaId(11L);
+        pc1.setOdgovornoLiceId(1L);
+        pc1.setUkupniTrosak(0.00);
+
+        ProfitniCentar pc2 = new ProfitniCentar();
+        pc2.setSifra("MP-NBG");
+        pc2.setNaziv("MALOPRODAJA - NOVI BEOGRAD");
+        pc2.setParentProfitniCentar(pc1);
+        pc2.setLokacijaId(11L);
+        pc2.setOdgovornoLiceId(1L);
+        pc2.setUkupniTrosak(0.00);
+
+        ProfitniCentar pc3 = new ProfitniCentar();
+        pc3.setSifra("MP-NBG");
+        pc3.setNaziv("MALOPRODAJA - NBG - DELTA CITY");
+        pc3.setParentProfitniCentar(pc2);
+        pc3.setLokacijaId(11L);
+        pc3.setOdgovornoLiceId(1L);
+        pc3.setUkupniTrosak(0.00);
+
+        this.profitniCentarRepository.save(pc1);
+        this.profitniCentarRepository.save(pc2);
+        this.profitniCentarRepository.save(pc3);
 
         KontnaGrupa kg1 = new KontnaGrupa();
         kg1.setBrojKonta("0");
         kg1.setNazivKonta("Naziv kontne grupe 0");
 
-         this.kontnaGrupaRepository.save(kg1);
+        this.kontnaGrupaRepository.save(kg1);
 
         KontnaGrupa kg3t = new KontnaGrupa();
         kg3t.setBrojKonta("3");
@@ -230,8 +706,22 @@ public class BootstrapData implements CommandLineRunner {
         KontnaGrupa kg351 = new KontnaGrupa();
         kg351.setBrojKonta("351");
         kg351.setNazivKonta("Naziv kontne grupe 351");
-        this.kontnaGrupaRepository.saveAll(Arrays.asList(kg3t, kg30, kg301, kg302, kg306, kg309, kg31,kg311, kg32, kg321, kg33,kg331, kg34,kg341, kg35, kg351));
-
+        this.kontnaGrupaRepository.saveAll(Arrays.asList(kg3t,
+                                                         kg30,
+                                                         kg301,
+                                                         kg302,
+                                                         kg306,
+                                                         kg309,
+                                                         kg31,
+                                                         kg311,
+                                                         kg32,
+                                                         kg321,
+                                                         kg33,
+                                                         kg331,
+                                                         kg34,
+                                                         kg341,
+                                                         kg35,
+                                                         kg351));
 
         KontnaGrupa kg5t = new KontnaGrupa();
         kg5t.setBrojKonta("5");
@@ -267,7 +757,6 @@ public class BootstrapData implements CommandLineRunner {
         kg601.setBrojKonta("601");
         kg601.setNazivKonta("Naziv kontne grupe 601");
 
-
         KontnaGrupa kg6t = new KontnaGrupa();
         kg6t.setBrojKonta("6");
         kg6t.setNazivKonta("Naziv kontne grupe 6");
@@ -280,24 +769,40 @@ public class BootstrapData implements CommandLineRunner {
         kg611.setBrojKonta("611");
         kg611.setNazivKonta("Naziv kontne grupe 511");
 
-
-        this.kontnaGrupaRepository.saveAll(Arrays.asList(kg5t,kg51,kg511,kg52,kg521,kg50,kg501,kg521,kg5t,kg51,kg511,kg62,kg621,kg60,kg601,kg6t,kg61,kg611));
+        this.kontnaGrupaRepository.saveAll(Arrays.asList(kg5t,
+                                                         kg51,
+                                                         kg511,
+                                                         kg52,
+                                                         kg521,
+                                                         kg50,
+                                                         kg501,
+                                                         kg521,
+                                                         kg5t,
+                                                         kg51,
+                                                         kg511,
+                                                         kg62,
+                                                         kg621,
+                                                         kg60,
+                                                         kg601,
+                                                         kg6t,
+                                                         kg61,
+                                                         kg611));
         this.kontnaGrupaRepository.saveAll(Arrays.asList(kg3t, kg30, kg301, kg302, kg306, kg309, kg31, kg32, kg33, kg34, kg35));
 
         Knjizenje knj1 = new Knjizenje();
         knj1.setBrojNaloga("N123S3");
         knj1.setDatumKnjizenja(new Date());
-        knj1.setDokument(f1);
+        knj1.setDokument(fi1);
         Knjizenje knj2 = new Knjizenje();
         knj2.setDatumKnjizenja(new Date());
         knj2.setBrojNaloga("N123FF3");
-        knj2.setDokument(f1);
+        knj2.setDokument(fi1);
         Knjizenje knj3 = new Knjizenje();
         knj3.setDatumKnjizenja(new Date());
-        knj3.setDokument(f2);
+        knj3.setDokument(fi2);
         Knjizenje knj4 = new Knjizenje();
         knj4.setDatumKnjizenja(new Date());
-        knj4.setDokument(f2);
+        knj4.setDokument(fi2);
         knj3.setBrojNaloga("N13S3");
         knj4.setBrojNaloga("N23FF3");
         knj1 = this.knjizenjeRepository.save(knj1);
@@ -309,7 +814,7 @@ public class BootstrapData implements CommandLineRunner {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2020, 5, 5);
         knj2020.setDatumKnjizenja(calendar.getTime());
-        knj2020.setDokument(f2);
+        knj2020.setDokument(fi2);
         knj2020.setBrojNaloga("N2020FF");
         this.knjizenjeRepository.save(knj2020);
 
@@ -317,7 +822,7 @@ public class BootstrapData implements CommandLineRunner {
         calendar = Calendar.getInstance();
         calendar.set(2021, 5, 5);
         knj2021.setDatumKnjizenja(calendar.getTime());
-        knj2021.setDokument(f2);
+        knj2021.setDokument(fi2);
         knj2021.setBrojNaloga("N2020FF");
         this.knjizenjeRepository.save(knj2021);
 
@@ -341,165 +846,28 @@ public class BootstrapData implements CommandLineRunner {
         Konto k332 = createKonto(kg331, knj2021, 1430.0, 1594.0);
         Konto k342 = createKonto(kg341, knj2021, 1000.0, 504.0);
 
-        Konto k51 = createKonto(kg511,knj2020,1300.0, 848.0);
-        Konto k511 = createKonto(kg511,knj2020,700.0, 940.0);
-        Konto k52 = createKonto(kg521,knj2020,1000.0, 504.0);
-        Konto k50 = createKonto(kg501,knj2020,1003.0, 203.0);
-        Konto k521 = createKonto(kg521,knj2020,200.0, 504.0);
-        Konto k62 = createKonto(kg621,knj2020,1030.0, 584.0);
-        Konto k60 = createKonto(kg601,knj2020,1020.0, 704.0);
-        Konto k601 = createKonto(kg601,knj2020,1700.0, 1504.0);
-        Konto k5t2 = createKonto(kg511,knj2021,1299.0, 900.0);
-        Konto k512 = createKonto(kg511,knj2021,1500.0, 848.0);
-        Konto k5112 = createKonto(kg511,knj2021,700.0, 940.0);
-        Konto k522 = createKonto(kg521,knj2021,1000.0, 504.0);
-        Konto k502 = createKonto(kg501,knj2021,1203.0, 203.0);
-        Konto k5212 = createKonto(kg521,knj2021,200.0, 504.0);
-        Konto k622 = createKonto(kg621,knj2021,1030.0, 584.0);
-        Konto k602 = createKonto(kg601,knj2021,1020.0, 704.0);
-        Konto k6012 = createKonto(kg601,knj2021,1700.0, 1504.0);
+        Konto k51 = createKonto(kg511, knj2020, 1300.0, 848.0);
+        Konto k511 = createKonto(kg511, knj2020, 700.0, 940.0);
+        Konto k52 = createKonto(kg521, knj2020, 1000.0, 504.0);
+        Konto k50 = createKonto(kg501, knj2020, 1003.0, 203.0);
+        Konto k521 = createKonto(kg521, knj2020, 200.0, 504.0);
+        Konto k62 = createKonto(kg621, knj2020, 1030.0, 584.0);
+        Konto k60 = createKonto(kg601, knj2020, 1020.0, 704.0);
+        Konto k601 = createKonto(kg601, knj2020, 1700.0, 1504.0);
+        Konto k5t2 = createKonto(kg511, knj2021, 1299.0, 900.0);
+        Konto k512 = createKonto(kg511, knj2021, 1500.0, 848.0);
+        Konto k5112 = createKonto(kg511, knj2021, 700.0, 940.0);
+        Konto k522 = createKonto(kg521, knj2021, 1000.0, 504.0);
+        Konto k502 = createKonto(kg501, knj2021, 1203.0, 203.0);
+        Konto k5212 = createKonto(kg521, knj2021, 200.0, 504.0);
+        Konto k622 = createKonto(kg621, knj2021, 1030.0, 584.0);
+        Konto k602 = createKonto(kg601, knj2021, 1020.0, 704.0);
+        Konto k6012 = createKonto(kg601, knj2021, 1700.0, 1504.0);
 
         this.kontoRepository.saveAll(Arrays.asList(
-                k30,k301,k302,k306,k309,k31,k32,k33,k34,k35,k3t2,k3012,k3022,k3062,k3092,k312,k322,k332,k342,
-                k51,k511,k52,k50,k521,k62,k60,k601,k5t2,k512,k5112,k522,k502,k5212,k622,k602,k6012));
+            k30, k301, k302, k306, k309, k31, k32, k33, k34, k35, k3t2, k3012, k3022, k3062, k3092, k312, k322, k332, k342,
+            k51, k511, k52, k50, k521, k62, k60, k601, k5t2, k512, k5112, k522, k502, k5212, k622, k602, k6012));
         //this.kontoRepository.saveAll(Arrays.asList(k1, k2, k3, k4, k5, k6, k7, k8, k9, k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k20));
-
-        Konto konto1 = new Konto();
-        konto1.setDuguje(1000.0);
-        konto1.setPotrazuje(500.0);
-        konto1.setKnjizenje(knj1);
-        konto1.setKontnaGrupa(kg1);
-        konto1 = kontoRepository.save(konto1);
-
-        Konto konto2 = new Konto();
-        konto2.setDuguje(2000.0);
-        konto2.setKnjizenje(knj1);
-        konto2.setKontnaGrupa(kg1);
-        konto2.setPotrazuje(1000.0);
-        kontoRepository.save(konto2);
-
-        Konto konto3 = new Konto();
-        konto3.setDuguje(0.0);
-        konto3.setKnjizenje(knj1);
-        konto3.setKontnaGrupa(kg1);
-        konto3.setPotrazuje(1000.0);
-        kontoRepository.save(konto3);
-
-        Knjizenje knjizenje = new Knjizenje();
-
-        kontoRepository.save(konto1);
-        knjizenje.setKnjizenjeId(knj1.getKnjizenjeId());
-        knjizenje.setKonto(List.of(konto1, konto2, konto3));
-        knjizenje.setDatumKnjizenja(new Date());
-        knjizenje.setBrojNaloga("N 1234");
-        knjizenjeRepository.save(knjizenje);
-        konto1.setKnjizenje(knjizenje);
-        konto2.setKnjizenje(knjizenje);
-        konto3.setKnjizenje(knjizenje);
-        kontoRepository.save(konto1);
-
-        ProfitniCentar profitniCentar = new ProfitniCentar();
-        profitniCentar.setUkupniTrosak(100.00);
-        profitniCentar.setNaziv("Profitni centar 1");
-        profitniCentar.setLokacijaId(1l);
-        profitniCentar.setSifra("1");
-        profitniCentar.setOdgovornoLiceId(1l);
-        profitniCentarRepository.save(profitniCentar);
-
-        ProfitniCentar profitniCentar2 = new ProfitniCentar();
-        profitniCentar2.setUkupniTrosak(100.00);
-        profitniCentar2.setNaziv("Profitni centar 2");
-        profitniCentar2.setLokacijaId(1l);
-        profitniCentar2.setSifra("12");
-        profitniCentar2.setOdgovornoLiceId(1l);
-        profitniCentar2.setParentProfitniCentar(profitniCentar);
-        profitniCentarRepository.save(profitniCentar2);
-
-        ProfitniCentar profitniCentar3 = new ProfitniCentar();
-        profitniCentar3.setUkupniTrosak(500.00);
-        profitniCentar3.setNaziv("Profitni centar 3");
-        profitniCentar3.setLokacijaId(1l);
-        profitniCentar3.setSifra("123");
-        profitniCentar3.setOdgovornoLiceId(1l);
-        profitniCentar3.setParentProfitniCentar(profitniCentar);
-        profitniCentarRepository.save(profitniCentar3);
-
-        ProfitniCentar profitniCentar4 = new ProfitniCentar();
-        profitniCentar4.setUkupniTrosak(100.00);
-        profitniCentar4.setNaziv("Profitni centar 4");
-        profitniCentar4.setLokacijaId(1l);
-        profitniCentar4.setSifra("1234");
-        profitniCentar4.setOdgovornoLiceId(1l);
-        profitniCentar4.setParentProfitniCentar(profitniCentar3);
-        profitniCentarRepository.save(profitniCentar4);
-
-        TroskovniCentar troskovniCentar = new TroskovniCentar();
-        troskovniCentar.setUkupniTrosak(500.00);
-        troskovniCentar.setNaziv("Troskovni centar 1");
-        troskovniCentar.setLokacijaId(1l);
-        troskovniCentar.setSifra("12345");
-        troskovniCentar.setOdgovornoLiceId(1l);
-        BazniKonto bazniKonto = new BazniKonto();
-        bazniKonto.setDuguje(0.0);
-        bazniKonto.setBrojNalogaKnjizenja(knj1.getBrojNaloga());
-        bazniKonto.setDatumKnjizenja(knj1.getDatumKnjizenja());
-        bazniKonto.setKomentarKnjizenja(knj1.getKomentar());
-        bazniKonto.setKontnaGrupa(kg1);
-        bazniKonto.setPotrazuje(1000.0);
-        bazniKonto.setBazniCentar(troskovniCentar);
-        troskovniCentar.setKontoList(List.of(bazniKonto));
-        troskovniCentarRepository.save(troskovniCentar);
-        bazniKontoRepository.save(bazniKonto);
-
-        Povracaj povracaj1 = this.createPovracaj("123", new Date(), 2000.00);
-        povracajRepository.save(povracaj1);
-        Povracaj povracaj2 = this.createPovracaj("321", new Date(), 1100.00);
-        povracajRepository.save(povracaj2);
-
-        SifraTransakcije st = getRandomSifraTransakcije();
-        sifraTransakcijeRepository.save(st);
-
-        Transakcija tr1 = getRandomTransakcija();
-        tr1.setBrojDokumenta("1122");
-        tr1.setBrojTransakcije("1123L");
-        tr1.setSifraTransakcije(st);
-        tr1.setPreduzeceId(1L);
-        Transakcija tr2 = getRandomTransakcija();
-        tr2.setBrojDokumenta("1331");
-        tr2.setBrojTransakcije("3312L");
-        tr2.setSifraTransakcije(st);
-        tr2.setPreduzeceId(1L);
-        Transakcija tr3 = getRandomTransakcija();
-        tr3.setBrojDokumenta("1389");
-        tr3.setBrojTransakcije("1492L");
-        tr3.setSifraTransakcije(st);
-        tr3.setPreduzeceId(1L);
-        transakcijaRepository.save(tr1);
-        transakcijaRepository.save(tr2);
-        transakcijaRepository.save(tr3);
-
-        SifraTransakcije st1 = new SifraTransakcije();
-        st1.setSifra(1121L);
-        st1.setNazivTransakcije("banana");
-        SifraTransakcije st2 = new SifraTransakcije();
-        st2.setSifra(3121L);
-        st2.setNazivTransakcije("ananas");
-        SifraTransakcije st3 = new SifraTransakcije();
-        st3.setSifra(4121L);
-        st3.setNazivTransakcije("kajsija");
-        sifraTransakcijeRepository.save(st1);
-        sifraTransakcijeRepository.save(st2);
-        sifraTransakcijeRepository.save(st3);
-
-        SifraTransakcije mpfTransakcija = new SifraTransakcije();
-        mpfTransakcija.setSifra(101L);
-        mpfTransakcija.setNazivTransakcije("Maloprodajna faktura");
-        sifraTransakcijeRepository.save(mpfTransakcija);
-
-        SifraTransakcije povracajTransakcija = new SifraTransakcije();
-        povracajTransakcija.setSifra(102L);
-        povracajTransakcija.setNazivTransakcije("Povracaj");
-        sifraTransakcijeRepository.save(povracajTransakcija);
 
         log.info("Data loaded!");
     }
