@@ -129,74 +129,6 @@ public class BootstrapData implements CommandLineRunner {
 
         log.info("Loading Data...");
 
-        Preduzece p1 = new Preduzece();
-        p1.setNaziv("ThinkStudio");
-        p1.setPib("102979306");
-        p1.setRacun("908‑10501‑97");
-        p1.setAdresa("Držićeva 11");
-        p1.setGrad("Beograd");
-        p1.setTelefon("0112324444");
-        p1.setEmail("office@thinkstudio.com");
-        p1.setWebAdresa("thinkstudio.com");
-        p1.setIsActive(true);
-
-        Preduzece p2 = new Preduzece();
-        p2.setNaziv("Universal UK");
-        p2.setPib("1238483921");
-        p2.setRacun("55743513");
-        p2.setAdresa("22 Old Gloucester Street");
-        p2.setGrad("London");
-        p2.setTelefon("0113928422");
-        p2.setEmail("london@universal.co.uk");
-        p2.setWebAdresa("universal.co.uk");
-        p2.setIsActive(true);
-        p2.setKomentar("UK");
-
-        Preduzece p3 = new Preduzece();
-        p3.setNaziv("Blue Marble Inc");
-        p3.setPib("194382931");
-        p3.setRacun("908‑11501‑07");
-        p3.setAdresa("Bulevar Mihajla Pupina 13");
-        p3.setGrad("Beograd");
-        p3.setTelefon("7975777666");
-        p3.setEmail("office@bluemarble.com");
-        p3.setWebAdresa("bluemarble.com");
-        p3.setIsActive(true);
-
-        Preduzece p4 = new Preduzece();
-        p4.setNaziv("BP Production");
-        p4.setPib("123-442-1134");
-        p4.setRacun("132355513");
-        p4.setAdresa("7115 3rd Ave");
-        p4.setGrad("New York City");
-        p4.setTelefon("555-1234");
-        p4.setEmail("contact@bp.com");
-        p4.setWebAdresa("bp.com");
-        p4.setIsActive(true);
-        p4.setKomentar("SAD");
-
-        Preduzece p5 = new Preduzece();
-        p5.setNaziv("Mark Cinema");
-        p5.setPib("129438322");
-        p5.setRacun("908‑14501‑28");
-        p5.setAdresa("Bulevar Zorana Đinđića 11");
-        p5.setGrad("Beograd");
-        p5.setTelefon("0119303492");
-        p5.setEmail("markcinema@gmail.com");
-        p5.setWebAdresa("markcinema.rs");
-        p5.setIsActive(false);
-
-        Preduzece p6 = new Preduzece();
-        p6.setNaziv("Fashion World");
-        p6.setPib("193849293");
-        p6.setRacun("908‑28311‑28");
-        p6.setAdresa("Semjuela Beketa 55");
-        p6.setGrad("Beograd");
-        p6.setTelefon("011948293");
-        p6.setEmail("office@fashionworld.com");
-        p6.setWebAdresa("fashionworld.com");
-        p6.setIsActive(false);
-
         Faktura fu1 = new Faktura();
         fu1.setBrojFakture("F23/11");
         fu1.setBrojDokumenta(fu1.getBrojFakture());
@@ -209,7 +141,7 @@ public class BootstrapData implements CommandLineRunner {
         fu1.setValuta("DIN");
         fu1.setTipFakture(TipFakture.ULAZNA_FAKTURA);
         fu1.setTipDokumenta(TipDokumenta.FAKTURA);
-        fu1.setPreduzeceId(p1.getPreduzeceId());
+        fu1.setPreduzeceId(1L);
         fu1.setKurs(117.00);
         fu1.setNaplata(0.00);
 
@@ -225,7 +157,7 @@ public class BootstrapData implements CommandLineRunner {
         fu2.setValuta("DIN");
         fu2.setTipFakture(TipFakture.ULAZNA_FAKTURA);
         fu2.setTipDokumenta(TipDokumenta.FAKTURA);
-        fu2.setPreduzeceId(p1.getPreduzeceId());
+        fu2.setPreduzeceId(1L);
         fu2.setKurs(117.00);
         fu2.setNaplata(0.00);
 
@@ -241,7 +173,7 @@ public class BootstrapData implements CommandLineRunner {
         fu3.setValuta("DIN");
         fu3.setTipFakture(TipFakture.ULAZNA_FAKTURA);
         fu3.setTipDokumenta(TipDokumenta.FAKTURA);
-        fu3.setPreduzeceId(p1.getPreduzeceId());
+        fu3.setPreduzeceId(1L);
         fu3.setKurs(117.00);
         fu3.setNaplata(0.00);
 
@@ -257,7 +189,7 @@ public class BootstrapData implements CommandLineRunner {
         fu4.setValuta("DIN");
         fu4.setTipFakture(TipFakture.ULAZNA_FAKTURA);
         fu4.setTipDokumenta(TipDokumenta.FAKTURA);
-        fu4.setPreduzeceId(p1.getPreduzeceId());
+        fu4.setPreduzeceId(1L);
         fu4.setKurs(117.00);
         fu4.setNaplata(0.00);
 
@@ -274,7 +206,7 @@ public class BootstrapData implements CommandLineRunner {
         fu5.setKomentar("inostranstvo");
         fu5.setTipFakture(TipFakture.ULAZNA_FAKTURA);
         fu5.setTipDokumenta(TipDokumenta.FAKTURA);
-        fu5.setPreduzeceId(p2.getPreduzeceId());
+        fu5.setPreduzeceId(2L);
         fu5.setKurs(117.00);
         fu5.setNaplata(0.00);
 
@@ -291,7 +223,7 @@ public class BootstrapData implements CommandLineRunner {
         fu6.setKomentar("inostranstvo");
         fu6.setTipFakture(TipFakture.ULAZNA_FAKTURA);
         fu6.setTipDokumenta(TipDokumenta.FAKTURA);
-        fu6.setPreduzeceId(p2.getPreduzeceId());
+        fu6.setPreduzeceId(2L);
         fu6.setKurs(117.00);
         fu6.setNaplata(0.00);
 
@@ -306,9 +238,10 @@ public class BootstrapData implements CommandLineRunner {
         fu7.setPorezProcenat(20.00);
         fu7.setValuta("GBP");
         fu7.setKomentar("inostranstvo");
+        fu7.setPreduzeceId(1L);
         fu7.setTipFakture(TipFakture.ULAZNA_FAKTURA);
         fu7.setTipDokumenta(TipDokumenta.FAKTURA);
-        fu7.setPreduzeceId(p2.getPreduzeceId());
+        fu7.setPreduzeceId(2L);
         fu7.setKurs(117.00);
         fu7.setNaplata(0.00);
 
@@ -325,7 +258,7 @@ public class BootstrapData implements CommandLineRunner {
         fu8.setKomentar("inostranstvo");
         fu8.setTipFakture(TipFakture.ULAZNA_FAKTURA);
         fu8.setTipDokumenta(TipDokumenta.FAKTURA);
-        fu8.setPreduzeceId(p2.getPreduzeceId());
+        fu8.setPreduzeceId(2L);
         fu8.setKurs(117.00);
         fu8.setNaplata(0.00);
 
@@ -342,7 +275,7 @@ public class BootstrapData implements CommandLineRunner {
         fu9.setKomentar("inostranstvo");
         fu9.setTipFakture(TipFakture.ULAZNA_FAKTURA);
         fu9.setTipDokumenta(TipDokumenta.FAKTURA);
-        fu9.setPreduzeceId(p2.getPreduzeceId());
+        fu9.setPreduzeceId(2L);
         fu9.setKurs(117.00);
         fu9.setNaplata(0.00);
 
@@ -358,7 +291,7 @@ public class BootstrapData implements CommandLineRunner {
         fi1.setValuta("DIN");
         fi1.setTipFakture(TipFakture.IZLAZNA_FAKTURA);
         fi1.setTipDokumenta(TipDokumenta.FAKTURA);
-        fi1.setPreduzeceId(p3.getPreduzeceId());
+        fi1.setPreduzeceId(3L);
         fi1.setKurs(117.00);
         fi1.setNaplata(0.00);
 
@@ -374,7 +307,7 @@ public class BootstrapData implements CommandLineRunner {
         fi2.setValuta("DIN");
         fi2.setTipFakture(TipFakture.IZLAZNA_FAKTURA);
         fi2.setTipDokumenta(TipDokumenta.FAKTURA);
-        fi2.setPreduzeceId(p3.getPreduzeceId());
+        fi2.setPreduzeceId(3L);
         fi2.setKurs(117.00);
         fi2.setNaplata(0.00);
 
@@ -391,7 +324,7 @@ public class BootstrapData implements CommandLineRunner {
         fi3.setKomentar("inostranstvo");
         fi3.setTipFakture(TipFakture.IZLAZNA_FAKTURA);
         fi3.setTipDokumenta(TipDokumenta.FAKTURA);
-        fi3.setPreduzeceId(p2.getPreduzeceId());
+        fi3.setPreduzeceId(2L);
         fi3.setKurs(117.00);
         fi3.setNaplata(0.00);
 
@@ -407,7 +340,7 @@ public class BootstrapData implements CommandLineRunner {
         fi4.setValuta("DIN");
         fi4.setTipFakture(TipFakture.IZLAZNA_FAKTURA);
         fi4.setTipDokumenta(TipDokumenta.FAKTURA);
-        fi4.setPreduzeceId(p1.getPreduzeceId());
+        fi4.setPreduzeceId(1L);
         fi4.setKurs(117.00);
         fi4.setNaplata(0.00);
 
@@ -423,7 +356,7 @@ public class BootstrapData implements CommandLineRunner {
         fi5.setValuta("DIN");
         fi5.setTipFakture(TipFakture.IZLAZNA_FAKTURA);
         fi5.setTipDokumenta(TipDokumenta.FAKTURA);
-        fi5.setPreduzeceId(p3.getPreduzeceId());
+        fi5.setPreduzeceId(3L);
         fi5.setKurs(117.00);
         fi5.setNaplata(0.00);
 
@@ -440,7 +373,7 @@ public class BootstrapData implements CommandLineRunner {
         fi6.setKomentar("inostranstvo");
         fi6.setTipFakture(TipFakture.IZLAZNA_FAKTURA);
         fi6.setTipDokumenta(TipDokumenta.FAKTURA);
-        fi6.setPreduzeceId(p4.getPreduzeceId());
+        fi6.setPreduzeceId(4L);
         fi6.setKurs(117.00);
         fi6.setNaplata(0.00);
 
@@ -480,7 +413,7 @@ public class BootstrapData implements CommandLineRunner {
 
         Transakcija t1 = new Transakcija();
         t1.setBrojTransakcije("T11/23");
-        t1.setPreduzeceId(p3.getPreduzeceId());
+        t1.setPreduzeceId(3L);
         t1.setDatumTransakcije(getDate(2021, 5, 22));
         t1.setTipTransakcije(TipTransakcije.ISPLATA);
         t1.setIznos(11700.00);
@@ -490,7 +423,7 @@ public class BootstrapData implements CommandLineRunner {
 
         Transakcija t2 = new Transakcija();
         t2.setBrojTransakcije("T11/24");
-        t2.setPreduzeceId(p2.getPreduzeceId());
+        t2.setPreduzeceId(2L);
         t2.setDatumTransakcije(getDate(2021, 5, 23));
         t2.setTipTransakcije(TipTransakcije.ISPLATA);
         t2.setIznos(11700.00);
@@ -506,12 +439,13 @@ public class BootstrapData implements CommandLineRunner {
         t3.setIznos(40000.00);
         t3.setSadrzaj("Donacija Pavle Marković");
         t3.setSifraTransakcije(st2);
+        t3.setPreduzeceId(3L);
         t3.setBrojDokumenta(t3.getBrojTransakcije());
         t3.setTipDokumenta(TipDokumenta.TRANSAKCIJA);
 
         Transakcija t4 = new Transakcija();
         t4.setBrojTransakcije("T23/33");
-        t4.setPreduzeceId(p3.getPreduzeceId());
+        t4.setPreduzeceId(3L);
         t4.setDatumTransakcije(getDate(2021, 5, 27));
         t4.setTipTransakcije(TipTransakcije.ISPLATA);
         t4.setIznos(12000.00);
@@ -521,7 +455,7 @@ public class BootstrapData implements CommandLineRunner {
 
         Transakcija t5 = new Transakcija();
         t5.setBrojTransakcije("T11OST");
-        t5.setPreduzeceId(p3.getPreduzeceId());
+        t5.setPreduzeceId(3L);
         t5.setDatumTransakcije(getDate(2021, 5, 29));
         t5.setTipTransakcije(TipTransakcije.ISPLATA);
         t5.setIznos(40000.00);
@@ -544,6 +478,7 @@ public class BootstrapData implements CommandLineRunner {
         mpf1.setProdajnaVrednost(5300.00);
         mpf1.setRabatProcenat(0.00);
         mpf1.setPorezProcenat(20.00);
+        mpf1.setPreduzeceId(1L);
         mpf1.setValuta("DIN");
         mpf1.setTipFakture(TipFakture.MALOPRODAJNA_FAKTURA);
         mpf1.setTipDokumenta(TipDokumenta.FAKTURA);
@@ -551,6 +486,7 @@ public class BootstrapData implements CommandLineRunner {
         mpf1.setNaplata(0.00);
 
         Faktura mpf2 = new Faktura();
+        mpf2.setPreduzeceId(2L);
         mpf2.setBrojFakture("MP12/22");
         mpf2.setBrojDokumenta(mpf2.getBrojFakture());
         mpf2.setDatumIzdavanja(getDate(2021, 4, 5));
@@ -566,6 +502,7 @@ public class BootstrapData implements CommandLineRunner {
         mpf2.setNaplata(0.00);
 
         Faktura mpf3 = new Faktura();
+        mpf3.setPreduzeceId(3L);
         mpf3.setBrojFakture("MP12/23");
         mpf3.setBrojDokumenta(mpf3.getBrojFakture());
         mpf3.setDatumIzdavanja(getDate(2021, 5, 7));
@@ -581,6 +518,7 @@ public class BootstrapData implements CommandLineRunner {
         mpf3.setNaplata(0.00);
 
         Faktura mpf4 = new Faktura();
+        mpf4.setPreduzeceId(4L);
         mpf4.setBrojFakture("MP17/21");
         mpf4.setBrojDokumenta(mpf4.getBrojFakture());
         mpf4.setDatumIzdavanja(getDate(2021, 5, 7));
@@ -596,6 +534,7 @@ public class BootstrapData implements CommandLineRunner {
         mpf4.setNaplata(0.00);
 
         Faktura mpf5 = new Faktura();
+        mpf5.setPreduzeceId(5L);
         mpf5.setBrojFakture("MP18/22");
         mpf5.setBrojDokumenta(mpf5.getBrojFakture());
         mpf5.setDatumIzdavanja(getDate(2021, 6, 12));
@@ -618,22 +557,22 @@ public class BootstrapData implements CommandLineRunner {
 
         Povracaj pov1 = new Povracaj();
         pov1.setBrojPovracaja("P01");
-        pov1.setDatumPovracaja(new Date(2021, Calendar.APRIL, 5));
+        pov1.setDatumPovracaja(getDate(2021, 4, 5));
         pov1.setProdajnaVrednost(5300.00);
 
         Povracaj pov2 = new Povracaj();
         pov2.setBrojPovracaja("P02");
-        pov2.setDatumPovracaja(new Date(2021, Calendar.MAY, 7));
+        pov2.setDatumPovracaja(getDate(2021, 5, 7));
         pov2.setProdajnaVrednost(11700.00);
 
         Povracaj pov3 = new Povracaj();
         pov3.setBrojPovracaja("P03");
-        pov3.setDatumPovracaja(new Date(2021, Calendar.MAY, 7));
+        pov3.setDatumPovracaja(getDate(2021, 5, 7));
         pov3.setProdajnaVrednost(24500.00);
 
         Povracaj pov4 = new Povracaj();
         pov4.setBrojPovracaja("P04");
-        pov4.setDatumPovracaja(new Date(2021, Calendar.JUNE, 12));
+        pov4.setDatumPovracaja(getDate(2021, 6, 12));
         pov4.setProdajnaVrednost(2000.00);
 
         this.povracajRepository.save(pov1);
@@ -929,8 +868,6 @@ public class BootstrapData implements CommandLineRunner {
             k30, k301, k302, k306, k309, k31, k32, k33, k34, k35, k3t2, k3012, k3022, k3062, k3092, k312, k322, k332, k342,
             k51, k511, k52, k50, k521, k62, k60, k601, k5t2, k512, k5112, k522, k502, k5212, k622, k602, k6012));
         //this.kontoRepository.saveAll(Arrays.asList(k1, k2, k3, k4, k5, k6, k7, k8, k9, k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k20));
-
-        log.info("Loading Data...");
 
         log.info("Data loaded!");
     }
